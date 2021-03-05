@@ -1017,9 +1017,10 @@ $c_Lcom_nicolaswinsten_wikibrain_Scraper$.prototype.fetchHTML__T__s_concurrent_F
   var this$14 = $m_s_Predef$().s_Predef$__f_Map;
   var array = [new $c_T2("Origin", "http://www.nicolaswinsten.com"), new $c_T2("Content-Type", "application/json; charset=UTF-8")];
   var elems = new $c_sjsr_WrappedVarArgs(array);
-  var requestHeaders = this$14.from__sc_IterableOnce__sci_Map(elems);
-  var this$15 = $m_Lorg_scalajs_dom_ext_Ajax$();
-  return this$15.apply__T__T__Lorg_scalajs_dom_ext_Ajax$InputData__I__sci_Map__Z__T__s_concurrent_Future("GET", e, null, 0, requestHeaders, false, "").map__F1__s_concurrent_ExecutionContext__s_concurrent_Future(new $c_sjsr_AnonFunction1(((this$16) => ((x$1$2$2) => $as_T(x$1$2$2.responseText)))(this)), $m_s_concurrent_ExecutionContext$().global__s_concurrent_ExecutionContextExecutor())
+  this$14.from__sc_IterableOnce__sci_Map(elems);
+  var this$17 = $m_Lorg_scalajs_dom_ext_Ajax$();
+  var headers = $m_sci_Map$EmptyMap$();
+  return this$17.apply__T__T__Lorg_scalajs_dom_ext_Ajax$InputData__I__sci_Map__Z__T__s_concurrent_Future("GET", e, null, 0, headers, false, "").map__F1__s_concurrent_ExecutionContext__s_concurrent_Future(new $c_sjsr_AnonFunction1(((this$18) => ((x$1$2) => $as_T(x$1$2.responseText)))(this)), $m_s_concurrent_ExecutionContext$().global__s_concurrent_ExecutionContextExecutor())
 });
 $c_Lcom_nicolaswinsten_wikibrain_Scraper$.prototype.linksOn__T__sc_Iterator = (function(html) {
   var array = ["title"];
