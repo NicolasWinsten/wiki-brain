@@ -26,9 +26,9 @@ object Scraper {
     println(e)
 //    HttpRequest(e).withHeader("Access-Control-Allow-Origin", "*").get() map (_.body)
     val requestHeaders = Map(
-      "Origin" -> "http://www.nicolaswinsten.com",
+      "Origin" -> "http://www.nicolaswinsten.github.io",
       "Content-Type" -> "application/json; charset=UTF-8")
-    Ajax.get(e) map (_.responseText)
+    Ajax.get(e, headers = requestHeaders) map (_.responseText)
   }
 
 //  def fetchHTML(url: String) = Future { scala.io.Source.fromURL(url).mkString }

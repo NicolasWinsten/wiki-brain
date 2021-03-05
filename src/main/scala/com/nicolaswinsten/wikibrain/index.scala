@@ -30,6 +30,11 @@ object index {
 
     display.appendChild( h1(page.title).render )
     if (page.image.isDefined) display.appendChild( img(src:=page.image.get).render)
+
+    page.image match {
+      case Some(file) => display.appendChild( img(src:=file).render)
+      case _ => ()
+    }
     display.appendChild( h3(page.desc).render )
     wordBox = page.items
   }

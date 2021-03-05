@@ -1015,12 +1015,11 @@ $c_Lcom_nicolaswinsten_wikibrain_Scraper$.prototype.fetchHTML__T__s_concurrent_F
   var this$6 = this$5.out__Ljava_io_PrintStream();
   this$6.java$lang$JSConsoleBasedPrintStream$$printString__T__V((e + "\n"));
   var this$14 = $m_s_Predef$().s_Predef$__f_Map;
-  var array = [new $c_T2("Origin", "http://www.nicolaswinsten.com"), new $c_T2("Content-Type", "application/json; charset=UTF-8")];
+  var array = [new $c_T2("Origin", "http://www.nicolaswinsten.github.io"), new $c_T2("Content-Type", "application/json; charset=UTF-8")];
   var elems = new $c_sjsr_WrappedVarArgs(array);
-  this$14.from__sc_IterableOnce__sci_Map(elems);
-  var this$17 = $m_Lorg_scalajs_dom_ext_Ajax$();
-  var headers = $m_sci_Map$EmptyMap$();
-  return this$17.apply__T__T__Lorg_scalajs_dom_ext_Ajax$InputData__I__sci_Map__Z__T__s_concurrent_Future("GET", e, null, 0, headers, false, "").map__F1__s_concurrent_ExecutionContext__s_concurrent_Future(new $c_sjsr_AnonFunction1(((this$18) => ((x$1$2) => $as_T(x$1$2.responseText)))(this)), $m_s_concurrent_ExecutionContext$().global__s_concurrent_ExecutionContextExecutor())
+  var requestHeaders = this$14.from__sc_IterableOnce__sci_Map(elems);
+  var this$15 = $m_Lorg_scalajs_dom_ext_Ajax$();
+  return this$15.apply__T__T__Lorg_scalajs_dom_ext_Ajax$InputData__I__sci_Map__Z__T__s_concurrent_Future("GET", e, null, 0, requestHeaders, false, "").map__F1__s_concurrent_ExecutionContext__s_concurrent_Future(new $c_sjsr_AnonFunction1(((this$16) => ((x$1$2$2) => $as_T(x$1$2$2.responseText)))(this)), $m_s_concurrent_ExecutionContext$().global__s_concurrent_ExecutionContextExecutor())
 });
 $c_Lcom_nicolaswinsten_wikibrain_Scraper$.prototype.linksOn__T__sc_Iterator = (function(html) {
   var array = ["title"];
@@ -1249,12 +1248,21 @@ $c_Lcom_nicolaswinsten_wikibrain_index$.prototype.updatePageDisplay__Lcom_nicola
     var array$1 = [$m_Lscalatags_JsDom$all$().src__Lscalatags_generic_Attr().$colon$eq__O__Lscalatags_generic_AttrValue__Lscalatags_generic_AttrPair(page.Lcom_nicolaswinsten_wikibrain_Page__f_image.get__O(), $m_Lscalatags_JsDom$all$().Lscalatags_JsDom$all$__f_stringAttr)];
     display.appendChild($$x2.apply__sci_Seq__Lscalatags_JsDom$TypedTag(new $c_sjsr_WrappedVarArgs(array$1)).render__Lorg_scalajs_dom_raw_Element())
   };
-  var this$11 = $m_Lscalatags_JsDom$all$();
-  var $$x3 = this$11.h3__Lscalatags_JsDom$TypedTag();
+  var x1 = page.Lcom_nicolaswinsten_wikibrain_Page__f_image;
+  if ((x1 instanceof $c_s_Some)) {
+    var x2 = $as_s_Some(x1);
+    var file = $as_T(x2.s_Some__f_value);
+    var this$11 = $m_Lscalatags_JsDom$all$();
+    var $$x3 = this$11.img__Lscalatags_JsDom$TypedTag();
+    var array$2 = [$m_Lscalatags_JsDom$all$().src__Lscalatags_generic_Attr().$colon$eq__O__Lscalatags_generic_AttrValue__Lscalatags_generic_AttrPair(file, $m_Lscalatags_JsDom$all$().Lscalatags_JsDom$all$__f_stringAttr)];
+    display.appendChild($$x3.apply__sci_Seq__Lscalatags_JsDom$TypedTag(new $c_sjsr_WrappedVarArgs(array$2)).render__Lorg_scalajs_dom_raw_Element())
+  };
+  var this$15 = $m_Lscalatags_JsDom$all$();
+  var $$x4 = this$15.h3__Lscalatags_JsDom$TypedTag();
   $m_Lscalatags_JsDom$all$();
   var v$1 = page.Lcom_nicolaswinsten_wikibrain_Page__f_desc;
-  var array$2 = [new $c_Lscalatags_JsDom$StringFrag(v$1)];
-  display.appendChild($$x3.apply__sci_Seq__Lscalatags_JsDom$TypedTag(new $c_sjsr_WrappedVarArgs(array$2)).render__Lorg_scalajs_dom_raw_Element());
+  var array$3 = [new $c_Lscalatags_JsDom$StringFrag(v$1)];
+  display.appendChild($$x4.apply__sci_Seq__Lscalatags_JsDom$TypedTag(new $c_sjsr_WrappedVarArgs(array$3)).render__Lorg_scalajs_dom_raw_Element());
   this.Lcom_nicolaswinsten_wikibrain_index$__f_wordBox = page.Lcom_nicolaswinsten_wikibrain_Page__f_items
 });
 $c_Lcom_nicolaswinsten_wikibrain_index$.prototype.com$nicolaswinsten$wikibrain$index$$$anonfun$main$1__Lorg_scalajs_dom_raw_MouseEvent__V = (function(e) {
