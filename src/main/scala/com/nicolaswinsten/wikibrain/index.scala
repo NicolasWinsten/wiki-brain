@@ -13,6 +13,11 @@ object index {
   var wordBox: Set[String] = Set.empty
 
   def main(args: Array[String]): Unit = {
+    Scraper.fetchPage("google").onComplete({
+      case Success(value) => println(value)
+      case Failure(e) => throw e
+    })
+
     val reroll = button(id:="reroll", "Reroll!").render
     println(reroll)
     reroll.addEventListener("click", (e: dom.MouseEvent) => {

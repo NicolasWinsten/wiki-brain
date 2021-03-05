@@ -960,10 +960,10 @@ function $p_Lcom_nicolaswinsten_wikibrain_Scraper$__randomPage__s_concurrent_Fut
   var this$7 = $m_s_$less$colon$less$();
   var ev = this$7.s_$less$colon$less$__f_singleton;
   var pages = this$8.flatMap__F1__s_concurrent_ExecutionContext__s_concurrent_Future(ev, $m_s_concurrent_ExecutionContext$parasitic$());
-  return pages.map__F1__s_concurrent_ExecutionContext__s_concurrent_Future(new $c_sjsr_AnonFunction1(((this$3$1) => ((x$6$2) => {
-    var x$6 = $as_sc_Iterator(x$6$2);
+  return pages.map__F1__s_concurrent_ExecutionContext__s_concurrent_Future(new $c_sjsr_AnonFunction1(((this$3$1) => ((x$7$2) => {
+    var x$7 = $as_sc_Iterator(x$7$2);
     var cmp = $m_s_math_Ordering$Int$();
-    if ((!x$6.hasNext__Z())) {
+    if ((!x$7.hasNext__Z())) {
       throw $ct_jl_UnsupportedOperationException__T__(new $c_jl_UnsupportedOperationException(), "empty.maxBy")
     };
     var elem = null;
@@ -972,10 +972,10 @@ function $p_Lcom_nicolaswinsten_wikibrain_Scraper$__randomPage__s_concurrent_Fut
     elem$1 = null;
     var elem$2 = false;
     elem$2 = true;
-    while (x$6.hasNext__Z()) {
-      var arg1 = x$6.next__O();
-      var x$7 = $as_T(arg1);
-      var this$12 = $m_Lcom_nicolaswinsten_wikibrain_Scraper$().linksOn__T__sc_Iterator(x$7);
+    while (x$7.hasNext__Z()) {
+      var arg1 = x$7.next__O();
+      var x$8 = $as_T(arg1);
+      var this$12 = $m_Lcom_nicolaswinsten_wikibrain_Scraper$().linksOn__T__sc_Iterator(x$8);
       var fx = $f_sc_IterableOnceOps__size__I(this$12);
       var $$x3;
       if (elem$2) {
@@ -1015,11 +1015,18 @@ $c_Lcom_nicolaswinsten_wikibrain_Scraper$.prototype.fetchHTML__T__s_concurrent_F
   var this$6 = this$5.out__Ljava_io_PrintStream();
   this$6.java$lang$JSConsoleBasedPrintStream$$printString__T__V((e + "\n"));
   var this$14 = $m_s_Predef$().s_Predef$__f_Map;
-  var array = [new $c_T2("Origin", "http://www.nicolaswinsten.github.io"), new $c_T2("Content-Type", "application/json; charset=UTF-8")];
+  var array = [new $c_T2("Origin", "*"), new $c_T2("Content-Type", "application/json; charset=UTF-8")];
   var elems = new $c_sjsr_WrappedVarArgs(array);
-  var requestHeaders = this$14.from__sc_IterableOnce__sci_Map(elems);
-  var this$15 = $m_Lorg_scalajs_dom_ext_Ajax$();
-  return this$15.apply__T__T__Lorg_scalajs_dom_ext_Ajax$InputData__I__sci_Map__Z__T__s_concurrent_Future("GET", e, null, 0, requestHeaders, false, "").map__F1__s_concurrent_ExecutionContext__s_concurrent_Future(new $c_sjsr_AnonFunction1(((this$16) => ((x$1$2$2) => $as_T(x$1$2$2.responseText)))(this)), $m_s_concurrent_ExecutionContext$().global__s_concurrent_ExecutionContextExecutor())
+  this$14.from__sc_IterableOnce__sci_Map(elems);
+  var this$17 = $m_Lorg_scalajs_dom_ext_Ajax$();
+  var headers = $m_sci_Map$EmptyMap$();
+  return this$17.apply__T__T__Lorg_scalajs_dom_ext_Ajax$InputData__I__sci_Map__Z__T__s_concurrent_Future("GET", e, null, 0, headers, false, "").map__F1__s_concurrent_ExecutionContext__s_concurrent_Future(new $c_sjsr_AnonFunction1(((this$18) => ((x$1$2) => $as_T(x$1$2.responseText)))(this)), $m_s_concurrent_ExecutionContext$().global__s_concurrent_ExecutionContextExecutor())
+});
+$c_Lcom_nicolaswinsten_wikibrain_Scraper$.prototype.fetchPage__T__s_concurrent_Future = (function(title) {
+  var this$3 = $m_Lorg_scalajs_dom_ext_Ajax$();
+  var url = ("https://en.wikipedia.org/w/index.php?origin=*title=" + $as_T(encodeURI(title)));
+  var headers = $m_sci_Map$EmptyMap$();
+  return this$3.apply__T__T__Lorg_scalajs_dom_ext_Ajax$InputData__I__sci_Map__Z__T__s_concurrent_Future("GET", url, null, 0, headers, false, "").map__F1__s_concurrent_ExecutionContext__s_concurrent_Future(new $c_sjsr_AnonFunction1(((this$4) => ((x$2$2) => $as_T(x$2$2.responseText)))(this)), $m_s_concurrent_ExecutionContext$().global__s_concurrent_ExecutionContextExecutor())
 });
 $c_Lcom_nicolaswinsten_wikibrain_Scraper$.prototype.linksOn__T__sc_Iterator = (function(html) {
   var array = ["title"];
@@ -1052,8 +1059,8 @@ $c_Lcom_nicolaswinsten_wikibrain_Scraper$.prototype.getFirstImgUrl__T__s_Option 
   _return: {
     while (this$6.hasNext__Z()) {
       var a = this$6.next__O();
-      var x$2 = $as_s_util_matching_Regex$Match(a);
-      if (($f_s_util_matching_Regex$MatchData__group__T__T(x$2, "file") !== "File:Question_book-new.svg")) {
+      var x$3 = $as_s_util_matching_Regex$Match(a);
+      if (($f_s_util_matching_Regex$MatchData__group__T__T(x$3, "file") !== "File:Question_book-new.svg")) {
         file = new $c_s_Some(a);
         break _return
       }
@@ -1064,8 +1071,8 @@ $c_Lcom_nicolaswinsten_wikibrain_Scraper$.prototype.getFirstImgUrl__T__s_Option 
     return $m_s_None$()
   } else {
     var arg1 = file.get__O();
-    var x$3 = $as_s_util_matching_Regex$Match(arg1);
-    return new $c_s_Some($f_s_util_matching_Regex$MatchData__group__T__T(x$3, "img"))
+    var x$4 = $as_s_util_matching_Regex$Match(arg1);
+    return new $c_s_Some($f_s_util_matching_Regex$MatchData__group__T__T(x$4, "img"))
   }
 });
 $c_Lcom_nicolaswinsten_wikibrain_Scraper$.prototype.getDesc__T__s_concurrent_Future = (function(html) {
@@ -1083,12 +1090,12 @@ $c_Lcom_nicolaswinsten_wikibrain_Scraper$.prototype.getDesc__T__s_concurrent_Fut
     var array$1 = ["desc"];
     var groupNames$1 = new $c_sjsr_WrappedVarArgs(array$1);
     var descPattern = $ct_s_util_matching_Regex__T__sci_Seq__(new $c_s_util_matching_Regex(), "<span class=\"wikibase-descriptionview-text\">([^<]+)</span>", groupNames$1);
-    desc = new $c_s_Some(wikiDataPage.map__F1__s_concurrent_ExecutionContext__s_concurrent_Future(new $c_sjsr_AnonFunction1(((this$11, descPattern$1) => ((x$4$2) => {
-      var x$4 = $as_T(x$4$2);
-      return descPattern$1.findFirstMatchIn__jl_CharSequence__s_Option(x$4)
-    }))(this, descPattern)), $m_s_concurrent_ExecutionContext$().global__s_concurrent_ExecutionContextExecutor()).map__F1__s_concurrent_ExecutionContext__s_concurrent_Future(new $c_sjsr_AnonFunction1(((this$2$1) => ((x$5$2) => {
-      var x$5 = $as_s_Option(x$5$2);
-      var this$13 = $as_s_util_matching_Regex$MatchData(x$5.get__O());
+    desc = new $c_s_Some(wikiDataPage.map__F1__s_concurrent_ExecutionContext__s_concurrent_Future(new $c_sjsr_AnonFunction1(((this$11, descPattern$1) => ((x$5$2) => {
+      var x$5 = $as_T(x$5$2);
+      return descPattern$1.findFirstMatchIn__jl_CharSequence__s_Option(x$5)
+    }))(this, descPattern)), $m_s_concurrent_ExecutionContext$().global__s_concurrent_ExecutionContextExecutor()).map__F1__s_concurrent_ExecutionContext__s_concurrent_Future(new $c_sjsr_AnonFunction1(((this$2$1) => ((x$6$2) => {
+      var x$6 = $as_s_Option(x$6$2);
+      var this$13 = $as_s_util_matching_Regex$MatchData(x$6.get__O());
       return $f_s_util_matching_Regex$MatchData__group__T__T(this$13, "desc")
     }))(this)), $m_s_concurrent_ExecutionContext$().global__s_concurrent_ExecutionContextExecutor()))
   };
@@ -1181,9 +1188,9 @@ $c_Lcom_nicolaswinsten_wikibrain_Scraper$.prototype.getRandomPage__s_concurrent_
       return $as_T(decodeURI(encodedURI))
     }))(this$2$1));
     var this$46 = new $c_sc_Iterator$$anon$9(this$43, f$2);
-    var f$3 = new $c_sjsr_AnonFunction1(((this$5$1) => ((x$8$2) => {
-      var x$8 = $as_T(x$8$2);
-      var this$44 = $as_T(x$8.toLowerCase());
+    var f$3 = new $c_sjsr_AnonFunction1(((this$5$1) => ((x$9$2) => {
+      var x$9 = $as_T(x$9$2);
+      var this$44 = $as_T(x$9.toLowerCase());
       return $as_T(this$44.split("_").join(" "))
     }))(this$2$1));
     var items = new $c_sc_Iterator$$anon$9(this$46, f$3);
@@ -1221,15 +1228,31 @@ function $h_Lcom_nicolaswinsten_wikibrain_index$() {
 }
 $h_Lcom_nicolaswinsten_wikibrain_index$.prototype = $c_Lcom_nicolaswinsten_wikibrain_index$.prototype;
 $c_Lcom_nicolaswinsten_wikibrain_index$.prototype.main__AT__V = (function(args) {
-  var this$1 = $m_Lscalatags_JsDom$all$();
-  var $$x1 = this$1.button__Lscalatags_JsDom$TypedTag();
+  $m_Lcom_nicolaswinsten_wikibrain_Scraper$().fetchPage__T__s_concurrent_Future("google").onComplete__F1__s_concurrent_ExecutionContext__V(new $c_sjsr_AnonFunction1(((this$1) => ((x0$1$2) => {
+    var x0$1 = $as_s_util_Try(x0$1$2);
+    if ((x0$1 instanceof $c_s_util_Success)) {
+      var x2 = $as_s_util_Success(x0$1);
+      var value = $as_T(x2.s_util_Success__f_value);
+      var this$3 = $m_s_Console$();
+      var this$4 = this$3.out__Ljava_io_PrintStream();
+      this$4.java$lang$JSConsoleBasedPrintStream$$printString__T__V((value + "\n"))
+    } else if ((x0$1 instanceof $c_s_util_Failure)) {
+      var x3 = $as_s_util_Failure(x0$1);
+      var e = x3.s_util_Failure__f_exception;
+      throw $m_sjsr_package$().unwrapJavaScriptException__jl_Throwable__O(e)
+    } else {
+      throw new $c_s_MatchError(x0$1)
+    }
+  }))(this)), $m_sjs_concurrent_JSExecutionContext$Implicits$().sjs_concurrent_JSExecutionContext$Implicits$__f_queue);
+  var this$5 = $m_Lscalatags_JsDom$all$();
+  var $$x1 = this$5.button__Lscalatags_JsDom$TypedTag();
   var array = [$m_Lscalatags_JsDom$all$().id__Lscalatags_generic_Attr().$colon$eq__O__Lscalatags_generic_AttrValue__Lscalatags_generic_AttrPair("reroll", $m_Lscalatags_JsDom$all$().Lscalatags_JsDom$all$__f_stringAttr), ($m_Lscalatags_JsDom$all$(), new $c_Lscalatags_JsDom$StringFrag("Reroll!"))];
   var reroll = $$x1.apply__sci_Seq__Lscalatags_JsDom$TypedTag(new $c_sjsr_WrappedVarArgs(array)).render__Lorg_scalajs_dom_raw_Element();
-  var this$7 = $m_s_Console$();
-  var this$8 = this$7.out__Ljava_io_PrintStream();
-  this$8.java$lang$JSConsoleBasedPrintStream$$printString__T__V((reroll + "\n"));
+  var this$11 = $m_s_Console$();
+  var this$12 = this$11.out__Ljava_io_PrintStream();
+  this$12.java$lang$JSConsoleBasedPrintStream$$printString__T__V((reroll + "\n"));
   reroll.addEventListener("click", ((arg1$2) => {
-    $m_Lcom_nicolaswinsten_wikibrain_index$().com$nicolaswinsten$wikibrain$index$$$anonfun$main$1__Lorg_scalajs_dom_raw_MouseEvent__V(arg1$2)
+    $m_Lcom_nicolaswinsten_wikibrain_index$().com$nicolaswinsten$wikibrain$index$$$anonfun$main$2__Lorg_scalajs_dom_raw_MouseEvent__V(arg1$2)
   }));
   $m_Lorg_scalajs_dom_package$().document__Lorg_scalajs_dom_raw_HTMLDocument().body.appendChild(reroll)
 });
@@ -1265,19 +1288,19 @@ $c_Lcom_nicolaswinsten_wikibrain_index$.prototype.updatePageDisplay__Lcom_nicola
   display.appendChild($$x4.apply__sci_Seq__Lscalatags_JsDom$TypedTag(new $c_sjsr_WrappedVarArgs(array$3)).render__Lorg_scalajs_dom_raw_Element());
   this.Lcom_nicolaswinsten_wikibrain_index$__f_wordBox = page.Lcom_nicolaswinsten_wikibrain_Page__f_items
 });
-$c_Lcom_nicolaswinsten_wikibrain_index$.prototype.com$nicolaswinsten$wikibrain$index$$$anonfun$main$1__Lorg_scalajs_dom_raw_MouseEvent__V = (function(e) {
-  $m_Lcom_nicolaswinsten_wikibrain_Scraper$().getRandomPage__s_concurrent_Future().onComplete__F1__s_concurrent_ExecutionContext__V(new $c_sjsr_AnonFunction1(((this$1) => ((x0$1$2) => {
-    var x0$1 = $as_s_util_Try(x0$1$2);
-    if ((x0$1 instanceof $c_s_util_Success)) {
-      var x2 = $as_s_util_Success(x0$1);
+$c_Lcom_nicolaswinsten_wikibrain_index$.prototype.com$nicolaswinsten$wikibrain$index$$$anonfun$main$2__Lorg_scalajs_dom_raw_MouseEvent__V = (function(e) {
+  $m_Lcom_nicolaswinsten_wikibrain_Scraper$().getRandomPage__s_concurrent_Future().onComplete__F1__s_concurrent_ExecutionContext__V(new $c_sjsr_AnonFunction1(((this$1) => ((x0$2$2) => {
+    var x0$2 = $as_s_util_Try(x0$2$2);
+    if ((x0$2 instanceof $c_s_util_Success)) {
+      var x2 = $as_s_util_Success(x0$2);
       var page = $as_Lcom_nicolaswinsten_wikibrain_Page(x2.s_util_Success__f_value);
       $m_Lcom_nicolaswinsten_wikibrain_index$().updatePageDisplay__Lcom_nicolaswinsten_wikibrain_Page__V(page)
-    } else if ((x0$1 instanceof $c_s_util_Failure)) {
-      var x3 = $as_s_util_Failure(x0$1);
+    } else if ((x0$2 instanceof $c_s_util_Failure)) {
+      var x3 = $as_s_util_Failure(x0$2);
       var exception = x3.s_util_Failure__f_exception;
       throw $m_sjsr_package$().unwrapJavaScriptException__jl_Throwable__O(exception)
     } else {
-      throw new $c_s_MatchError(x0$1)
+      throw new $c_s_MatchError(x0$2)
     }
   }))(this)), $m_sjs_concurrent_JSExecutionContext$Implicits$().sjs_concurrent_JSExecutionContext$Implicits$__f_queue)
 });
