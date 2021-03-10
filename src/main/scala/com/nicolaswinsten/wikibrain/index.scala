@@ -1,47 +1,71 @@
 package com.nicolaswinsten.wikibrain
 
 import org.scalajs.dom
-import org.scalajs.dom.document
+import org.scalajs.dom.{document}
+import org.scalajs.dom.html.{Button, Input, UList}
+import org.scalajs.dom.raw.{KeyboardEvent}
 import scalatags.JsDom.all._
 
 import scala.scalajs.concurrent.JSExecutionContext.Implicits.queue
 import scala.util.{Failure, Success}
 
-
+// todo text box shake when wrong answer and red notif
 object index {
 
+  val emptyPage = Page("", "", Set.empty, None)
+  var currentPage: Page = emptyPage
   var wordBox: Set[String] = Set.empty
 
-  def main(args: Array[String]): Unit = {
-    Scraper.fetchPage("google").onComplete({
-      case Success(value) => println(value)
-      case Failure(e) => throw e
-    })
-
-    val reroll = button(id:="reroll", "Reroll!").render
-    println(reroll)
-    reroll.addEventListener("click", (e: dom.MouseEvent) => {
-      Scraper.getRandomPage.onComplete({
-        case Success(page) => updatePageDisplay(page)
-        case Failure(exception) => throw exception
-      })
-    })
-
-    document.body.appendChild(reroll)
+  // user's input field
+  val guess: Input = input(`type`:="text").render
+  guess.onkeypress = (e: KeyboardEvent) => if (e.key == "Enter") {
+    makeGuess(guess.value)
+    guess.value = ""
   }
 
-  def updatePageDisplay(page: Page): Unit = {
+  // the reroll button
+  val rerollBtn: Button = button(id:="reroll", "Reroll!").render
+  rerollBtn.onclick = (_: dom.MouseEvent) => reroll()
+
+  val correctGuesses: UList = ul(id:="correct-guesses").render
+
+  def main(args: Array[String]): Unit = {
+    document.body.appendChild(guess)
+    document.body.appendChild(rerollBtn)
+    document.body.appendChild(div(correctGuesses).render)
+
+  }
+
+
+  def reroll(): Unit = {
+    println("rerolling...")
+    Scraper.getRandomPage.onComplete({
+      case Success(newPage) =>
+        if (currentPage.title == newPage.title) reroll()
+        else { currentPage = newPage; updatePageDisplay() }
+      case Failure(exception) => throw exception; reroll()
+    })
+  }
+
+  def updatePageDisplay(): Unit = {
     val display = document.getElementById("page-display")
+    display.innerHTML = ""
 
-    display.appendChild( h1(page.title).render )
-    if (page.image.isDefined) display.appendChild( img(src:=page.image.get).render)
+    display.appendChild( h1(currentPage.title).render )
 
-    page.image match {
-      case Some(file) => display.appendChild( img(src:=file).render)
-      case _ => ()
-    }
-    display.appendChild( h3(page.desc).render )
-    wordBox = page.items
+    currentPage.image.foreach( file => display.appendChild( img(src:=file).render))
+
+    display.appendChild( h3(currentPage.desc).render )
+    wordBox = currentPage.items
+  }
+
+  def makeGuess(answer: String): Unit = {
+    if (wordBox contains answer) {
+      println("user correctly guessed " + answer)
+      correctGuesses.appendChild( li(answer).render )
+    } else println("user incorrectly guessed " + answer)
   }
 
 }
+
+

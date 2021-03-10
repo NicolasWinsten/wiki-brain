@@ -12,7 +12,3 @@ libraryDependencies += "org.scala-js" %%% "scalajs-dom" % "1.1.0"
 libraryDependencies += "com.lihaoyi" %%% "scalatags" % "0.9.1"
 
 jsEnv := new org.scalajs.jsenv.jsdomnodejs.JSDOMNodeJSEnv()
-
-
-resolvers += Resolver.bintrayRepo("hmil", "maven")
-libraryDependencies += "fr.hmil" %%% "roshttp" % "3.0.0"

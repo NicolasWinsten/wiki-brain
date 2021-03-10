@@ -225,6 +225,13 @@ function $dp_length__I(instance) {
     return instance.length__I()
   }
 }
+function $dp_replaceAll__T__T__T(instance, x0, x1) {
+  if (((typeof instance) === "string")) {
+    return $f_T__replaceAll__T__T__T(instance, x0, x1)
+  } else {
+    return instance.replaceAll__T__T__T(x0, x1)
+  }
+}
 function $dp_subSequence__I__I__jl_CharSequence(instance, x0, x1) {
   if (((typeof instance) === "string")) {
     return $f_T__subSequence__I__I__jl_CharSequence(instance, x0, x1)
@@ -234,6 +241,13 @@ function $dp_subSequence__I__I__jl_CharSequence(instance, x0, x1) {
 }
 function $dp_toString__T(instance) {
   return ((instance === (void 0)) ? "undefined" : instance.toString())
+}
+function $dp_trim__T(instance) {
+  if (((typeof instance) === "string")) {
+    return $f_T__trim__T(instance)
+  } else {
+    return instance.trim__T()
+  }
 }
 function $intDiv(arg0, arg1) {
   if ((arg1 === 0)) {
@@ -940,59 +954,6 @@ var $d_I = new $TypeData().initPrim(0, "I", "int", $ac_I, Int32Array);
 var $d_J = new $TypeData().initPrim(null, "J", "long", $ac_J, (void 0));
 var $d_F = new $TypeData().initPrim(0.0, "F", "float", $ac_F, Float32Array);
 var $d_D = new $TypeData().initPrim(0.0, "D", "double", $ac_D, Float64Array);
-function $p_Lcom_nicolaswinsten_wikibrain_Scraper$__randomPage__s_concurrent_Future($thiz) {
-  var random = $thiz.fetchHTML__T__s_concurrent_Future(($thiz.Lcom_nicolaswinsten_wikibrain_Scraper$__f_url + "Special:Random"));
-  var links = random.map__F1__s_concurrent_ExecutionContext__s_concurrent_Future(new $c_sjsr_AnonFunction1(((this$1) => ((html$2) => {
-    var html = $as_T(html$2);
-    return $m_Lcom_nicolaswinsten_wikibrain_Scraper$().linksOn__T__sc_Iterator(html)
-  }))($thiz)), $m_s_concurrent_ExecutionContext$().global__s_concurrent_ExecutionContextExecutor());
-  var this$8 = links.map__F1__s_concurrent_ExecutionContext__s_concurrent_Future(new $c_sjsr_AnonFunction1(((this$2$1) => ((titles$2) => {
-    var titles = $as_sc_Iterator(titles$2);
-    var $$x2 = $m_s_concurrent_Future$();
-    var f = new $c_sjsr_AnonFunction1(((this$3) => ((t$2) => {
-      var t = $as_T(t$2);
-      return $m_Lcom_nicolaswinsten_wikibrain_Scraper$().fetchHTML__T__s_concurrent_Future((("" + $m_Lcom_nicolaswinsten_wikibrain_Scraper$().Lcom_nicolaswinsten_wikibrain_Scraper$__f_url) + t))
-    }))(this$2$1));
-    var $$x1 = new $c_sc_Iterator$$anon$9(titles, f);
-    var this$4 = $m_sc_BuildFrom$();
-    return $$x2.sequence__sc_IterableOnce__sc_BuildFrom__s_concurrent_ExecutionContext__s_concurrent_Future($$x1, new $c_sc_BuildFromLowPriority2$$anon$12(this$4), $m_s_concurrent_ExecutionContext$().global__s_concurrent_ExecutionContextExecutor())
-  }))($thiz)), $m_s_concurrent_ExecutionContext$().global__s_concurrent_ExecutionContextExecutor());
-  var this$7 = $m_s_$less$colon$less$();
-  var ev = this$7.s_$less$colon$less$__f_singleton;
-  var pages = this$8.flatMap__F1__s_concurrent_ExecutionContext__s_concurrent_Future(ev, $m_s_concurrent_ExecutionContext$parasitic$());
-  return pages.map__F1__s_concurrent_ExecutionContext__s_concurrent_Future(new $c_sjsr_AnonFunction1(((this$3$1) => ((x$7$2) => {
-    var x$7 = $as_sc_Iterator(x$7$2);
-    var cmp = $m_s_math_Ordering$Int$();
-    if ((!x$7.hasNext__Z())) {
-      throw $ct_jl_UnsupportedOperationException__T__(new $c_jl_UnsupportedOperationException(), "empty.maxBy")
-    };
-    var elem = null;
-    elem = null;
-    var elem$1 = null;
-    elem$1 = null;
-    var elem$2 = false;
-    elem$2 = true;
-    while (x$7.hasNext__Z()) {
-      var arg1 = x$7.next__O();
-      var x$8 = $as_T(arg1);
-      var this$12 = $m_Lcom_nicolaswinsten_wikibrain_Scraper$().linksOn__T__sc_Iterator(x$8);
-      var fx = $f_sc_IterableOnceOps__size__I(this$12);
-      var $$x3;
-      if (elem$2) {
-        $$x3 = true
-      } else {
-        var y = elem;
-        $$x3 = $f_s_math_Ordering__gt__O__O__Z(cmp, fx, y)
-      };
-      if ($$x3) {
-        elem$1 = arg1;
-        elem = fx;
-        elem$2 = false
-      }
-    };
-    return $as_T(elem$1)
-  }))($thiz)), $m_s_concurrent_ExecutionContext$().global__s_concurrent_ExecutionContextExecutor())
-}
 /** @constructor */
 function $c_Lcom_nicolaswinsten_wikibrain_Scraper$() {
   this.Lcom_nicolaswinsten_wikibrain_Scraper$__f_url = null;
@@ -1010,45 +971,74 @@ $c_Lcom_nicolaswinsten_wikibrain_Scraper$.prototype.fetchHTML__T__s_concurrent_F
   var this$2 = $m_s_Console$();
   var this$3 = this$2.out__Ljava_io_PrintStream();
   this$3.java$lang$JSConsoleBasedPrintStream$$printString__T__V((x + "\n"));
-  var e = $as_T(encodeURI(url));
-  var this$5 = $m_s_Console$();
-  var this$6 = this$5.out__Ljava_io_PrintStream();
-  this$6.java$lang$JSConsoleBasedPrintStream$$printString__T__V((e + "\n"));
-  var this$14 = $m_s_Predef$().s_Predef$__f_Map;
-  var array = [new $c_T2("Origin", "*"), new $c_T2("Content-Type", "application/json; charset=UTF-8")];
-  var elems = new $c_sjsr_WrappedVarArgs(array);
-  this$14.from__sc_IterableOnce__sci_Map(elems);
-  var this$17 = $m_Lorg_scalajs_dom_ext_Ajax$();
+  var this$6 = $m_Lorg_scalajs_dom_ext_Ajax$();
+  var url$1 = ("https://still-woodland-82497.herokuapp.com/" + url);
   var headers = $m_sci_Map$EmptyMap$();
-  return this$17.apply__T__T__Lorg_scalajs_dom_ext_Ajax$InputData__I__sci_Map__Z__T__s_concurrent_Future("GET", e, null, 0, headers, false, "").map__F1__s_concurrent_ExecutionContext__s_concurrent_Future(new $c_sjsr_AnonFunction1(((this$18) => ((x$1$2) => $as_T(x$1$2.responseText)))(this)), $m_s_concurrent_ExecutionContext$().global__s_concurrent_ExecutionContextExecutor())
+  return this$6.apply__T__T__Lorg_scalajs_dom_ext_Ajax$InputData__I__sci_Map__Z__T__s_concurrent_Future("GET", url$1, null, 0, headers, false, "").map__F1__s_concurrent_ExecutionContext__s_concurrent_Future(new $c_sjsr_AnonFunction1(((this$7) => ((x$1$2) => $as_T(x$1$2.responseText)))(this)), $m_s_concurrent_ExecutionContext$().global__s_concurrent_ExecutionContextExecutor())
 });
-$c_Lcom_nicolaswinsten_wikibrain_Scraper$.prototype.fetchPage__T__s_concurrent_Future = (function(title) {
-  var this$3 = $m_Lorg_scalajs_dom_ext_Ajax$();
-  var url = ("https://en.wikipedia.org/w/index.php?origin=*title=" + $as_T(encodeURI(title)));
-  var headers = $m_sci_Map$EmptyMap$();
-  return this$3.apply__T__T__Lorg_scalajs_dom_ext_Ajax$InputData__I__sci_Map__Z__T__s_concurrent_Future("GET", url, null, 0, headers, false, "").map__F1__s_concurrent_ExecutionContext__s_concurrent_Future(new $c_sjsr_AnonFunction1(((this$4) => ((x$2$2) => $as_T(x$2$2.responseText)))(this)), $m_s_concurrent_ExecutionContext$().global__s_concurrent_ExecutionContextExecutor())
-});
-$c_Lcom_nicolaswinsten_wikibrain_Scraper$.prototype.linksOn__T__sc_Iterator = (function(html) {
-  var array = ["title"];
+$c_Lcom_nicolaswinsten_wikibrain_Scraper$.prototype.itemsOn__T__sci_Set = (function(html) {
+  var array = ["title", "text"];
   var groupNames = new $c_sjsr_WrappedVarArgs(array);
-  var pattern = $ct_s_util_matching_Regex__T__sci_Seq__(new $c_s_util_matching_Regex(), "<a href=\"/wiki/([^:\"]+)\"", groupNames);
-  var this$7 = pattern.findAllMatchIn__jl_CharSequence__sc_Iterator(html);
-  var f = new $c_sjsr_AnonFunction1(((this$6) => ((m$2) => {
+  var pattern = $ct_s_util_matching_Regex__T__sci_Seq__(new $c_s_util_matching_Regex(), "<a href=\"/wiki/[^:\"]+\" title=\"([^\"]+)\">([^<]+)</a>", groupNames);
+  var this$6 = pattern.findAllMatchIn__jl_CharSequence__sc_Iterator(html);
+  var articleMatches = $as_sci_Set($m_sci_Set$().from__sc_IterableOnce__sci_Set(this$6).flatMap__F1__O(new $c_sjsr_AnonFunction1(((this$7) => ((m$2) => {
     var m = $as_s_util_matching_Regex$Match(m$2);
-    return $f_s_util_matching_Regex$MatchData__group__T__T(m, "title")
-  }))(this));
-  var articles = new $c_sc_Iterator$$anon$9(this$7, f);
-  var array$1 = ["title"];
-  var groupNames$1 = new $c_sjsr_WrappedVarArgs(array$1);
-  var catPattern = $ct_s_util_matching_Regex__T__sci_Seq__(new $c_s_util_matching_Regex(), "<a href=\"/wiki/(Category:[^:\"]+)\"", groupNames$1);
-  var this$13 = catPattern.findAllMatchIn__jl_CharSequence__sc_Iterator(html);
-  var f$1 = new $c_sjsr_AnonFunction1(((this$2$1) => ((m$3$2) => {
+    var this$11 = $m_s_Predef$().s_Predef$__f_Set;
+    var array$1 = [$f_s_util_matching_Regex$MatchData__group__T__T(m, "title"), $f_s_util_matching_Regex$MatchData__group__T__T(m, "text")];
+    var elems = new $c_sjsr_WrappedVarArgs(array$1);
+    return this$11.from__sc_IterableOnce__sci_Set(elems)
+  }))(this))));
+  var array$2 = ["cat"];
+  var groupNames$1 = new $c_sjsr_WrappedVarArgs(array$2);
+  var catPattern = $ct_s_util_matching_Regex__T__sci_Seq__(new $c_s_util_matching_Regex(), "<a href=\"/wiki/Category:[^\"]*\"[^>]*>([^<]*)</a>", groupNames$1);
+  var this$17 = catPattern.findAllMatchIn__jl_CharSequence__sc_Iterator(html);
+  var catMatches = $as_sci_Set($m_sci_Set$().from__sc_IterableOnce__sci_Set(this$17).map__F1__O(new $c_sjsr_AnonFunction1(((this$2$1) => ((m$3$2) => {
     var m$3 = $as_s_util_matching_Regex$Match(m$3$2);
-    return $f_s_util_matching_Regex$MatchData__group__T__T(m$3, "title")
-  }))(this));
-  var categories = new $c_sc_Iterator$$anon$9(this$13, f$1);
-  var xs = new $c_sjsr_AnonFunction0(((this$3$1, categories$1) => (() => categories$1))(this, categories));
-  return $f_sc_Iterator__concat__F0__sc_Iterator(articles, xs)
+    return $f_s_util_matching_Regex$MatchData__group__T__T(m$3, "cat")
+  }))(this))));
+  var groupNames$2 = $m_sci_Nil$();
+  var subArticle = $ct_s_util_matching_Regex__T__sci_Seq__(new $c_s_util_matching_Regex(), "(.*)#(.*)", groupNames$2);
+  var groupNames$3 = $m_sci_Nil$();
+  var ambiguous = $ct_s_util_matching_Regex__T__sci_Seq__(new $c_s_util_matching_Regex(), "(.*) \\((.*)\\)", groupNames$3);
+  return $as_sci_Set($as_sc_IterableOps($as_sc_IterableOps(articleMatches.concat__sc_IterableOnce__sc_SetOps(catMatches).map__F1__O(new $c_sjsr_AnonFunction1(((this$3$1) => ((encodedURI$2) => {
+    var encodedURI = $as_T(encodedURI$2);
+    return $as_T(decodeURI(encodedURI))
+  }))(this)))).flatMap__F1__O(new $c_sjsr_AnonFunction1(((this$4$1, subArticle$1, ambiguous$1) => ((x0$1$2) => {
+    var x0$1 = $as_T(x0$1$2);
+    if ((x0$1 !== null)) {
+      var o8 = subArticle$1.unapplySeq__jl_CharSequence__s_Option(x0$1);
+      if (((!o8.isEmpty__Z()) && ((o8.get__O() !== null) && ($as_sci_List(o8.get__O()).lengthCompare__I__I(2) === 0)))) {
+        var this$24 = $as_sc_LinearSeqOps(o8.get__O());
+        var main = $as_T($f_sc_LinearSeqOps__apply__I__O(this$24, 0));
+        var this$25 = $as_sc_LinearSeqOps(o8.get__O());
+        var sub = $as_T($f_sc_LinearSeqOps__apply__I__O(this$25, 1));
+        var this$29 = $m_s_Predef$().s_Predef$__f_Set;
+        var array$3 = [main, sub];
+        var elems$1 = new $c_sjsr_WrappedVarArgs(array$3);
+        return this$29.from__sc_IterableOnce__sci_Set(elems$1)
+      }
+    };
+    if ((x0$1 !== null)) {
+      var o10 = ambiguous$1.unapplySeq__jl_CharSequence__s_Option(x0$1);
+      if (((!o10.isEmpty__Z()) && ((o10.get__O() !== null) && ($as_sci_List(o10.get__O()).lengthCompare__I__I(2) === 0)))) {
+        var this$30 = $as_sc_LinearSeqOps(o10.get__O());
+        var title = $as_T($f_sc_LinearSeqOps__apply__I__O(this$30, 0));
+        var this$31 = $as_sc_LinearSeqOps(o10.get__O());
+        var disamb = $as_T($f_sc_LinearSeqOps__apply__I__O(this$31, 1));
+        var this$35 = $m_s_Predef$().s_Predef$__f_Set;
+        var array$4 = [title, disamb];
+        var elems$2 = new $c_sjsr_WrappedVarArgs(array$4);
+        return this$35.from__sc_IterableOnce__sci_Set(elems$2)
+      }
+    };
+    var this$39 = $m_s_Predef$().s_Predef$__f_Set;
+    var array$5 = [x0$1];
+    var elems$3 = new $c_sjsr_WrappedVarArgs(array$5);
+    return this$39.from__sc_IterableOnce__sci_Set(elems$3)
+  }))(this, subArticle, ambiguous)))).map__F1__O(new $c_sjsr_AnonFunction1(((this$5$1) => ((x$2$2) => {
+    var x$2 = $as_T(x$2$2);
+    return $f_T__trim__T($f_T__replaceAll__T__T__T($as_T(x$2.toLowerCase()), "[^\\d\\w ]", ""))
+  }))(this))))
 });
 $c_Lcom_nicolaswinsten_wikibrain_Scraper$.prototype.getFirstImgUrl__T__s_Option = (function(html) {
   var array = ["file", "img"];
@@ -1075,31 +1065,62 @@ $c_Lcom_nicolaswinsten_wikibrain_Scraper$.prototype.getFirstImgUrl__T__s_Option 
     return new $c_s_Some($f_s_util_matching_Regex$MatchData__group__T__T(x$4, "img"))
   }
 });
-$c_Lcom_nicolaswinsten_wikibrain_Scraper$.prototype.getDesc__T__s_concurrent_Future = (function(html) {
-  var array = ["url"];
+$c_Lcom_nicolaswinsten_wikibrain_Scraper$.prototype.getDesc__T__s_concurrent_Future = (function(title) {
+  var html = this.fetchHTML__T__s_concurrent_Future((("https://en.wikipedia.org/w/index.php?title=" + title) + "&action=info"));
+  var array = ["desc"];
   var groupNames = new $c_sjsr_WrappedVarArgs(array);
-  var wikiDataUrlPattern = $ct_s_util_matching_Regex__T__sci_Seq__(new $c_s_util_matching_Regex(), "<a href=\"([^\"]+)\"[^>]*>Wikidata item</a>", groupNames);
-  var wikiDataUrl = wikiDataUrlPattern.findFirstMatchIn__jl_CharSequence__s_Option(html);
-  var desc;
-  if (wikiDataUrl.isEmpty__Z()) {
-    desc = $m_s_None$()
-  } else {
-    var arg1 = wikiDataUrl.get__O();
-    var url = $as_s_util_matching_Regex$Match(arg1);
-    var wikiDataPage = $m_Lcom_nicolaswinsten_wikibrain_Scraper$().fetchHTML__T__s_concurrent_Future($f_s_util_matching_Regex$MatchData__group__T__T(url, "url"));
-    var array$1 = ["desc"];
-    var groupNames$1 = new $c_sjsr_WrappedVarArgs(array$1);
-    var descPattern = $ct_s_util_matching_Regex__T__sci_Seq__(new $c_s_util_matching_Regex(), "<span class=\"wikibase-descriptionview-text\">([^<]+)</span>", groupNames$1);
-    desc = new $c_s_Some(wikiDataPage.map__F1__s_concurrent_ExecutionContext__s_concurrent_Future(new $c_sjsr_AnonFunction1(((this$11, descPattern$1) => ((x$5$2) => {
-      var x$5 = $as_T(x$5$2);
-      return descPattern$1.findFirstMatchIn__jl_CharSequence__s_Option(x$5)
-    }))(this, descPattern)), $m_s_concurrent_ExecutionContext$().global__s_concurrent_ExecutionContextExecutor()).map__F1__s_concurrent_ExecutionContext__s_concurrent_Future(new $c_sjsr_AnonFunction1(((this$2$1) => ((x$6$2) => {
-      var x$6 = $as_s_Option(x$6$2);
-      var this$13 = $as_s_util_matching_Regex$MatchData(x$6.get__O());
-      return $f_s_util_matching_Regex$MatchData__group__T__T(this$13, "desc")
-    }))(this)), $m_s_concurrent_ExecutionContext$().global__s_concurrent_ExecutionContextExecutor()))
-  };
-  return $as_s_concurrent_Future((desc.isEmpty__Z() ? $m_s_concurrent_Future$().apply__F0__s_concurrent_ExecutionContext__s_concurrent_Future(new $c_sjsr_AnonFunction0(((this$15) => (() => ""))(this)), $m_s_concurrent_ExecutionContext$().global__s_concurrent_ExecutionContextExecutor()) : desc.get__O()))
+  var localDescPattern = $ct_s_util_matching_Regex__T__sci_Seq__(new $c_s_util_matching_Regex(), "Local description</td>[^<]*<td>([^<]*)</td>", groupNames);
+  var array$1 = ["desc"];
+  var groupNames$1 = new $c_sjsr_WrappedVarArgs(array$1);
+  var centralDescPattern = $ct_s_util_matching_Regex__T__sci_Seq__(new $c_s_util_matching_Regex(), "Central description</td>[^<]*<td>([^<]*)</td>", groupNames$1);
+  var matches = html.map__F1__s_concurrent_ExecutionContext__s_concurrent_Future(new $c_sjsr_AnonFunction1(((this$11, localDescPattern$1, centralDescPattern$1) => ((html$2$2) => {
+    var html$2 = $as_T(html$2$2);
+    var this$13 = localDescPattern$1.findAllMatchIn__jl_CharSequence__sc_Iterator(html$2);
+    var xs = new $c_sjsr_AnonFunction0(((this$12, centralDescPattern$1$1, html$1) => (() => centralDescPattern$1$1.findAllMatchIn__jl_CharSequence__sc_Iterator(html$1)))(this$11, centralDescPattern$1, html$2));
+    return this$13.concat__F0__sc_Iterator(xs)
+  }))(this, localDescPattern, centralDescPattern)), $m_s_concurrent_ExecutionContext$().global__s_concurrent_ExecutionContextExecutor());
+  return matches.map__F1__s_concurrent_ExecutionContext__s_concurrent_Future(new $c_sjsr_AnonFunction1(((this$2$1) => ((iter$2) => {
+    var iter = $as_sc_Iterator(iter$2);
+    var f = new $c_sjsr_AnonFunction1(((this$15) => ((x$5$2) => {
+      var x$5 = $as_s_util_matching_Regex$Match(x$5$2);
+      return $f_s_util_matching_Regex$MatchData__group__T__T(x$5, "desc")
+    }))(this$2$1));
+    var this$16 = new $c_sc_Iterator$$anon$9(iter, f);
+    var cmp = $m_s_math_Ordering$Int$();
+    var this$20;
+    if ((!this$16.hasNext__Z())) {
+      this$20 = $m_s_None$()
+    } else {
+      if ((!this$16.hasNext__Z())) {
+        throw $ct_jl_UnsupportedOperationException__T__(new $c_jl_UnsupportedOperationException(), "empty.maxBy")
+      };
+      var elem = null;
+      elem = null;
+      var elem$1 = null;
+      elem$1 = null;
+      var elem$2 = false;
+      elem$2 = true;
+      while (this$16.hasNext__Z()) {
+        var arg1 = this$16.next__O();
+        var x$6 = $as_T(arg1);
+        var fx = $uI(x$6.length);
+        var $$x1;
+        if (elem$2) {
+          $$x1 = true
+        } else {
+          var y = elem;
+          $$x1 = $f_s_math_Ordering__gt__O__O__Z(cmp, fx, y)
+        };
+        if ($$x1) {
+          elem$1 = arg1;
+          elem = fx;
+          elem$2 = false
+        }
+      };
+      this$20 = new $c_s_Some(elem$1)
+    };
+    return $as_T((this$20.isEmpty__Z() ? "No description found" : this$20.get__O()))
+  }))(this)), $m_s_concurrent_ExecutionContext$().global__s_concurrent_ExecutionContextExecutor())
 });
 $c_Lcom_nicolaswinsten_wikibrain_Scraper$.prototype.getTitle__T__T = (function(html) {
   var array = ["title"];
@@ -1114,88 +1135,28 @@ $c_Lcom_nicolaswinsten_wikibrain_Scraper$.prototype.getTitle__T__T = (function(h
     return ""
   }
 });
-$c_Lcom_nicolaswinsten_wikibrain_Scraper$.prototype.getRandomPage__s_concurrent_Future = (function() {
-  var page = $p_Lcom_nicolaswinsten_wikibrain_Scraper$__randomPage__s_concurrent_Future(this);
-  var this$4 = page.map__F1__s_concurrent_ExecutionContext__s_concurrent_Future(new $c_sjsr_AnonFunction1(((this$1) => ((html$2) => {
-    var html = $as_T(html$2);
-    return $m_Lcom_nicolaswinsten_wikibrain_Scraper$().getDesc__T__s_concurrent_Future(html)
-  }))(this)), $m_s_concurrent_ExecutionContext$().global__s_concurrent_ExecutionContextExecutor());
-  var this$3 = $m_s_$less$colon$less$();
-  var ev = this$3.s_$less$colon$less$__f_singleton;
-  var futureDesc = this$4.flatMap__F1__s_concurrent_ExecutionContext__s_concurrent_Future(ev, $m_s_concurrent_ExecutionContext$parasitic$());
+$c_Lcom_nicolaswinsten_wikibrain_Scraper$.prototype.getPage__T__s_concurrent_Future = (function(title) {
+  var page = this.fetchHTML__T__s_concurrent_Future((("" + this.Lcom_nicolaswinsten_wikibrain_Scraper$__f_url) + title));
+  var futureDesc = this.getDesc__T__s_concurrent_Future(title);
   var $$x3 = $m_s_concurrent_Future$();
   var $$x2 = $m_s_package$().s_package$__f_Seq;
   var array = [page, futureDesc];
   var $$x1 = $$x2.apply__sci_Seq__sc_SeqOps(new $c_sjsr_WrappedVarArgs(array));
-  var this$8 = $m_sc_BuildFrom$();
-  return $$x3.sequence__sc_IterableOnce__sc_BuildFrom__s_concurrent_ExecutionContext__s_concurrent_Future($$x1, new $c_sc_BuildFromLowPriority2$$anon$11(this$8), $m_s_concurrent_ExecutionContext$().global__s_concurrent_ExecutionContextExecutor()).map__F1__s_concurrent_ExecutionContext__s_concurrent_Future(new $c_sjsr_AnonFunction1(((this$2$1) => ((seq$2) => {
+  var this$4 = $m_sc_BuildFrom$();
+  return $$x3.sequence__sc_IterableOnce__sc_BuildFrom__s_concurrent_ExecutionContext__s_concurrent_Future($$x1, new $c_sc_BuildFromLowPriority2$$anon$11(this$4), $m_s_concurrent_ExecutionContext$().global__s_concurrent_ExecutionContextExecutor()).map__F1__s_concurrent_ExecutionContext__s_concurrent_Future(new $c_sjsr_AnonFunction1(((this$6) => ((seq$2) => {
     var seq = $as_sci_Seq(seq$2);
-    var html$1 = $as_T(seq.head__O());
+    var html = $as_T(seq.head__O());
     var desc = $as_T(seq.last__O());
-    var links = $m_Lcom_nicolaswinsten_wikibrain_Scraper$().linksOn__T__sc_Iterator(html$1);
-    var array$1 = ["title", "text"];
-    var groupNames = new $c_sjsr_WrappedVarArgs(array$1);
-    var pattern = $ct_s_util_matching_Regex__T__sci_Seq__(new $c_s_util_matching_Regex(), "<a href=\"/wiki/[^\"]+\"[^>]+title=\"([^\"]+)\"[^>]+>([^<]+)</a>", groupNames);
-    var this$20 = pattern.findAllMatchIn__jl_CharSequence__sc_Iterator(html$1);
-    var f = new $c_sjsr_AnonFunction1(((this$15) => ((m$2) => {
-      var m = $as_s_util_matching_Regex$Match(m$2);
-      $m_s_package$();
-      var array$2 = [$f_s_util_matching_Regex$MatchData__group__T__T(m, "title"), $f_s_util_matching_Regex$MatchData__group__T__T(m, "text")];
-      var elems = new $c_sjsr_WrappedVarArgs(array$2);
-      return $m_sci_Nil$().prependedAll__sc_IterableOnce__sci_List(elems)
-    }))(this$2$1));
-    var otherSpellings = new $c_sc_Iterator$$anon$10(this$20, f);
-    var groupNames$1 = $m_sci_Nil$();
-    var category = $ct_s_util_matching_Regex__T__sci_Seq__(new $c_s_util_matching_Regex(), "Category:(.*)", groupNames$1);
-    var groupNames$2 = $m_sci_Nil$();
-    var subArticle = $ct_s_util_matching_Regex__T__sci_Seq__(new $c_s_util_matching_Regex(), "(.*)#(.*)", groupNames$2);
-    var xs = new $c_sjsr_AnonFunction0(((this$2$2, otherSpellings$1) => (() => otherSpellings$1))(this$2$1, otherSpellings));
-    var this$42 = links.concat__F0__sc_Iterator(xs);
-    var f$1 = new $c_sjsr_AnonFunction1(((this$3$1, category$1, subArticle$1) => ((x0$1$2) => {
-      var x0$1 = $as_T(x0$1$2);
-      if ((x0$1 !== null)) {
-        var o8 = category$1.unapplySeq__jl_CharSequence__s_Option(x0$1);
-        if (((!o8.isEmpty__Z()) && ((o8.get__O() !== null) && ($as_sci_List(o8.get__O()).lengthCompare__I__I(1) === 0)))) {
-          var this$27 = $as_sc_LinearSeqOps(o8.get__O());
-          var title = $as_T($f_sc_LinearSeqOps__apply__I__O(this$27, 0));
-          $m_s_package$();
-          var array$3 = [title];
-          var elems$1 = new $c_sjsr_WrappedVarArgs(array$3);
-          return $m_sci_Nil$().prependedAll__sc_IterableOnce__sci_List(elems$1)
-        }
-      };
-      if ((x0$1 !== null)) {
-        var o10 = subArticle$1.unapplySeq__jl_CharSequence__s_Option(x0$1);
-        if (((!o10.isEmpty__Z()) && ((o10.get__O() !== null) && ($as_sci_List(o10.get__O()).lengthCompare__I__I(2) === 0)))) {
-          var this$32 = $as_sc_LinearSeqOps(o10.get__O());
-          var main = $as_T($f_sc_LinearSeqOps__apply__I__O(this$32, 0));
-          var this$33 = $as_sc_LinearSeqOps(o10.get__O());
-          var sub = $as_T($f_sc_LinearSeqOps__apply__I__O(this$33, 1));
-          $m_s_package$();
-          var array$4 = [main, sub];
-          var elems$2 = new $c_sjsr_WrappedVarArgs(array$4);
-          return $m_sci_Nil$().prependedAll__sc_IterableOnce__sci_List(elems$2)
-        }
-      };
-      $m_s_package$();
-      var array$5 = [x0$1];
-      var elems$3 = new $c_sjsr_WrappedVarArgs(array$5);
-      return $m_sci_Nil$().prependedAll__sc_IterableOnce__sci_List(elems$3)
-    }))(this$2$1, category, subArticle));
-    var this$43 = new $c_sc_Iterator$$anon$10(this$42, f$1);
-    var f$2 = new $c_sjsr_AnonFunction1(((this$4$1) => ((encodedURI$2) => {
-      var encodedURI = $as_T(encodedURI$2);
-      return $as_T(decodeURI(encodedURI))
-    }))(this$2$1));
-    var this$46 = new $c_sc_Iterator$$anon$9(this$43, f$2);
-    var f$3 = new $c_sjsr_AnonFunction1(((this$5$1) => ((x$9$2) => {
-      var x$9 = $as_T(x$9$2);
-      var this$44 = $as_T(x$9.toLowerCase());
-      return $as_T(this$44.split("_").join(" "))
-    }))(this$2$1));
-    var items = new $c_sc_Iterator$$anon$9(this$46, f$3);
-    return new $c_Lcom_nicolaswinsten_wikibrain_Page($m_Lcom_nicolaswinsten_wikibrain_Scraper$().getTitle__T__T(html$1), desc, $m_sci_Set$().from__sc_IterableOnce__sci_Set(items), $m_Lcom_nicolaswinsten_wikibrain_Scraper$().getFirstImgUrl__T__s_Option(html$1))
+    return new $c_Lcom_nicolaswinsten_wikibrain_Page($m_Lcom_nicolaswinsten_wikibrain_Scraper$().getTitle__T__T(html), desc, $m_Lcom_nicolaswinsten_wikibrain_Scraper$().itemsOn__T__sci_Set(html), $m_Lcom_nicolaswinsten_wikibrain_Scraper$().getFirstImgUrl__T__s_Option(html))
   }))(this)), $m_s_concurrent_ExecutionContext$().global__s_concurrent_ExecutionContextExecutor())
+});
+$c_Lcom_nicolaswinsten_wikibrain_Scraper$.prototype.getRandomPage__s_concurrent_Future = (function() {
+  var this$3 = $ct_s_util_Random__(new $c_s_util_Random());
+  var xs = $m_Lcom_nicolaswinsten_wikibrain_articles$().Lcom_nicolaswinsten_wikibrain_articles$__f_pool;
+  var n = xs.u.length;
+  var i = this$3.s_util_Random__f_self.nextInt__I__I(n);
+  var title = $m_Lcom_nicolaswinsten_wikibrain_articles$().Lcom_nicolaswinsten_wikibrain_articles$__f_pool.get(i);
+  return this.getPage__T__s_concurrent_Future(title)
 });
 var $d_Lcom_nicolaswinsten_wikibrain_Scraper$ = new $TypeData().initClass({
   Lcom_nicolaswinsten_wikibrain_Scraper$: 0
@@ -1211,14 +1172,65 @@ function $m_Lcom_nicolaswinsten_wikibrain_Scraper$() {
   };
   return $n_Lcom_nicolaswinsten_wikibrain_Scraper$
 }
+/** @constructor */
+function $c_Lcom_nicolaswinsten_wikibrain_articles$() {
+  this.Lcom_nicolaswinsten_wikibrain_articles$__f_pool = null;
+  $n_Lcom_nicolaswinsten_wikibrain_articles$ = this;
+  this.Lcom_nicolaswinsten_wikibrain_articles$__f_pool = new ($d_T.getArrayOf().constr)(["BBC", "Iron_Man", "MS_Dhoni", "American_Revolutionary_War", "Joni_Mitchell", "Sharmila_Tagore", "Tom_Hanks", "Colosseum", "The_Sound_of_Music_(film)", "Ali_al-Sistani", "Aishwarya_Rai_Bachchan", "Pizzagate_conspiracy_theory", "Mila_Kunis", "Pinterest", "Kendrick_Lamar", "Michael_Fassbender", "Yao_Ming", "San_Francisco", "Lin-Manuel_Miranda", "Tyler_Hoechlin", "Eternal_Sunshine_of_the_Spotless_Mind", "Seychelles", "List_of_legendary_creatures_by_type", "Stonehenge", "Heath_Ledger", "Taliban", "Ben_Affleck", "COVID-19_pandemic", "Robin_Williams", "Rani_of_Jhansi", "A", "Sundar_Pichai", "Nymphomaniac_(film)", "Inferno_(Dante)", "Zinedine_Zidane", "Westworld_(TV_series)", "Greek_alphabet", "Seinfeld", "Benjamin_Franklin", "Grateful_Dead", "MacGuffin", "Bill_Nighy", "Aaron_Burr", "Taarak_Mehta_Ka_Ooltah_Chashmah", "Platypus", "Marlon_Brando", "Truman_Capote", "Zodiac_(film)", "Napoleon", "NCAA_Division_I_Men's_Basketball_Tournament", "Lists_of_deaths_by_year", "List_of_the_verified_oldest_people", "The_Chronicles_of_Narnia", "Saddam_Hussein", "Isabella_Rossellini", "Paramount_Pictures", "Pomodoro_Technique", "Nicole_Scherzinger", "Queen's_Gambit", "Amphibia_(TV_series)", "Jay-Jay_Okocha", "Keira_Knightley", "Beauty_and_the_Beast_(2017_film)", "Armenia", "Wonder_Woman_1984", "Rosa_Parks", "Prime_Minister_of_India", "Euphoria_(American_TV_series)", "Sridevi", "Robert_E._Lee", "Michael_Richards", "Frida_Kahlo", "The_Devil_Wears_Prada_(film)", "Doctor_Strange", "Kalman_filter", "Uma_Thurman", "Dune_(novel)", "The_Strokes", "Japanese_language", "Pirates_of_the_Caribbean_(film_series)", "Turkish_Radio_and_Television_Corporation", "Toyota", "Dax_Shepard", "Mahatma_Gandhi", "Toto_(band)", "Jimmy_Page", "Salman_of_Saudi_Arabia", "Fluvoxamine", "Afghanistan", "Gavin_Newsom", "Independence_Day_(1996_film)", "Wikipedia", "Catherine_the_Great", "Brooklyn", "Lovecraft_Country_(TV_series)", "Kevin_Bacon", "Aristotle", "Paul_Thomas_Anderson", "Vincent_Cassel", "Wonders_of_the_World", "Kepler's_Supernova", "Gene_Hackman", "Jon_Bon_Jovi", "British_Raj", "Sol_Invictus", "Communist_Party_of_India_(Marxist)", "Adam_Curtis", "George_Orwell", "Tom_Hiddleston", "Asia_Cup", "Melatonin", "The_Wachowskis", "Chiang_Kai-shek", "English_Wikipedia", "Six-Day_War", "Zooey_Deschanel", "Jenny_McCarthy", "Arvydas_Sabonis", "Zach_Braff", "Mongolia", "Morocco", "Vatican_City", "Jane_Lynch", "David_Thewlis", "Microsoft", "James_Woods", "Marvel_Studios", "Diana_Rigg", "Brian_Dennehy", "Montana", "England_national_football_team", "Kiss_(band)", "Hema_Malini", "Kentucky", "Erwin_Rommel", "Mary_of_Teck", "Ghana", "Anne_Boleyn", "The_Blair_Witch_Project", "The_39_Steps_(1935_film)", "Knights_Templar", "Maldives", "Adolf_Hitler", "Rod_Stewart", "Prince_Edward,_Earl_of_Wessex", "Brooklyn_Nine-Nine", "The_Rumble_in_the_Jungle", "Senate_of_Pakistan", "Delphi_method", "Rudolf_Hess", "Wallis_Simpson", "Joker_(2019_film)", "List_of_programs_broadcast_by_Cartoon_Network", "Superbad_(film)", "Seventh-day_Adventist_Church", "Martin_Luther_King_Jr.", "Shingles", "Ted_Kaczynski", "Tallulah_Bankhead", "Srinivasa_Ramanujan", "Serial_killer", "Ewan_McGregor", "Colin_Firth", "BMW", "List_of_most-followed_Instagram_accounts", "Batman_in_film", "Jordana_Brewster", "Steve_Buscemi", "Andy_Serkis", "R.E.M.", "Mickey_Rooney", "Tim_Wu", "Better_Call_Saul", "Indian_Rebellion_of_1857", "Madonna", "Mario_Draghi", "Christopher_Walken", "List_of_animal_sounds", "Norah_Jones", "The_Matrix", "Plantar_fasciitis", "King_Arthur", "Lesley-Anne_Down", "Education", "Adrien_Brody", "Guns_N'_Roses", "Krakatoa", "Strade_Bianche", "Chaldean_Catholic_Church", "Samurai", "Adam_Lambert", "Adrenochrome", "Ambergris", "2020\u201321_Premier_League", "Pawn_Stars", "EBay", "Charlemagne", "East_Germany", "Daft_Punk", "West_Bengal", "Sia_(musician)", "Cancel_culture", "Mein_Kampf", "Chaka_Khan", "Hirohito", "The_Great_British_Bake_Off", "State_of_the_Union", "List_of_current_United_States_governors", "Lee_Harvey_Oswald", "Elle_Fanning", "Jimi_Hendrix", "Jeffrey_Epstein", "Floyd_Mayweather_Jr.", "Gaslighting", "Celine_Dion", "Steak_and_Blowjob_Day", "Great_Famine_(Ireland)", "Priyanka_Chopra", "Indian_Army", "Cerebral_palsy", "Salman_Khan", "Nintendo_Switch", "Neon_Genesis_Evangelion", "Julia_Roberts", "Ten_Commandments", "Bong_Joon-ho", "The_Orville", "Parasite_(2019_film)", "Roman_Polanski", "George_VI", "The_Americans", "Patrice_O'Neal", "Gautama_Buddha", "XY_sex-determination_system", "Burt_Lancaster", "Entertainment", "Michael_Caine", "Stoat", "Sandra_Bullock", "Illuminati", "Darren_Aronofsky", "2021_storming_of_the_United_States_Capitol", "Sarah_Michelle_Gellar", "Martin_Luther", "Bharatiya_Janata_Party", "Ethanol", "Tom_Jones_(singer)", "Transgender", "QAnon", "Bobby_Fischer", "Robert_Lewandowski", "List_of_hobbies", "Diana,_Princess_of_Wales", "Oliver_Hardy", "Toru\u0144", "Bucky_Barnes", "Christopher_Reeve", "Historical_rankings_of_presidents_of_the_United_States", "Reservoir_Dogs", "George_V", "BTS", "Art", "Dustin_Hoffman", "Armenian_Genocide", "Robert_F._Kennedy_Jr.", "Die_Another_Day", "KFC", "Yoko_Ono", "Sweden", "Mesopotamia", "FC_Barcelona", "Subhas_Chandra_Bose", "Big_Five_personality_traits", "The_Lion_King", "Vladimir_Putin", "Fleetwood_Mac", "HMS_Terror_(1813)", "Aunt_Jemima", "Anal_sex", "Julie_Christie", "George_IV", "Gazprom", "Seven_deadly_sins", "Rheal_Cormier", "Led_Zeppelin", "Anders_Behring_Breivik", "Renaissance", "Ellen_DeGeneres", "Shutter_Island_(film)", "COINTELPRO", "The_Truman_Show", "Great_Depression", "Kate_Bush", "Charles_Barkley", "Green_Day", "Dr._Seuss", "Walt_Disney", "Pope_Benedict_XVI", "1958_Lituya_Bay,_Alaska_earthquake_and_megatsunami", "Joss_Whedon", "List_of_cities_in_the_United_Kingdom", "George_S._Patton", "The_Last_of_Us", "Sinaloa_Cartel", "Absinthe", "Britney_Spears", "SpaceX_Starship", "Godzilla", "Kardashian_family", "117th_United_States_Congress", "Army_ranks_and_insignia_of_India", "PewDiePie", "Union_Council_of_Ministers", "Python_(programming_language)", "Birthstone", "Yoga", "Jim_Croce", "WhatsApp", "A.C._Milan", "Astrological_sign", "Gujarat", "Skid_Row,_Los_Angeles", "Ellie_Kemper", "COVID-19_pandemic_in_the_United_States", "Ted_Bundy", "Arrow_(TV_series)", "Walter_Cronkite", "James,_Viscount_Severn", "Woody_Allen", "Hank_Williams", "Hassanal_Bolkiah", "Oxford\u2013AstraZeneca_COVID-19_vaccine", "Aquarius_(astrology)", "Gene_Kelly", "Steven_Gerrard", "Henry_Cavill", "Bhutan", "World_War_II", "Sean_Penn", "Burt_Reynolds", "Denial-of-service_attack", "Raiders_of_the_Lost_Ark", "Library_Genesis", "Dexter_(TV_series)", "Abdication_of_Edward_VIII", "The_Expanse_(TV_series)", "Dolly_Parton", "Baby_boomers", "Sharon_Stone", "Saladin", "Utah", "The_Shape_of_Water", "Greece", "Cali_Cartel", "Joan_of_Arc", "Deaths_in_2021", "Shia_Islam", "Computer", "Aleister_Crowley", "Con_Air", "Jesse_James_(entrepreneur)", "Boxer_Rebellion", "Endeavour_(TV_series)", "Air_pollution", "MacOS", "Aamir_Khan", "Mark_Wahlberg", "List_of_poker_hands", "Edinson_Cavani", "Volkswagen", "Marvel_Comics", "Kane_Tanaka", "National_Assembly_of_Pakistan", "Luis_Su\u00e1rez", "Aries_(astrology)", "Thurgood_Marshall", "Alan_Tudyk", "Dave_Allen_(comedian)", "Maharashtra", "Bing_Crosby", "J._K._Rowling", "Sean_Combs", "Croatia", "HIV/AIDS", "Jojo_Rabbit", "Carl_Jung", "The_Oprah_Winfrey_Show", "John_Mulaney", "David_Duchovny", "Colin_Farrell", "Richard_I_of_England", "List_of_political_parties_in_India", "Irish_Republican_Army", "Tamil_Nadu_Legislative_Assembly", "Ketamine", "Slender_Man", "Operating_system", "Adderall", "German_Shepherd", "Les_Mis\u00e9rables", "Red_Hot_Chili_Peppers", "John_Brown_(abolitionist)", "Will_Poulter", "Mindy_Kaling", "Prince_Harry,_Duke_of_Sussex", "Circulatory_system", "European_Union", "Resident_Evil", "Solomon", "Streisand_effect", "AstraZeneca", "1968_United_States_presidential_election", "David_Lloyd_George", "Rodney_King", "Shang-Chi", "Daniel_Craig", "Sean_Bean", "Queer", "Stephen_Curry", "Wes_Anderson", "Ottoman_Empire", "Katherine_Waterston", "Kazuo_Ishiguro", "Grant_Imahara", "Five_Families", "Peter_Sellers", "Ben_Kingsley", "Albania", "U.S._state", "Yom_Kippur_War", "Twin_Peaks", "Happy_Birthday_to_You", "Ed_Harris", "New_Girl", "Grammy_Award", "Doris_Day", "Rabindranath_Tagore", "List_of_islands_of_Greece", "69_(sex_position)", "CBS", "Qatar", "BoJack_Horseman", "Silver_Linings_Playbook", "Coup_d'\u00e9tat", "Serbia", "The_Monkees", "Cholangiocarcinoma", "Leprechaun", "Glee_(TV_series)", "Polyethylene_glycol", "Blackbeard", "William_Randolph_Hearst", "Richard_Attenborough", "Albert,_Prince_Consort", "Weather", "Manny_Pacquiao", "Barbados", "George_Chakiris", "Malcolm_X", "Wiki", "Tim_Burton", "Aspire_(TV_network)", "The_Chronicles_of_Narnia_(film_series)", "Black_Eyed_Peas", "Jason_Sudeikis", "W\u0142adys\u0142aw_Szpilman", "Superman", "Naomi_Scott", "Lincoln_(film)", "Blade_(film)", "Hong_Kong", "Aretha_Franklin", "Scarface_(1983_film)", "Cynthia_Gibb", "Jenna_Dewan", "Ludwig_van_Beethoven", "Lion", "2021_Myanmar_protests", "Mohammed_bin_Rashid_Al_Maktoum", "March_6", "March_7", "Todd_Rundgren", "Angels_&_Demons_(film)", "Alibaba_Group", "March_8", "March_9", "Alex_Ferguson", "Sonic_the_Hedgehog_(film)", "Francis_Ford_Coppola", "Dr._Stone", "Scooby-Doo_(film)", "Sex_position", "BlacKkKlansman", "Maryland", "Frozen_II", "Rajya_Sabha", "Les_Dawson", "CARES_Act", "Sex", "Bible", "No_Country_for_Old_Men_(film)", "Romani_people", "Mumbai", "Tiger", "Zayn_Malik", "The_Beach_Boys", "Deadpool_2", "Wentworth_Miller", "The_Undertaker", "Monosodium_glutamate", "Lilith", "Rick_Astley", "Dawn_Wells", "Elizabeth_II", "Patton_Oswalt", "List_of_ongoing_armed_conflicts", "Trent_Reznor", "Amelia_Earhart", "Heart_(band)", "Jackie_Chan", "Sci-Hub", "Burger_King", "Richard_Simmons", "Star_Wars_(film)", "Battle_of_the_Alamo", "Serena_Williams", "Debbie_Reynolds", "Ruth_Bader_Ginsburg", "Andr\u00e9_Previn", "Charli_D'Amelio", "Battle_of_Waterloo", "Keith_Richards", "Jennifer_Connelly", "Penicillin", "Rob_Zombie", "Anni-Frid_Lyngstad", "Interstellar_(film)", "New_York_(state)", "Shah_Rukh_Khan", "Survivor_(American_TV_series)", "Peter_the_Great", "Berlin_Wall", "Nestl\u00e9", "Kevin_Spacey", "Judd_Apatow", "Dakota_Fanning", "Seal_(musician)", "Kunal_Nayyar", "Linux", "Jeff_Goldblum", "Normal_distribution", "Mos_Def", "Black_Mirror", "Cristiano_Ronaldo", "Lady_Jane_Grey", "Kobe_Bryant", "Atl\u00e9tico_Madrid", "Christina_Aguilera", "Bill_Burr", "Benito_Mussolini", "DreamWorks_Animation", "Real_Madrid_CF", "Ned_Kelly", "Rottweiler", "Democratic_Party_(United_States)", "Jessica_Alba", "Sunderland_A.F.C.", "And_Then_There_Were_None", "Steve_Harvey", "Ted_Cruz", "Aliens_(film)", "Psycho_(1960_film)", "Tencent", "Stanley_Kubrick", "Eton_College", "Catherine_de'_Medici", "Harrison_Ford", "Orson_Welles", "Battle_of_Los_Angeles", "Conservative_Party_(UK)", "The_Challenge_(TV_series)", "Daniel_Bryan", "Jonestown", "Bruce_Lee", "List_of_most-played_video_games_by_player_count", "J._R._R._Tolkien", "United_Airlines_Flight_93", "Hakeem_Olajuwon", "Governor_of_New_York", "Ted_Kennedy", "Allen_Iverson", "David_(Michelangelo)", "Angela_Davis", "Florida", "List_of_most-subscribed_YouTube_channels", "Rajasthan", "Canada", "Michelle_Trachtenberg", "State_Bank_of_India", "Rosetta_Stone", "Ariana_Grande", "The_Carpenters", "Genesis_(band)", "Sanremo_Music_Festival", "Laverne_Cox", "Edith_Pretty", "Cindy_Crawford", "The_Masked_Singer_(American_TV_series)", "Pitaya", "Forrest_Gump", "Justin_Hartley", "Josef_Mengele", "Karnataka", "Abdullah_of_Pahang", "Bebe_Rexha", "Spike_Lee", "Pixar", "Logan_Lerman", "List_of_elected_and_appointed_female_heads_of_state_and_government", "2019_Indian_general_election", "Baywatch", "Spain", "Korean_drama", "James_Taylor", "Marilyn_Monroe", "Erin_Brockovich", "Big_Little_Lies_(TV_series)", "Ray_Kroc", "Sherlock_Holmes", "Maha_Shivaratri", "Wernher_von_Braun", "Princess_Beatrice", "Bashar_al-Assad", "Eva_Braun", "Jordan_Peterson", "International_Monetary_Fund", "Cary_Elwes", "Maslow's_hierarchy_of_needs", "J._Robert_Oppenheimer", "Chris_Brown", "Salamander_letter", "Gianni_Versace", "List_of_NBA_All-Stars", "Inter_Milan", "Southeast_Asia", "Dassault_Rafale", "Borderline_personality_disorder", "Depeche_Mode", "Samsung", "Letterkenny_(TV_series)", "Taj_Mahal", "Will_Arnett", "Don_Quixote", "Buffy_the_Vampire_Slayer", "Jallianwala_Bagh_massacre", "Andrew_Johnson", "All_India_Trinamool_Congress", "Mad_Max", "Godzilla_(franchise)", "Al-Qaeda", "Vince_McMahon", "The_Holocaust", "Border_Collie", "Edward_Snowden", "Richard_Feynman", "Alyson_Hannigan", "Whoopi_Goldberg", "Lithuania", "Chernobyl", "Rule_34", "List_of_films_considered_the_worst", "Fritzl_case", "List_of_most-followed_TikTok_accounts", "Damian_Lewis", "Shahid_Khan", "Greta_Thunberg", "Tom_Brady", "Predator_(film)", "Huey_P._Newton", "Animal_Farm", "Star_Wars:_Episode_I_\u2013_The_Phantom_Menace", "Pete_Davidson", "Morse_code", "Norway", "Sigourney_Weaver", "Chris_Hemsworth", "Eternals_(comics)", "Dogecoin", "Ronnie_James_Dio", "Israeli\u2013Palestinian_conflict", "Fred_Armisen", "Jim_Jones", "Henry_V_of_England", "Sean_Connery", "History", "George_I_of_Greece", "Anthony_Fauci", "Madam_C._J._Walker", "14th_Dalai_Lama", "Malala_Yousafzai", "Peter_Tosh", "Germany_national_football_team", "Tata_Group", "Iliad", "Frank_Abagnale", "ER_(TV_series)", "Argentina", "Belize", "Kalpana_Chawla", "Sun", "Olivia_de_Havilland", "Argo_(2012_film)", "Alphabet_Inc.", "The_Rolling_Stones", "Walt_Disney_Animation_Studios", "AC/DC", "Abraham", "Brian_Wilson", "Christopher_Hitchens", "Kylian_Mbapp\u00e9", "Suicide", "In_Cold_Blood", "Titanic", "Call_of_Duty", "Vikings", "Mad_Men", "Osman_I", "Warwick_Davis", "James_Spader", "Taylor_Swift", "Jurassic_Park_(film)", "Harold_Wilson", "Hawaii", "Anastasia_(1997_film)", "Date_Masamune", "Metallica", "Stoicism", "Azerbaijan", "PepsiCo", "Tony_Hendra", "Dolph_Lundgren", "Snooker", "Drake_(musician)", "Abraham_Lincoln", "4K_resolution", "Australia", "Die_Hard", "Michael_Crichton", "Prime_Video", "Queen_Latifah", "Iceland", "Selma_to_Montgomery_marches", "Winston_Churchill", "UEFA_Champions_League", "States_and_union_territories_of_India", "List_of_countries_and_dependencies_by_population_density", "Lavrentiy_Beria", "Camila_Cabello", "Henry_Stuart,_Lord_Darnley", "Wedding_anniversary", "5G", "Special_Air_Service", "Gary_Oldman", "Seven_Wonders_of_the_Ancient_World", "Fallingwater", "Hiragana", "Yin_and_yang", "Bo_Burnham", "China", "Georgy_Malenkov", "Sara_Ali_Khan", "Calvin_Coolidge", "Pride_and_Prejudice", "Democratic_Republic_of_the_Congo", "Miracle_on_Ice", "Monty_Python", "The_Mummy_(1999_film)", "Mark_Cuban", "Philippines", "The_Expanse_(novel_series)", "Alexander_the_Great", "Richard_Nixon", "Gwen_Stefani", "Gangs_of_New_York", "Bill_Paxton", "Aircraft_carrier", "How_to_Get_Away_with_Murder", "Pel\u00e9", "Battle_of_Thermopylae", "The_Temptations", "The_Dark_Knight_(film)", "Hugh_Grant", "Nikola_Vu\u010devi\u0107", "Bob_Barker", "Thierry_Henry", "Rita_Ora", "Salem_witch_trials", "Iran", "Erykah_Badu", "Iraq", "Jane_Goodall", "Margaret_Guido", "Rajiv_Gandhi", "Nepal", "Binomial_distribution", "There's_Something_About_Mary", "Peter_III_of_Russia", "Adam_Levine", "2026_FIFA_World_Cup", "Karl_Marx", "Neil_Gaiman", "Romeo_and_Juliet", "Robert_Redford", "The_Pianist_(2002_film)", "Eeny,_meeny,_miny,_moe", "Moses", "Jerry_Seinfeld", "Twilight_(2008_film)", "Fibonacci_number", "Belgium", "Prince_Andrew,_Duke_of_York", "Robert_F._Kennedy", "Hotstar", "Mohamed_Al-Fayed", "Shakira", "Carrie-Anne_Moss", "Nineteen_Eighty-Four", "Socialism", "Katey_Sagal", "Kim's_Convenience", "Operation_Paperclip", "\u00c6thelstan", "Justin_Bieber", "Desi_Arnaz", "2021_in_video_games", "Czech_Republic", "List_of_ethnic_slurs", "Sigmund_Freud", "Anurag_Kashyap", "Trailer_Park_Boys", "QR_code", "Michael_Gambon", "Elsa_Pataky", "Cock_and_ball_torture", "WandaVision", "Memphis_Pyramid", "P._T._Barnum", "Asperger_syndrome", "Emperor_of_Japan", "Natalie_Portman", "Ronald_Reagan", "Mike_Pence", "Ballon_d'Or", "Elon_Musk", "Linkin_Park", "Louis_III_of_France", "Spider-Man_(2002_film)", "Roger_Federer", "List_of_epidemics", "Stephen_Hawking", "Eagles_(band)", "Golden_State_Warriors", "Cisgender", "Davy_Crockett", "Cystic_fibrosis", "Community_(TV_series)", "The_Silence_of_the_Lambs_(film)", "IPad", "Anne,_Queen_of_Great_Britain", "Endometriosis", "Smallville", "Margaret_Tudor", "Senegal", "Greta_Scacchi", "Cat", "The_Go-Go's", "Peter_O'Toole", "Bryce_Dallas_Howard", "Daniel_Radcliffe", "J._D._Salinger", "Gini_coefficient", "Oxycodone", "The_Favourite", "Science", "1883_eruption_of_Krakatoa", "The_Scream", "Charlie_Sheen", "Joe_Biden_sexual_assault_allegation", "Song_of_the_South", "James_Madison", "Cher", "Luc_Besson", "Audrey_Hepburn", "The_Little_Mermaid_(1989_film)", "Aileen_Wuornos", "Fata_Morgana_(mirage)", "Corruption_Perceptions_Index", "Robert_Wadlow", "Stanford_prison_experiment", "The_Miz", "Guillermo_del_Toro", "Dick_Cheney", "Anunnaki", "Petra", "Christian_Slater", "Jehovah's_Witnesses", "Paris_Hilton", "Bruno_Mars", "Djimon_Hounsou", "Power_Rangers", "Man_of_Steel_(film)", "Hurrem_Sultan", "Michael_Keaton", "The_Who", "Muhammad_Ali", "J._J._Abrams", "Kate_Moss", "List_of_dates_for_Easter", "Nuremberg_trials", "HTTP_cookie", "Mary_Magdalene", "J-Hope", "Great_Pyramid_of_Giza", "Prince_(musician)", "Me_Too_movement", "Women's_poll_tax_repeal_movement", "Wladimir_Klitschko", "Roman_Empire", "Peter_Fonda", "Finland", "Roger_Ebert", "Ingrid_Bergman", "Crystal_Palace_F.C.", "Foo_Fighters", "Raspberry_Pi", "2020_Nagorno-Karabakh_war", "Michael_Sheen", "Steve_Martin", "2020_Formula_One_World_Championship", "The_Walking_Dead_(TV_series)", "John_Wick", "World_Trade_Organization", "British_prince", "Ice_Age_(franchise)", "Sister_Wives", "Robert_Downey_Jr.", "Hans_Zimmer", "Michigan", "Anupam_Kher", "List_of_pornographic_performers_by_decade", "Bobby_Seale", "The_Blue_Lagoon_(1980_film)", "Christopher_Nolan", "Nirvana_(band)", "Pfizer\u2013BioNTech_COVID-19_vaccine", "Gemini_(astrology)", "Cyprus", "Alan_Alda", "Sri_Lanka", "The_World_to_Come", "Dark_web", "Nation_of_Islam", "Naruhito", "Pollution", "Tokyo", "Cory_Booker", "Brazil", "Elizabeth_Schuyler_Hamilton", "The_Fifth_Element", "The_Prestige_(film)", "Geri_Halliwell", "Battle_of_Midway", "Shirley_MacLaine", "Angela_Merkel", "Schutzstaffel", "Sin\u00e9ad_O'Connor", "Sam_Rockwell", "Microsoft_Word", "True_Detective", "How_to_Train_Your_Dragon_(film)", "Holi", "Normandy_landings", "Spirograph", "Julius_Hoffman", "George_C._Scott", "List_of_UFC_champions", "Non-binary_gender", "Patrick_Stewart", "George_II_of_Great_Britain", "Soul_(2020_film)", "Hamilton_(musical)", "Michelle_Yeoh", "National_Basketball_Association", "Rain_Man", "Riverdale_(2017_TV_series)", "Pisces_(astrology)", "Asia", "Helen_Keller", "DNA", "Republic_of_Ireland", "Mars_2020", "Jimmy_Carter", "Mads_Mikkelsen", "RM_(rapper)", "Apocalypse_Now", "Pink_Floyd", "David_Attenborough", "Eddie_Van_Halen", "Magic_Johnson", "Debbie_Harry", "Orlando_Bloom", "Guardians_of_the_Galaxy_(film)", "Lennox_Lewis", "Spotlight_(film)", "Wedding_of_Prince_Harry_and_Meghan_Markle", "The_Hunger_Games", "Bob_Marley", "The_Beatles", "Dune_(2021_film)", "Brigham_Young", "Miguel_\u00c1ngel_F\u00e9lix_Gallardo", "List_of_countries_by_suicide_rate", "List_of_United_States_cities_by_population", "Adam_and_Eve", "Jet_Li", "List_of_Greek_mythological_figures", "David_Lynch", "Warren_Beatty", "Lana_Condor", "John_Krasinski", "Oda_Nobunaga", "Toronto", "Heinrich_Himmler", "Billy_Joel", "List_of_states_and_territories_of_the_United_States_by_population", "Farrah_Fawcett", "Popular_culture", "Zootopia", "Jim_Henson", "MDMA", "Seth_Green", "The_Office_(American_TV_series)", "Epic_Games", "Apollo_11", "Apollo_13", "Parks_and_Recreation", "Nigeria", "Kevin_Kline", "Roger_Lloyd-Pack", "Meiji_Restoration", "2022_FIFA_World_Cup_qualification", "Tucker_Carlson", "USB", "300_(film)", "Kevin_O'Leary", "Red_Dragon_(2002_film)", "Jack_Dorsey", "Voice_of_America", "King_Crimson", "Christoph_Waltz", "Johnson_&_Johnson", "Aston_Villa_F.C.", "O._J._Simpson_murder_case", "Concorde", "Cleopatra", "Microsoft_Office", "Gerard_Butler", "Larry_David", "The_Last_Kingdom_(TV_series)", "Tiger_Woods", "House_of_Hanover", "Guillain\u2013Barr\u00e9_syndrome", "Alan_Turing", "DC_Extended_Universe", "Multi-level_marketing", "Manchester_City_F.C.", "List_of_countries_and_dependencies_by_population", "Sienna_Miller", "Yellowstone_National_Park", "Ashkenazi_Jews", "Shivaji", "Conan_O'Brien", "LL_Cool_J", "Ted_Turner", "The_Lord_of_the_Rings_(film_series)", "Sodom_and_Gomorrah", "List_of_common_misconceptions", "Wolverhampton_Wanderers_F.C.", "Once_Upon_a_Time_in_America", "American_Idol", "World_War_II_casualties", "Nawazuddin_Siddiqui", "Rihanna", "Charlie_and_the_Chocolate_Factory_(film)", "Isle_of_Man", "The_Runaways", "Leonid_Brezhnev", "Garcelle_Beauvais", "Tilda_Swinton", "Malta", "Anthony_Hopkins", "Ireland", "Libertarianism", "Raccoon", "American_Civil_War", "France", "Maria_Sharapova", "Metro-Goldwyn-Mayer", "Historically_black_colleges_and_universities", "Latter_Day_Saint_movement", "Black_Panther_(film)", "Bitcoin", "Google_Meet", "Rachel_Weisz", "Reinhard_Heydrich", "Lucky_Luciano", "Body_mass_index", "Brave_New_World", "Hillary_Clinton", "Ian_Hart", "List_of_languages_by_number_of_native_speakers", "Pineal_gland", "BDSM", "Volkswagen_Group", "Duran_Duran", "Northern_voalavo", "Miyamoto_Musashi", "Aurora", "Ninja", "Viv_Richards", "Pi", "Emma_Watson", "Shazam!_(film)", "Dark_(TV_series)", "Jason_Segel", "Harpo_Productions", "Eternals_(film)", "Star_Trek", "Firefox", "Kill_Bill:_Volume_1", "Temple_garment", "Tuberculosis", "Wiccan_(character)", "Taylor_series", "Chicken", "Mardi_Gras", "Coyote", "Black_Lives_Matter", "The_Shining_(film)", "Novak_Djokovic", "American_Rescue_Plan_Act_of_2021", "Mark_Hamill", "Dubai", "List_of_current_United_States_senators", "PlayStation_4", "Joan_Jett", "PlayStation_5", "Wright_brothers", "PlayStation_2", "Kareena_Kapoor", "2012_(film)", "MacKenzie_Scott", "Mamma_Mia!_(film)", "Baphomet", "Dachshund", "Fringe_(TV_series)", "Ratchet_&_Clank", "Marilyn_Manson", "Mulholland_Drive_(film)", "U2", "Harry_Potter_and_the_Cursed_Child", "Werner_Herzog", "Ronaldo_(Brazilian_footballer)", "Kamal_Haasan", "Venus_Williams", "Robert_Wagner", "Maroon_5", "Mitch_McConnell", "Bob_Denver", "Bob's_Burgers", "James_Baldwin", "Auschwitz_concentration_camp", "Margaux_Hemingway", "Cobie_Smulders", "Algeria", "Gigi_Hadid", "PlayerUnknown's_Battlegrounds", "Dave_Grohl", "Harry_S._Truman", "Gerald_Ford", "The_Matrix_(franchise)", "Euronews", "Women's_suffrage", "Naomi_Osaka", "Jenni_Rivera", "Kylie_Minogue", "Kate_Hudson", "Jodie_Foster", "James_Cameron", "Daniel_Day-Lewis", "North_Korea", "Internet_of_things", "Texas", "Virgo_(astrology)", "Severe_acute_respiratory_syndrome_coronavirus_2", "Ur", "Henrietta_Lacks", "Easter", "Katie_Price", "Ali_Khamenei", "United_States_Navy", "Attack_on_Pearl_Harbor", "Basketball", "Suez_Canal", "Back_to_the_Future_Part_II", "Futurama", "Netherlands", "Olga_Kurylenko", "American_Horror_Story", "1984_United_States_presidential_election", "JavaScript", "William_Henry_Harrison", "Alaska", "Tom_&_Jerry_(2021_film)", "American_Pie_(film)", "Semen", "John_Cleese", "Christian_Bale", "Edgar_Allan_Poe", "Ray_Charles", "Rangers_F.C.", "Multiple_sclerosis", "MP3", "The_Greatest_Showman", "Naruto", "Superman_&_Lois", "Wolfgang_Amadeus_Mozart", "The_Wolf_of_Wall_Street_(2013_film)", "Scrubs_(TV_series)", "Ragnar_Lodbrok", "Orange_Is_the_New_Black", "Jay-Z", "Nicholas_II_of_Russia", "Tony_Curtis", "Nicola_Sturgeon", "Nostradamus", "George_W._Bush", "Sammy_Davis_Jr.", "David_Fincher", "Katherine_Johnson", "Kim_Il-sung", "Andrew_Cuomo", "Rose_Byrne", "John_Lennon", "Billie_Holiday", "List_of_Star_Wars_films", "Helen_Mirren", "Constantine_the_Great", "North_by_Northwest", "Bill_Murray", "Liberace", "Star_Wars", "Rain_(entertainer)", "Ringo_Starr", "Deepfake", "Lloyd_Austin", "Nefertiti", "Clint_Eastwood", "Paul_Anka", "Alanis_Morissette", "List_of_countries_and_dependencies_by_area", "Thailand", "The_Flash_(2014_TV_series)", "Quentin_Tarantino", "ICC_World_Test_Championship", "Neil_Patrick_Harris", "George_Harrison", "Chrissy_Teigen", "Ford_Motor_Company", "Jane_Fonda", "Iman_(model)", "Bill_Maher", "Henry_VII_of_England", "Four_temperaments", "Al_Pacino", "Brian_May", "Harold_Macmillan", "Three-cushion_billiards", "Howl's_Moving_Castle_(film)", "Harriet_Tubman", "Slavery_in_the_United_States", "UEFA_Euro_2020", "Family_Guy", "Bill_Gates", "Michael_Phelps", "Christopher_Plummer", "Drink", "Bj\u00f6rk", "Agatha_Christie", "Val_Kilmer", "Rush_Limbaugh", "Joseph_James_DeAngelo", "Bethenny_Frankel", "Dagestan", "Dobermann", "Culture", "Mark_Kelly", "Niccol\u00f2_Machiavelli", "Hell's_Kitchen_(American_TV_series)", "Typhoid_fever", "Akon", "John_F._Kennedy", "Mao_Zedong", "Human_penis_size", "Alison_Brie", "Rekha", "Robert_the_Bruce", "Schizophrenia", "RuPaul", "Buddy_Holly", "Death_of_Diana,_Princess_of_Wales,_conspiracy_theories", "Fantastic_Beasts_and_Where_to_Find_Them_(film)", "Augustus", "Meg_Ryan", "Earth", "Bloody_Sunday_(1972)", "Newcastle_United_F.C.", "Eliot_Spitzer", "War_in_Donbass", "The_King's_Speech", "Zanzibar", "Father's_Day", "Kumail_Nanjiani", "Lady_Gaga", "Phil_Spector", "Apple_Inc.", "James_VI_and_I", "Pythagorean_theorem", "Garry_Kasparov", "Lea_Michele", "The_Golden_Girls", "Felicity_Huffman", "James_Hetfield", "Darth_Vader", "American_Psycho_(film)", "Kevin_Hart", "Denmark", "Pose_(TV_series)", "Occam's_razor", "Harry_Houdini", "Bhagat_Singh", "Alicia_Keys", "Paris_Saint-Germain_F.C.", "Mikhail_Gorbachev", "Diazepam", "The_Cranberries", "Poll_taxes_in_the_United_States", "Stanford_University", "Ngozi_Okonjo-Iweala", "Full_Metal_Jacket", "Tower_of_Babel", "Generation", "Filibuster", "Genghis_Khan", "Brokeback_Mountain", "Pansexuality", "ABBA", "Microsoft_Windows", "Don_Cheadle", "Tina_Fey", "En_passant", "Harley_Quinn", "Paracetamol", "Syrian_civil_war", "Fortnite", "Suicide_Squad_(film)", "Prince_George_of_Cambridge", "RT_(TV_network)", "Cryptocurrency", "Russell_Brand", "John_Lewis", "Nikola_Tesla", "Angela_Lansbury", "Fluoxetine", "Charlize_Theron", "Lil_Nas_X", "Provisional_Irish_Republican_Army", "Pope", "Cicely_Tyson", "List_of_Tor_onion_services", "Aziz_Ansari", "Curling", "Anne_Hathaway", "Cthulhu", "The_Exorcist_(film)", "Empire_State_Building", "The_Birds_(film)", "J._Edgar_Hoover", "Fred_Hampton", "Natalie_Wood", "Highlander_(film)", "Nayib_Bukele", "The_Hobbit", "Hermann_G\u00f6ring", "Def_Leppard", "Bipolar_disorder", "Google_logo", "Sons_of_Anarchy", "Iron_Man_(2008_film)", "Kareem_Abdul-Jabbar", "List_of_tallest_people", "Oprah_Winfrey", "Lord_Voldemort", "Julianne_Moore", "Cirrhosis", "Nile", "Battlestar_Galactica_(2004_TV_series)", "Google_Drive", "Rowan_Atkinson", "Italy", "Ivermectin", "Princess_Alice_of_the_United_Kingdom", "Bill_Cosby", "Fentanyl", "List_of_religious_populations", "Andhra_Pradesh", "Multiple_myeloma", "John_Wayne", "Hulk_Hogan", "Louis_Mountbatten,_1st_Earl_Mountbatten_of_Burma", "Atherosclerosis", "Academy_Award_for_Best_Actress", "Spirited_Away", "Kyrgyzstan", "Halsey_(singer)", "Ava_Gardner", "East_India_Company", "Exo_(group)", "Charles_Edward_Stuart", "Nicole_Richie", "The_Star-Spangled_Banner", "Muhammad", "Frozen_(2013_film)", "Prison_Break", "Icarus", "Nathuram_Godse", "Soylent_Green", "Gypsy_(1962_film)", "Stock_market", "Riz_Ahmed", "The_Simpsons", "Rush_Hour_(1998_film)", "Eugene_Levy", "The_Stormlight_Archive", "Christianity_in_Iraq", "IQ_classification", "John_Travolta", "Reserve_Bank_of_India", "Nontheism", "Dog", "Christina_Hendricks", "Crimean_War", "Bodhidharma", "Christopher_Columbus", "Addison_Rae", "Soviet\u2013Afghan_War", "Lauryn_Hill", "Gay_sexual_practices", "Babirusa", "Henry_VIII", "United_Arab_Emirates", "Michelangelo", "Two_and_a_Half_Men", "Chevelle_(band)", "Monster_Energy", "Charlotte_of_Mecklenburg-Strelitz", "Solange_Knowles", "List_of_most_expensive_films", "John_Cena", "Bangalore", "Jews", "Chris_McCandless", "Catch_Me_If_You_Can", "Surstr\u00f6mming", "99942_Apophis", "The_Coca-Cola_Company", "Once_Upon_a_Time_(TV_series)", "Will_Smith", "Jude_Law", "Machine_learning", "Wi-Fi", "Attack_on_Titan", "Bermuda_Triangle", "Andrew_Jackson", "Sophia_Loren", "Watchmen_(film)", "Walmart", "Operation_Flavius", "Brooke_Shields", "2016_United_States_presidential_election", "Charles,_Prince_of_Wales", "Paramount+", "Robert_Hanssen", "World_War_I", "Portuguese_man_o'_war", "Minstrel_show", "Virender_Sehwag", "Lockheed_Martin_F-22_Raptor", "Laika", "Sagittarius_(astrology)", "Aaliyah", "Kerala", "Richard_Burton", "Mark_Rothko", "Brad_Pitt", "Vladimir_Lenin", "Mauritius", "Banana", "Princess_Hours", "Coco_Chanel", "Hemorrhoid", "Billy_Idol", "Lisa_Lopes", "Tennessee", "Ark_of_the_Covenant", "List_of_presidents_of_the_United_States", "The_Terminal", "Industrial_Revolution", "Billy_Connolly", "Brian_Cox_(actor)", "Evangeline_Lilly", "Ming-Na_Wen", "2020\u201321_Liverpool_F.C._season", "Unit_731", "Paul_I_of_Russia", "Sutton_Hoo", "List_of_conspiracy_theories", "James_McAvoy", "Larry_Page", "Human_Development_Index", "Gremlins", "Steve_McQueen", "Dan_Levy_(Canadian_actor)", "Paris", "Mohammad_Reza_Pahlavi", "Odin", "JoJo's_Bizarre_Adventure", "Windsor_Castle", "Wesley_Snipes", "International_Women's_Day", "Costa_Rica", "Ethan_Hawke", "Marvin_Gaye", "Calvin_Lockhart", "Kazakhstan", "Nancy_Pelosi", "Crypto_art", "List_of_largest_cities", "Arrowverse", "Napoleon_Dynamite", "Laura_Dern", "The_Seven_Deadly_Sins_(manga)", "Schitt's_Creek", "Lockheed_Martin_F-35_Lightning_II", "Mickey_Mouse", "Us_(2019_film)", "Elizabeth_Taylor", "Marfan_syndrome", "Eurocopter_AS350_\u00c9cureuil", "Robin_Hood", "London", "Dissolution_of_Czechoslovakia", "American_Gods_(TV_series)", "Indiana_Jones_and_the_Last_Crusade", "List_of_footballers_with_500_or_more_goals", "Marion_Cotillard", "The_Handmaid's_Tale", "Spectre_(2015_film)", "Pharrell_Williams", "Bluetooth", "Dave_Bautista", "Gwyneth_Paltrow", "Tom_Cruise", "H._P._Lovecraft", "Battle_of_Stalingrad", "Muhammad_Ali_Jinnah", "Supernatural_(American_TV_series)", "Stephen_Hillenburg", "Iggy_Pop", "U.S._Route_66", "H._H._Holmes", "Scottish_Premier_League", "Shia_LaBeouf", "Pol_Pot", "Mr._Bean", "His_Dark_Materials_(TV_series)", "Toyotomi_Hideyoshi", "Gmail", "John_F._Kennedy_Jr.", "Bruce_Springsteen", "Kylie_Jenner", "Portia_de_Rossi", "Anglo-Saxons", "Inside_Out_(2015_film)", "Jill_Biden", "Lost_(TV_series)", "Babe_Ruth", "Jason_Alexander", "Diane_Kruger", "Taurus_(astrology)", "Joseph_P._Kennedy_Sr.", "Boeing_777", "Complaint_tablet_to_Ea-nasir", "Pompeii", "2012_United_States_presidential_election", "Pen\u00e9lope_Cruz", "Scarlet_Witch", "Tenet_(film)", "Sertraline", "Fast_Times_at_Ridgemont_High", "Holy_Roman_Empire", "Academy_Award_for_Best_Picture", "Boeing_787_Dreamliner", "Mithun_Chakraborty", "Giga_Nevada", "Internet", "Black_Widow_(2021_film)", "Oral_sex", "Leeds_United_F.C.", "Eddie_Izzard", "Twitter", "Pat_Sajak", "Women's_empowerment", "Winona_Ryder", "List_of_British_monarchs", "Nicolas_Cage_filmography", "Vernon_Jordan", "Russian_alphabet", "Elvis_Presley", "Ranveer_Singh", "Tim_Allen", "John_Belushi", "The_X-Files", "Arrested_Development", "Psoriasis", "Pfizer", "Rosamund_Pike", "Beyonc\u00e9", "Richard_Harris", "Daryl_Hannah", "Libra_(astrology)", "Bono", "Steve_Nash", "Malaysia_Airlines_Flight_370", "Nigger", "Cocaine", "One_Piece", "Lemmy", "The_Great_Gatsby", "Prohibition_in_the_United_States", "Angola", "Moon", "The_Church_of_Jesus_Christ_of_Latter-day_Saints", "West_Ham_United_F.C.", "Kishore_Kumar", "Tame_Impala", "Borussia_Dortmund", "Joel_Osteen", "George_Wallace", "Mary_Shelley", "Kensington_Palace", "Laurel_and_Hardy", "Foie_gras", "The_Trial_of_the_Chicago_7", "Bill_Hader", "Matthew_Macfadyen", "John_Landis", "Grigori_Rasputin", "The_Hunt_(2020_film)", "Buzz_Aldrin", "Isra_and_Mi'raj", "Gary_Cooper", "Saif_Ali_Khan", "Kyrsten_Sinema", "Vagina", "British_royal_family", "Lizzy_Caplan", "Jake_Gyllenhaal", "Justin_Timberlake", "Cars_(film)", "The_Avengers_(2012_film)", "David_Dellinger", "Friedrich_Nietzsche", "Diverticulitis", "Animal", "Megalodon", "Warren_G._Harding", "Beauty_Revealed", "Indo-European_languages", "Demi_Moore", "The_Walt_Disney_Company", "Jurassic_Park", "NBA_G_League", "Amyotrophic_lateral_sclerosis", "Jawaharlal_Nehru", "List_of_countries_by_Human_Development_Index", "Sundown_town", "Microsoft_Excel", "Mohammed_bin_Salman", "Isla_Fisher", "Fellatio", "Amy_Schumer", "Venezuela", "Dragon_Ball", "Grey's_Anatomy", "Louisiana", "Mughal_Empire", "Bryan_Cranston", "Women's_History_Month", "Salvador_Dal\u00ed", "Chechnya", "Klaus_Barbie", "Sidney_Poitier", "Michael_Palin", "World", "Black_Swan_(film)", "Kelsey_Grammer", "Edge_of_Tomorrow", "Hilary_Swank", "Stephen_King", "Plato", "Jim_Brown", "Equality_Act_(United_States)", "Birds_of_Prey_(2020_film)", "Married_at_First_Sight_(Australian_TV_series)", "Wu-Tang_Clan", "Impact_of_the_COVID-19_pandemic_on_education", "Smallpox", "Non-penetrative_sex", "Jackson_Pollock", "Muammar_Gaddafi", "Belarus", "Elizabeth_Montgomery", "Sex_Pistols", "A_Knight's_Tale", "A._P._J._Abdul_Kalam", "Unforgiven", "Vietnam_War", "Axolotl", "Louis_Armstrong", "2017_Las_Vegas_shooting", "Janet_Leigh", "Nick_Cave", "Steam_(service)", "Saturday_Night_Live", "SpaceX", "SWOT_analysis", "Order_of_the_British_Empire", "Black_Death", "Mary,_Queen_of_Scots", "Red_pill_and_blue_pill", "The_Big_Short_(film)", "Encyclopedia", "C_(programming_language)", "Harvey_Weinstein", "Chicago", "French_Bulldog", "Bob_Dylan", "List_of_deadliest_animals_to_humans", "Larry_Bird", "Cuban_Missile_Crisis", "Bella_ciao", "Breaking_Bad", "Osama_bin_Laden", "Henry_Kissinger", "Billboard_Hot_100", "Polyamory", "Nick_Nolte", "Steve_Jobs", "Robert_Duvall", "Roald_Dahl", "DC_Universe_Animated_Original_Movies", "Twitch_(service)", "Jerry_Lewis", "Pepsi", "England", "Jonah_Hill", "Ironheart_(character)", "Kenneth_Branagh", "William_IV", "Keeping_Up_with_the_Kardashians", "Edward_VIII", "Hagia_Sophia", "Matthew_Perry", "Eurovision_Song_Contest", "Amitabh_Bachchan", "Gamergate_controversy", "Sachin_Tendulkar", "Elijah_Muhammad", "Mars_rover", "HMS_Erebus_(1826)", "Fr\u00e9d\u00e9ric_Chopin", "Usain_Bolt", "Catherine,_Duchess_of_Cambridge", "Islamic_State_of_Iraq_and_the_Levant", "FC_Bayern_Munich", "Richard_Branson", "Greg_Abbott", "Dragon", "Timoth\u00e9e_Chalamet", "Frankenstein", "Sting_(musician)", "Ridley_Scott", "Top_Gun", "Warren_Buffett", "Thomas_Wolfe", "John_Williams", "List_of_countries_by_GDP_(PPP)_per_capita", "Eddie_Redmayne", "Eugenics", "Neil_Armstrong", "Down_syndrome", "Nina_Simone", "Janis_Joplin", "10_Things_I_Hate_About_You", "Assassination_of_John_F._Kennedy", "Great_Wall_of_China", "Java_(programming_language)", "Michelle_Obama", "Emily_Blunt", "Julian_Assange", "Stevie_Wonder", "Alice_Cooper", "Bah\u00e1\u02bc\u00ed_Faith", "Rob_Lowe", "Alan_Rickman", "Lisa_Kudrow", "Jayne_Mansfield", "Angela_Bassett", "Tasuku_Honjo", "List_of_current_monarchs_of_sovereign_states", "Gypsy_Rose_Lee", "Soviet_Union", "B._R._Ambedkar", "KickassTorrents", "The_Band", "Demi_Lovato", "Marvel_Cinematic_Universe", "Keanu_Reeves", "2024_United_States_presidential_election", "M16_rifle", "Communism", "Association_football", "Richard_Pryor", "Yazidis", "Coca-Cola", "Alprazolam", "Gorillaz", "Al_Gore", "F._Scott_Fitzgerald", "Human_Sexuality", "Pink_(singer)", "A_Song_of_Ice_and_Fire", "Ivar_the_Boneless", "United_Kingdom", "Liam_Neeson", "The_Dark_Side_of_the_Moon", "GitHub", "Jason_Bateman", "Abbie_Hoffman", "Leprosy", "Lil_Uzi_Vert", "Alabama", "Bj\u00f6rn_Ironside", "Good_Times", "Milky_Way", "Sex_Education_(TV_series)", "Julia_Louis-Dreyfus", "Incel", "Ryan_Reynolds", "Umami", "Labrador_Retriever", "Chuck_Schumer", "Babylon", "List_of_James_Bond_films", "Frasier", "Nikola_Joki\u0107", "Johnson_&_Johnson_COVID-19_vaccine", "Star_Trek:_The_Next_Generation", "Jefferson_Davis", "Anne_of_Green_Gables", "Firefly_(TV_series)", "Narendra_Modi", "Harpocrates", "Ulysses_S._Grant", "Chris_Rock", "Cyndi_Lauper", "Schr\u00f6dinger's_cat", "IKEA", "Google_Classroom", "Elo_rating_system", "September_11_attacks", "Steve_Wozniak", "OnlyFans", "All-Russia_State_Television_and_Radio_Broadcasting_Company", "Kim_Basinger", "Emily_Dickinson", "Kamala_Harris", "Helen_Hunt", "Kim_Kardashian", "Now_You_See_Me_(film)", "Sojourner_(rover)", "Inter_Miami_CF", "Selena", "The_Blacklist_(TV_series)", "Diane_Keaton", "Eva_Longoria", "Ice-T", "Ant-Man_and_the_Wasp", "Franklin_D._Roosevelt", "List_of_best-selling_albums", "Harry_Styles", "Jacqueline_Kennedy_Onassis", "Berkshire_Hathaway", "Rodney_Dangerfield", "Kali", "France_24", "Virat_Kohli", "Presidency_of_Joe_Biden", "Washington,_D.C.", "Tottenham_Hotspur_F.C.", "Beagle", "Grace_and_Frankie", "Lockheed_SR-71_Blackbird", "Boardwalk_Empire", "WWE", "Yahoo!", "DC_Comics", "Ur_of_the_Chaldees", "Tesla,_Inc.", "Katie_Couric", "Lily_Tomlin", "Quicksilver_(Marvel_Comics)", "Michael_Schumacher", "RoboCop", "Maurice_Gibb", "Cate_Blanchett", "Little_Richard", "The_World's_Billionaires", "Nazi_Germany", "Frogmore_Cottage", "Space_Jam", "ISO_3103", "Florence_Nightingale", "Catherine_Zeta-Jones", "Pope_John_Paul_II", "Steven_Spielberg", "Dick_Van_Dyke", "The_Notebook", "Charles_de_Gaulle", "Radiohead", "Basque_language", "Mel_Blanc", "Angelina_Jolie", "Rage_Against_the_Machine", "Mohamed_Salah", "Roblox", "TikTok", "West_Bengal_Legislative_Assembly", "List_of_governors_of_New_York", "Mumford_&_Sons", "List_of_Disney_theatrical_animated_feature_films", "Virtual_private_network", "Future_(rapper)", "Andrew_Yang", "Costco", "Katy_Perry", "COVID-19_pandemic_in_the_United_Kingdom", "Elton_John", "Thomas_Edison", "List_of_countries_by_GDP_(PPP)", "Lucy_Liu", "It_(2017_film)", "Holodomor", "Ayn_Rand", "Helen_McCrory", "Lok_Sabha", "Ram_Nath_Kovind", "Juventus_F.C.", "Donald_Sutherland", "Generation_Alpha", "Harry_Potter", "Bachelor_of_Arts", "Camilla,_Duchess_of_Cornwall", "Young_Avengers", "Judy_Garland", "Tiffany_Haddish", "How_I_Met_Your_Mother", "ICC_Test_Championship", "Howard_Hughes", "Coldplay", "Ramadan", "Henry_VI_of_England", "50_Cent", "Helicobacter_pylori", "Rheumatoid_arthritis", "Keystone_Pipeline", "Wales", "Andy_Samberg", "Freemasonry", "Sid_Vicious", "Jamie_Chung", "Phoenix_Lights", "The_Notorious_B.I.G.", "Denzel_Washington", "Akihito", "Google_Play", "Bernie_Mac", "My_Hero_Academia", "The_Doors", "Constantinople", "Africa", "Pablo_Picasso", "Joanna_Lumley", "Virginia_Woolf", "Scientology", "Nazi_Party", "New_Deal", "Lionel_Richie", "Pitch_Perfect", "Freyja", "Albus_Dumbledore", "Queen_Elizabeth_The_Queen_Mother", "Hannibal_(2001_film)", "Indian_Idol", "Pope_Francis", "Goldie_Hawn", "Mary-Louise_Parker", "Ozzy_Osbourne", "M1_Abrams", "Andorra", "Jeremy_Irons", "Ed_Sheeran", "Armie_Hammer", "Treasure_Planet", "Kim_Jong-un", "Provinces_and_territories_of_Canada", "Janet_Jackson", "Sikkim", "Economy_of_India", "Saudi_Arabia", "Second_Boer_War", "Pet_Shop_Boys", "James_Brown", "Artificial_intelligence", "Hero_Fiennes_Tiffin", "Phil_McGraw", "Cameron_Diaz", "Steven_Seagal", "Google_Earth", "Scarlett_Johansson", "Mel_Gibson", "Ludacris", "Golden_Globe_Awards", "Mark_Twain", "Roger_Ailes", "New7Wonders_of_the_World", "Spotify", "Isaac_Newton", "Jessica_Biel", "Marcus_Rashford", "List_of_best-selling_manga", "Ernest_Hemingway", "Yuri_Gagarin", "Colombia", "Uttar_Pradesh", "Lynyrd_Skynyrd", "Barbiturate", "IP_address", "Prince_Louis_of_Cambridge", "New_Jersey", "Ike_Turner", "Northrop_Grumman_B-2_Spirit", "Avril_Lavigne", "James_Cromwell", "2021_ICC_Men's_T20_World_Cup", "Ramones", "Snoop_Dogg", "Little_Women", "Eminem", "Law_Abiding_Citizen", "Sandy_Hook_Elementary_School_shooting", "Fascism", "Franz_Kafka", "Johan_Cruyff", "War", "M\u00f6tley_Cr\u00fce", "Satan", "Joy_Division", "Saint_Patrick's_Day", "Mean_Girls", "Earthquake", "Min_Aung_Hlaing", "Frank_Langella", "Crips", "Kate_Beckinsale", "Dire_Straits", "Sciatica", "Tropic_Thunder", "Teetotalism", "Mormonism", "Slipknot_(band)", "Coach_Carter", "Continent", "Eleanor_Roosevelt", "Roger_Moore", "Rick_Ross", "Perseverance_(rover)", "Indiana_Jones_and_the_Temple_of_Doom", "Nicole_Kidman", "Ezra_Miller", "Diego_Maradona", "Ant-Man_(film)", "Julie_Bowen", "Jane_Austen", "Zeus", "Titanic_(1997_film)", "David_Paterson", "Creedence_Clearwater_Revival", "Aurangzeb", "David_Spade", "Philip_Seymour_Hoffman", "Guyana", "Equatorial_Guinea", "Bloods", "Ben_Shapiro", "ICC_Men's_T20_World_Cup", "Execution_of_the_Romanov_family", "Lauren_Bacall", "Sword_Art_Online", "Rooney_Mara", "Ukraine", "Good_Will_Hunting", "Curb_Your_Enthusiasm", "List_of_country_calling_codes", "Nickelodeon", "Breakfast_at_Tiffany's_(film)", "Liza_Minnelli", "System_of_a_Down", "Fairchild_Republic_A-10_Thunderbolt_II", "The_Hobbit_(film_series)", "Jamaica", "Starlink", "Rajesh_Khanna", "Prodigal_Son_(TV_series)", "Cloverfield", "The_Alchemist_(novel)", "NATO", "Ku_Klux_Klan", "David_Tennant", "Jeremy_Renner", "Pamela_Anderson", "Bette_Davis", "Alien_(film)", "Imran_Khan", "NASA", "Desperate_Housewives", "Treaty_of_Roskilde", "Miley_Cyrus", "Generation_Z", "Sherlock_(TV_series)", "Generation_X", "John_Malkovich", "Taika_Waititi", "Sarah_Silverman", "Pablo_Escobar", "Jesse_Eisenberg", "Stephen_Fry", "Jair_Bolsonaro", "Shirley_Temple", "Yemeni_Civil_War_(2014\u2013present)", "Mayim_Bialik", "List_of_programs_broadcast_by_Nickelodeon", "List_of_stadiums_by_capacity", "IPhone", "Tammy_Baldwin", "Tom_Clancy", "Phil_Chisnall", "Dionysus", "Austria", "Anime", "Hentai", "Dwight_D._Eisenhower", "Russell_Wilson", "Citizen_Kane", "Odisha", "Neil_Young", "Fukushima_Daiichi_nuclear_disaster", "Cara_Delevingne", "Louis_Farrakhan", "Rick_James", "Avatar_(2009_film)", "Monarchy_of_the_United_Kingdom", "Spider-Man", "Bridget_Fonda", "List_of_popes", "Ethiopia", "California_grizzly_bear", "Ron_Johnson_(Wisconsin_politician)", "Hanging_Gardens_of_Babylon", "Brooklyn_Nets", "Operation_Barbarossa", "HTTP_404", "Gulf_War", "Doctor_of_Philosophy", "Pakistan", "Reddit", "Michael_Douglas", "Emoji", "Rush_(band)", "Vic_Morrow", "List_of_prime_ministers_of_the_United_Kingdom", "Gladiator_(2000_film)", "Domantas_Sabonis", "Anne_Frank", "Ayaan_Hirsi_Ali", "Dravida_Munnetra_Kazhagam", "Frank_Lampard", "Jennifer_Lopez", "Bangladesh", "The_Starry_Night", "Quran", "Alfred_Molina", "Jennifer_Jason_Leigh", "Mel_Brooks", "Black_hole", "Ingenuity_(helicopter)", "Daylight_saving_time", "Mount_Vesuvius", "Ivanka_Trump", "Grease_(film)", "Ben_Stiller", "Mike_Myers", "Idi_Amin", "California", "Book_of_Enoch", "Coming_to_America", "Mississippi", "List_of_largest_companies_by_revenue", "List_of_longest-reigning_monarchs", "Zsa_Zsa_Gabor", "Loretta_Lynn", "Rodrigo_Duterte", "Jerry_Rubin", "The_Lighthouse_(2019_film)", "Rothschild_family", "Website", "Hannibal_Lecter", "Akbar", "Emma_(2020_film)", "The_West_Wing", "Woodrow_Wilson", "Buddhism", "Eric_Harris_and_Dylan_Klebold", "Indian_Super_League", "Nat_King_Cole", "The_dress", "Alexis_Bledel", "List_of_most-liked_TikTok_videos", "The_Godfather_Part_III", "Blink-182", "Killing_of_George_Floyd", "Ava_Max", "Laurence_Fishburne", "Four_Horsemen_of_the_Apocalypse", "Boys_Over_Flowers_(TV_series)", "Oliver_Cromwell", "The_Fresh_Prince_of_Bel-Air", "John_Forbes_Nash_Jr.", "Willem_Dafoe", "Chris_Evans_(actor)", "Uyghurs", "Inglourious_Basterds", "Labour_Party_(UK)", "Jamie_Lee_Curtis", "Wyoming", "Nick_Offerman", "Shaquille_O'Neal", "Polio", "Zoroastrianism", "ASCII", "Aerosmith", "Elizabeth_B\u00e1thory", "One_Flew_Over_the_Cuckoo's_Nest_(film)", "India_national_cricket_team", "Rome", "Hells_Angels", "Tomb_Raider", "Windows_10", "Event_Horizon_(film)", "The_Wizard_of_Oz_(1939_film)", "PBS", "TLA+", "William_Shatner", "Hunter_S._Thompson", "Book_of_Mormon", "Suga_(rapper)", "Mortal_Kombat", "Shreya_Ghoshal", "Sputnik_V_COVID-19_vaccine", "Doordarshan", "Family_of_Barack_Obama", "Queen_Victoria", "Sepsis", "Albert_II,_Prince_of_Monaco", "Jacinda_Barrett", "George_Foreman", "Don_Rickles", "Lucifer", "BBC_World_Service", "Silk_Road_(marketplace)", "Ella_Fitzgerald", "The_Conjuring", "George_Washington", "West_Virginia", "Life_of_Pi_(film)", "Walter_Gretzky", "Neil_deGrasse_Tyson", "Bupropion", "Millennials", "Carol_Danvers", "Racketeering", "Midsomer_Murders", "United_States_presidential_line_of_succession", "Clark_Gable", "2021", "Human_penis", "George_III", "Lymphoma", "Football", "Mike_Krzyzewski", "One_Direction", "Will_Ferrell", "Rachel_Dolezal", "Laura_Linney", "Classification_of_demons", "Chess", "National_Hockey_League", "John_McAfee", "Jean-Claude_Van_Damme", "Davido", "Formula_One", "Fulham_F.C.", "Caitlyn_Jenner", "Valentina_Tereshkova", "Prime_number", "Money_Heist", "Frank_Ocean", "List_of_most-disliked_YouTube_videos", "House_of_Saxe-Coburg_and_Gotha", "Boris_Johnson", "Human", "Google", "Sylvia_Plath", "Bhopal_disaster", "Tanzania", "Suez_Crisis", "Liev_Schreiber", "COVID-19_pandemic_in_India", "Fairuza_Balk", "Suzi_Quatro", "Richard_Jewell", "Anna_Nicole_Smith", "Sustainable_Development_Goals", "Taiwan", "Brie_Larson", "Leonard_Cohen", "Sex_and_the_City", "Dawson's_Creek", "Mr._Potato_Head", "Lent", "Dyatlov_Pass_incident", "Aaron_Sorkin", "Pocahontas", "2020\u201321_United_States_network_television_schedule", "Leukemia", "Albert_Einstein", "Aberfan_disaster", "Ken_Jennings", "Los_Angeles", "Apocalypto", "Vietnam", "Matthew_Broderick", "Jim_Crow_laws", "Bad_Bunny", "Chicago_Seven", "Columbine_High_School_massacre", "Nigersaurus", "Princess_Margaret,_Countess_of_Snowdon", "Dan_Aykroyd", "Emmett_Till", "Liverpool_F.C.", "Bernie_Sanders", "Project_MKUltra", "American_Mafia", "Ravi_Zacharias", "National_Football_League", "Jonathan_(tortoise)", "Seven_(1995_film)", "Alex_Jones", "HBO_Max", "Jos\u00e9_Mourinho", "Jeff_Bridges", "Jack_Nicholson", "Gout", "The_Godfather", "Jeremy_Lin", "Vlad_the_Impaler", "UEFA_Europa_League", "Brian_Sicknick", "J._J._Watt", "White_House", "The_Wheel_of_Time", "Robert_Kardashian", "Amy_Winehouse", "Chuck_Norris", "Catholic_Church", "Julie_Andrews", "Sexual_intercourse", "Betty_White", "Theresa_May", "Climate_change", "Pornhub", "Rhodesia", "Eric_Clapton", "Hannibal_(TV_series)", "Deep_Purple", "Rob_Reiner", "A_Clockwork_Orange_(film)", "John_Adams", "Bob_Hope", "Sperm_whale", "Raynaud_syndrome", "Android_(operating_system)", "Big_Bang", "Nike,_Inc.", "Pok\u00e9mon_(anime)", "John_Kerry", "Fidel_Castro", "Indiana_Jones", "Magna_Carta", "Alec_Baldwin", "Gerd_M\u00fcller", "Wil_Wheaton", "Brazil_national_football_team", "Leaning_Tower_of_Pisa", "The_Voice_(American_TV_series)", "N,N-Dimethyltryptamine", "Edward_VI_of_England", "Ja'far_al-Sadiq", "Kaley_Cuoco", "Joe_Rogan", "Black_Panther_Party", "Stellan_Skarsg\u00e5rd", "Confederate_States_of_America", "2022_FIFA_World_Cup", "SpongeBob_SquarePants", "Pride_&_Prejudice_(2005_film)", "Akshay_Kumar", "Mount_Rushmore", "Chaos_magic", "Suriname", "Ren\u00e9e_Zellweger", "Greenland", "King_Kong_(2005_film)", "Prince_Philip,_Duke_of_Edinburgh", "Natasha_Lyonne", "A*_search_algorithm", "Meryl_Streep", "Death_of_Adolf_Hitler", "Peyton_Manning", "Unsimulated_sex", "Mother_Teresa", "Kevin_Durant", "Flipkart", "Jamie_Foxx", "Maine_Coon", "Helen_Reddy", "Freddie_Mercury", "Waco_siege", "John_Glenn", "Romelu_Lukaku", "J._Jayalalithaa", "2020_Summer_Olympics", "Batman_Begins", "Justice_League_(film)", "Oscar_Isaac", "Cabinet_of_Joe_Biden", "Katharine_Hepburn", "Hugh_Hefner", "Caste_system_in_India", "1996_United_States_presidential_election", "Harry_Potter_and_the_Philosopher's_Stone_(film)", "Dawn_French", "Toy_Story", "Thanos", "Kristen_Bell", "Van_Halen", "List_of_Marvel_Cinematic_Universe_films", "Kings_of_Leon", "Eva_Per\u00f3n", "Lisa_(rapper)", "Lynda_Carter", "Nephilim", "Poisson_distribution", "Lebanon", "Manhattan_(1979_film)", "Krishna", "Mauritania", "Stevie_Ray_Vaughan", "Camera_obscura", "Oasis_(band)", "French_language", "Elizabeth_of_York", "Kathy_Bates", "Thomas_Jefferson", "Ashton_Kutcher", "William_the_Conqueror", "Harvey_Keitel", "South_Africa", "MAPPA_(studio)", "Luxembourg", "Emu_War", "Ashoka", "Manute_Bol", "Kanye_West", "Fingering_(sexual_act)", "Cricket_World_Cup", "Caligula", "War_of_1812", "The_Impossible_(2012_film)", "Coronavirus", "Charles_Bronson", "Joan_Crawford", "Dunblane_massacre", "Adele", "Clubhouse_(app)", "27_Club", "Mona_Lisa", "Dances_with_Wolves", "Native_Americans_in_the_United_States", "M4_carbine", "Frederick_Douglass", "L\u00e9a_Seydoux", "Jordan_Peele", "Channing_Tatum", "Rock_Hudson", "Russia", "Jamal_Khashoggi", "Capricorn_(astrology)", "Edward_VII", "Marie_Curie", "Michael_Pe\u00f1a", "Tom_Hardy", "James_Corden", "Statue_of_Liberty", "Thomas_M\u00fcller", "Prime_Minister_of_the_United_Kingdom", "Disney+", "Bernard_Arnault", "Zac_Efron", "RuPaul's_Drag_Race", "Synesthesia", "Larry_King", "The_Good_Place", "List_of_video_games_considered_the_best", "Ricky_Gervais", "Margaret_Thatcher", "Northern_Ireland", "Indonesia", "Indian_National_Congress", "Video_game", "Wuthering_Heights", "Melanie_C", "Benedict_Cumberbatch", "Independence_Day_(Ghana)", "Capital_punishment", "The_Revenant_(2015_film)", "Istanbul", "Samuel_L._Jackson", "Bob_Newhart", "Astrology_and_the_classical_elements", "Milla_Jovovich", "World_Wide_Web", "Jonas_Brothers", "Jeff_Bezos", "2019\u201321_ICC_World_Test_Championship", "Hasselblad", "Lolita", "Turkey", "Susan_Sarandon", "Live_Aid", "North_America", "Isabel_Allende", "Dylann_Roof", "Schindler's_List", "Leonard_Nimoy", "Tim_Roth", "Kerry_Washington", "Mariel_Hemingway", "Wikimedia_Foundation", "Jesus", "Taxi_Driver", "President_of_India", "Tutankhamun", "Jared_Leto", "Marcia_Gay_Harden", "Catalytic_converter", "Reese_Witherspoon", "Microsoft_Teams", "Frank_Bruno", "Kaaba", "The_Godfather_Part_II", "Batman", "Rickrolling", "Dave_Chappelle", "Neoliberalism", "Astral_projection", "Charles_II_of_Spain", "RuPaul's_Drag_Race_UK", "Bee_Gees", "Facebook_Messenger", "HIV", "Sam_Worthington", "Jennifer_Doudna", "Ronda_Rousey", "Kevin_Costner", "Emma_Thompson", "Rennie_Davis", "Noah_Schnapp", "David_Dobrik", "Jim_Carrey", "Ma_Rainey", "Japan", "Standard_deviation", "Commodus", "Gin", "Rammstein", "Google_Maps", "Guantanamo_Bay_detention_camp", "Joe_Biden", "Israel_Adesanya", "General_Dynamics_F-16_Fighting_Falcon", "Django_Unchained", "Bruce_Willis", "Blade_Runner", "Dassault_Aviation", "Spice_Girls", "Charles_I_of_England", "Sal\u00f2,_or_the_120_Days_of_Sodom", "List_of_countries_by_foreign-exchange_reserves", "Rajkummar_Rao", "Grand_Theft_Auto", "Candace_Owens", "Skyfall", "Banksy", "List_of_theological_demons", "Lana_Del_Rey", "2018_FIFA_World_Cup", "List_of_Harry_Potter_cast_members", "Monica_Bellucci", "Bill_de_Blasio", "Captain_America", "Sylvester_Stallone", "Mansa_Musa", "Casablanca_(film)", "Celts", "Coeliac_disease", "24_(TV_series)", "Manga", "List_of_TCP_and_UDP_port_numbers", "North_Sentinel_Island", "Intermittent_fasting", "James_Franco", "The_Bachelor_(American_TV_series)", "Tupac_Shakur", "Los_Angeles_Lakers", "Lisa_Murkowski", "Van_Morrison", "James_Earl_Jones", "Michael_Jordan", "Harry_Potter_(film_series)", "Rupert_Everett", "Sanfilippo_syndrome", "Suleiman_the_Magnificent", "Nicolas_Sarkozy", "Heaven's_Gate_(religious_group)", "Crohn's_disease", "Blood_type", "Yul_Brynner", "Pete_Buttigieg", "Arsenal_F.C.", "Nasdaq", "Islam", "Anjelica_Huston", "Nikolaj_Coster-Waldau", "Blue_whale", "Minimum_wage_in_the_United_States", "Scooby-Doo", "State_of_Palestine", "92nd_Academy_Awards", "Ken_Jeong", "Al_Jazeera", "Helena_Bonham_Carter", "Tsar_Bomba", "Oklahoma_City_bombing", "Ides_of_March", "World's_Strongest_Man", "Ice_Cube", "Tokugawa_Ieyasu", "Brandon_Lee", "7_March_Speech_of_Bangabandhu", "Goodfellas", "Back_to_the_Future", "The_Big_Lebowski", "Constitutional_monarchy", "Cougar", "Millie_Bobby_Brown", "Rafael_Caro_Quintero", "Skathi_(moon)", "Lyndon_B._Johnson", "Bernese_Mountain_Dog", "Howard_Stern", "Cuba", "Leonardo_da_Vinci", "Che_Guevara", "Eddie_Murphy", "Non-fungible_token", "Email", "Malcolm_McDowell", "The_Legend_of_Zelda", "LVMH", "Andrea_Bocelli", "CoronaVac", "Grimes_(musician)", "Discord_(software)", "Javier_Bardem", "Kama_Sutra", "La_Liga", "Lupus", "MF_Doom", "John_Legend", "Equal_Rights_Amendment", "Lou_Reed", "List_of_tallest_buildings", "New_York_City", "Mr._&_Mrs._Smith_(2005_film)", "Manchester_United_F.C.", "Evan_Rachel_Wood", "Rotten_Tomatoes", "Marco_Pierre_White", "The_Last_of_Us_Part_II", "Magnum,_P.I.", "Linda_Ronstadt", "Jack_Lemmon", "James_Dean", "Lionel_Messi", "Paradise_Lost", "Rockwell_B-1_Lancer", "Rogue_One", "Russell_Crowe", "Chris_Martin", "Eli_Cohen", "Treaty_of_Versailles", "Chris_Pratt", "Journey_(band)", "Assertiveness", "List_of_Money_Heist_episodes", "Marie_Antoinette", "IMDb", "Mary_I_of_England", "Ralph_Fiennes", "Humphrey_Bogart", "David_Schwimmer", "The_Terminator", "Feminism", "Paul_Simon", "List_of_best-selling_music_artists", "Alexandra_Hedison", "George_Michael", "Dominican_Republic", "Falklands_War", "Johnny_Carson", "Mount_Everest", "Barack_Obama", "Joker_(character)", "Diana_Ross", "List_of_Disney+_original_programming", "Paul_McCartney", "Eurovision_Song_Contest_2021", "Brian_Jones", "Tokugawa_shogunate", "Korean_War", "Cowboy_Bebop", "Rocky", "Untitled_fourth_Matrix_film", "Alexandria_Ocasio-Cortez", "For_All_Mankind_(TV_series)", "Moon_Knight", "Tom_Felton", "Michael_Somare", "Jessica_Chastain", "Saint_Peter", "Rupert_Grint", "Labyrinth_(1986_film)", "Chris_Tucker", "Battle_of_Culloden", "Harvard_University", "Evan_Peters", "Jessica_Lange", "Turing_test", "Charles_Bronson_(prisoner)", "Dwayne_Johnson", "Iron_Maiden", "Sidney_Crosby", "Tim_Berners-Lee", "Blade_Runner_2049", "Antonio_Banderas", "Gone_Girl_(film)", "The_Martian_(film)", "X-Men_(film_series)", "Minecraft", "Zachary_Levi", "Pig", "List_of_European_Cup_and_UEFA_Champions_League_finals", "Pierre-Emerick_Aubameyang", "John_D._Rockefeller", "Don_Ameche", "Inception", "Mansoor_Ali_Khan_Pataudi", "Olivia_Newton-John", "Killer_whale", "Democracy_Index", "Alexander_Hamilton", "Academy_Award_for_Best_Actor", "Deutsche_Welle", "Assam", "Trainspotting_(film)", "McDonald's", "Jared_Harris", "Benicio_del_Toro", "List_of_highest_mountains_on_Earth", "Haile_Selassie", "Thor_(film)", "Facebook,_Inc.", "Melissa_McCarthy", "Parkinson's_disease", "Casino_Royale_(2006_film)", "Volleyball", "Supergirl_(TV_series)", "English_language", "Royal_Navy", "Jerry_Lee_Lewis", "Maggie_Smith", "Billie_Jean_King", "Commonwealth_of_Nations", "TLC_(group)", "Karl_Malone", "Riven_Rock,_Montecito", "Guy_Pearce", "George_Soros", "Selena_Gomez", "Ada_Lovelace", "Christopher_Lee", "LeBron_James", "Aung_San_Suu_Kyi", "Constitution_of_India", "Indian_Premier_League", "Chris_Cornell", "Married..._with_Children", "Adidas", "2008_United_States_presidential_election", "2014_FIFA_World_Cup", "William_Shakespeare", "Ajith_Kumar", "International_Phonetic_Alphabet", "Coronavirus_disease_2019", "O._J._Simpson", "Burgess_Meredith", "Grace_Jones", "Mercury_(planet)", "Dharmendra", "Mexico", "Queen_(band)", "Tim_Daly", "Oscar_Pistorius", "United_Nations", "British_nobility", "Lance_Armstrong", "Charlie_Chaplin", "Badminton", "2010_FIFA_World_Cup", "Bradley_Cooper", "Mahabharata", "Lindsay_Lohan", "Kirk_Douglas", "Alex_Trebek", "Anthony_Eden", "Jimmy_Fallon", "White_people", "Ronaldinho", "Prince_Henry,_Duke_of_Gloucester", "Kate_Spade", "Jennifer_Lawrence", "Craig_Ferguson", "Henry_II_of_England", "Studio_Ghibli", "Kevin_Smith", "The_Three_Stooges", "Moneyball_(film)", "Grand_Slam_(tennis)", "Henry_Fonda", "Jyotirlinga", "Fantastic_Four_(2015_film)", "Seppuku", "Gone_with_the_Wind_(film)", "2011_T\u014dhoku_earthquake_and_tsunami", "Manhattan", "Prometheus_(2012_film)", "Fundamental_rights_in_India", "Fahrenheit_451", "Prince_George,_Duke_of_Kent", "Josh_Hawley", "The_Intouchables", "Bon_Jovi", "Al_Capone", "Justin_Trudeau", "Hedy_Lamarr", "Madagascar", "Coen_brothers", "Brandy_Norwood", "Pulp_Fiction", "Poland", "Layne_Staley", "Joan_Cusack", "Jim_Morrison", "Hip_hop_music", "Netflix", "Mediacorp", "Loki", "Fred_Rogers", "Enrique_Iglesias", "Monica_Rambeau", "The_Real_World_(TV_series)", "Jane_Seymour", "List_of_Bollywood_films_of_2020", "Paul_Newman", "Suicide_methods", "Invictus_(film)", "Caucasian_race", "List_of_Bollywood_films_of_2021", "Peter_Jackson", "Dennis_Hopper", "12_Years_a_Slave_(film)", "Joseph_Stalin", "Cellulitis", "4chan", "George_Lucas", "Gloria_Steinem", "Will.i.am", "The_Lord_of_the_Rings", "Rita_Hayworth", "George_Clooney", "Jennifer_Aniston", "Mother's_Day", "Alice_in_Chains", "2000_United_States_presidential_election", "Bundesliga", "Aladdin_(2019_film)", "List_of_Star_Trek_films_and_television_series", "Carl_Sagan", "R._Kelly", "Joseph_Goebbels", "1992_United_States_presidential_election", "Vikings_(2013_TV_series)", "2004_Indian_Ocean_earthquake_and_tsunami", "Al_Franken", "123Movies", "Stan_Laurel", "Shrek", "Martin_Freeman", "Wilhelm_II,_German_Emperor", "List_of_states_and_territories_of_the_United_States", "Tyrannosaurus", "Dikembe_Mutombo", "Emmanuel_Macron", "Fast_&_Furious", "Arnold_Schwarzenegger", "Mars", "Chelsea_F.C.", "Rudy_Giuliani", "List_of_countries_by_GDP_(nominal)", "Cunnilingus", "Allison_Stokke", "Benzodiazepine", "Leonardo_DiCaprio", "Rudyard_Kipling", "Academy_Awards", "Logan_Paul", "Grover_Cleveland", "Johnny_Cash", "Madhuri_Dixit", "The_Wire", "List_of_films_considered_the_best", "Shiva", "Intelligence_quotient", "The_Departed", "Steve_Irwin", "Henry_Ford", "Bear_Grylls", "The_French_Dispatch", "House_of_Windsor", "Golden_ratio", "Nancy_Sinatra", "Cricket", "Julius_Caesar", "House_(TV_series)", "Capybara", "Paul_Williams_(songwriter)", "Puerto_Rico", "Cast_Away", "Jeanne_Calment", "The_Princess_Bride_(film)", "Fran_Lebowitz", "George_R._R._Martin", "Ziggurat_of_Ur", "Tracy_Chapman", "Forest_Whitaker", "Rohit_Sharma", "Uyghur_genocide", "Prince_Edward,_Duke_of_Kent", "Avengers_(comics)", "Starbucks", "List_of_cities_in_India_by_population", "Jos\u00e9_Rizal", "The_Little_Mermaid_(upcoming_film)", "Kristin_Chenoweth", "List_of_musical_symbols", "Laura_Prepon", "Ethereum", "Morgan_Freeman", "Critics'_Choice_Movie_Awards", "Ron_DeSantis", "Dunkirk_(2017_film)", "Harry_Belafonte", "Fifty_Shades_of_Grey_(film)", "List_of_amendments_to_the_United_States_Constitution", "Janet_Yellen", "Chronostasis", "Fyre_Festival", "James_Bond", "Mariana_Trench", "Member_states_of_the_Commonwealth_of_Nations", "Mandy_Patinkin", "Lamborghini", "Oswald_Mosley", "Commonwealth_Day", "Burqa", "Tommy_Lee", "NCIS_(TV_series)", "Steely_Dan", "M*A*S*H_(TV_series)", "Paul_Hogan", "Armand_Duplantis", "Michael_B._Jordan", "Milgram_experiment", "Lucille_Ball", "Golden_Retriever", "Pornography", "Google_Scholar", "Hulkling", "Glenn_Close", "Monaco", "Boy_George", "Dr._Dre", "Ugly_Betty", "Legion_(TV_series)", "President_of_the_United_States", "Dean_Martin", "Hacksaw_Ridge", "The_Troubles", "Judi_Dench", "Saint_Patrick", "Starship_Troopers_(film)", "The_Suicide_Squad_(film)", "Emilio_Estevez", "List_of_programmes_broadcast_by_StarPlus", "William_Wallace", "Rollo", "Lewis_Hamilton", "Variance", "Statue_of_Unity", "British_Empire", "Viggo_Mortensen", "Northwest_Passage", "Kosovo", "Tommy_Wiseau", "Kristen_Wiig", "Atlanta", "Chico_Marx", "Game_of_Thrones", "Alfred_Hitchcock", "Google_Docs", "Cole_Sprouse", "Zodiac", "Scorpio_(astrology)", "Vaccine", "Adam_Brody", "Eric_Stonestreet", "Jimmy_Kimmel", "The_Cat_in_the_Hat", "Ratatouille_(film)", "Intersex", "McDonnell_Douglas_F-15_Eagle", "Nicki_Minaj", "Anne,_Princess_Royal", "Gisele_B\u00fcndchen", "Cambodia", "Nintendo", "Gilmore_Girls", "Fibromyalgia", "The_Incredible_Hulk_(film)", "Syria", "Looney_Tunes", "Famke_Janssen", "Sunny_Deol", "Impostor_syndrome", "French_Revolution", "RNA_vaccine", "Eric_Rudolph", "Vivien_Leigh", "James_Harden", "Hinduism", "Vulva", "Bahrain", "Triangle_Shirtwaist_Factory_fire", "Darkseid", "Paul_Giamatti", "Eyes_Wide_Shut", "Flo_Rida", "Cain_and_Abel", "Vincent_van_Gogh", "Louis_C.K.", "Myers\u2013Briggs_Type_Indicator", "Google_Chrome", "2021_in_film", "South_Korea", "Requiem_for_a_Dream", "List_of_most-viewed_YouTube_videos", "Mithali_Raj", "The_Ipcress_File_(film)", "Saw_(franchise)", "Solar_System", "Peppa_Pig", "Jean-Michel_Basquiat", "Dylan_O'Brien", "Anderson_Cooper", "List_of_Netflix_original_programming", "Wonder_Woman_(2017_film)", "OSI_model", "Swastika", "Bulgaria", "Backstreet_Boys", "Lupita_Nyong'o", "Georgia_Guidestones", "Selma_Blair", "Republican_Party_(United_States)", "Nelson_Mandela", "Scottish_Premiership", "Michael_Jackson", "Xi_Jinping", "Neanderthal", "Jupiter", "Mike_Tyson", "Noam_Chomsky", "2019_United_Kingdom_general_election", "Descendants_of_the_Sun", "New_Zealand", "Israel", "Barbra_Streisand", "The_Many_Saints_of_Newark", "Cardi_B", "Carole_King", "Andy_Warhol", "John_McCain", "Sino-Indian_War", "Malaysia", "Martin_Scorsese", "Ultimate_Fighting_Championship", "Omar_Sy", "The_Last_Supper_(Leonardo)", "Gandhi_(film)", "James_II_of_England", "The_Good,_the_Bad_and_the_Ugly", "Matthew_Shepard", "Kate_Winslet", "Warner_Bros.", "Carol_Burnett", "Mount_Etna", "George_H._W._Bush", "Operation_Northwoods", "The_Grand_Budapest_Hotel", "Sam_Taylor-Johnson", "Georgia_(country)", "Gordon_B._Hinckley", "Apartheid", "AK-47", "Cat_Stevens", "Charlton_Heston", "Ketogenic_diet", "Isaac_Asimov", "Mercedes-Benz", "Grace_Kelly", "Inuit", "Periodic_table", "Scotland", "The_Witcher", "Magneto_(Marvel_Comics)", "Eiffel_Tower", "Frank_Sinatra", "Google_Translate", "Miles_Davis", "Simon_Pegg", "Peter_Gabriel", "Watergate_scandal", "Richard_Gere", "Dyslexia", "To_Kill_a_Mockingbird", "List_of_metropolitan_statistical_areas", "PayPal", "Wayne_Brady", "Gal_Gadot", "Ron_Howard", "RuPaul's_Drag_Race_Down_Under", "Battle_of_the_Bulge", "Final_Fantasy", "Matt_Damon", "Herbert_Hoover", "Naomi_Watts", "Mormons", "Monica_Lewinsky", "Empire_of_the_Sun_(film)", "Phoebe_Waller-Bridge", "1989_Tiananmen_Square_protests", "Ohio", "Opossum", "Caroline_Kennedy", "Quantum_computing", "ZZ_Top", "XXX_(2002_film)", "Vice_President_of_the_United_States", "Vasa_(ship)", "Ian_McKellen", "Spanish_flu", "Portugal", "Brown_bear", "Edward_I_of_England", "Benjamin_Netanyahu", "Apep", "Mark_Ruffalo", "America_Ferrera", "Fyodor_Dostoevsky", "Bigfoot", "India", "93rd_Academy_Awards", "Sandra_Day_O'Connor", "Zhang_Ziyi", "Rajneesh", "Charles_II_of_England", "Joseph_Smith", "Germany", "Moldavite", "P._V._Sindhu", "Casey_Affleck", "George_I_of_Great_Britain", "Burj_Khalifa", "Byzantine_Empire", "Amanda_Gorman", "Beowulf", "Stockholm_syndrome", "A_Beautiful_Mind_(film)", "The_Mamas_&_the_Papas", "Average_human_height_by_country", "M\u0101ori_people", "Richard_III_of_England", "John_Lithgow", "Saint_Petersburg", "Martin_Sheen", "Valerie_Bertinelli", "Mick_Jagger", "Iraq_War", "Dalai_Lama", "Roy_Orbison", "Tom_and_Jerry", "Switzerland", "Tina_Turner", "Amazon_(company)", "Louis_XIV", "The_Dark_Knight_Rises", "Kelly_Clarkson", "The_Sopranos", "Eastern_Time_Zone", "Courtney_Love", "Patrick_J._Kennedy", "Polymerase_chain_reaction", "Proud_Boys", "The_Invisible_Man_(2020_film)", "Mark_Zuckerberg", "Phil_Collins", "Strawberry", "2021_Myanmar_coup_d'\u00e9tat", "Dennis_Rodman", "The_Marvelous_Mrs._Maisel", "Nikita_Khrushchev", "Europe", "Legality_of_cannabis_by_U.S._jurisdiction", "Chernobyl_disaster", "Adolf_Eichmann", "Wonder_Woman", "Call_Me_by_Your_Name_(film)", "David", "Meghan,_Duchess_of_Sussex", "Arnab_Goswami", "Alicia_Vikander", "Comfort_women", "Billie_Eilish", "David_Bowie", "Rebecca_Romijn", "Blockchain", "The_Pirate_Bay", "South_Park", "Sudden_arrhythmic_death_syndrome", "Jaggi_Vasudev", "Zack_Snyder's_Justice_League", "Area_51", "Thomas_Sowell", "Bunny_Wailer", "Fargo_(TV_series)", "FIFA_World_Cup", "Alfred_the_Great", "Modern_Family", "Hrithik_Roshan", "God_of_War_(franchise)", "Gilligan's_Island", "Terence_Stamp", "Christianity", "Indian_Air_Force", "Doctor_Who", "Wilt_Chamberlain", "Matt_Dillon", "Mitt_Romney", "Chappelle's_Show", "Leviathan", "Paula_Abdul", "Cary_Grant", "Braveheart", "Jada_Pinkett_Smith", "Pok\u00e9mon_(video_game_series)", "Planet_of_the_Apes", "Mark_Thatcher", "Type_A_and_Type_B_personality_theory", "Pok\u00e9mon", "John_Bonham", "The_Big_Bang_Theory", "Friends", "Gemma_Chan", "Errol_Flynn", "Martha_Stewart", "Pulmonary_embolism", "Saving_Private_Ryan", "Olivia_Wilde", "New_Kids_on_the_Block", "OPEC", "Moonlight_(2016_film)", "Martin_Lawrence", "S&P_500", "Donald_Trump", "Edward_Norton", "Royal_Households_of_the_United_Kingdom", "Eurofighter_Typhoon", "Carom_billiards", "Prince_Michael_of_Kent", "Sarah_Jessica_Parker", "The_Matrix_Reloaded", "Francisco_Franco", "Telegram_(software)", "Rwandan_genocide", "David_Niven", "2004_United_States_presidential_election", "Evil_eye", "Khmer_Rouge", "Yemen", "Danny_DeVito", "James_Stewart", "Syd_Barrett", "Gabapentin", "Doctor_Strange_(2016_film)", "List_of_countries_by_GDP_(nominal)_per_capita", "Crispin_Glover", "List_of_national_parks_of_the_United_States", "Vin_Diesel", "Gross_domestic_product", "Longest_word_in_English", "Missouri", "Elizabeth_I", "Celtic_F.C.", "Coco_(2017_film)", "Elizabeth_Banks", "Kamala_Khan", "The_Social_Network", "Magnus_Carlsen", "Google_Forms", "Mirage", "Nero", "Tuskegee_Syphilis_Study", "Brunei", "William_H._Macy", "Operation_Market_Garden", "Rashtriya_Swayamsevak_Sangh", "Dunning\u2013Kruger_effect", "Jon_Voight", "Myanmar", "Atomic_bombings_of_Hiroshima_and_Nagasaki", "Franklin's_lost_expedition", "Carrara_marble", "The_Lion_King_(2019_film)", "Mariah_Carey", "Masturbation", "Sleep_paralysis", "Canadian_Broadcasting_Corporation", "Susan_B._Anthony", "Yugoslavia", "Homeland_(TV_series)", "List_of_highest-grossing_films", "Polycystic_ovary_syndrome", "Brexit", "Ship_of_Theseus", "United_States_Senate", "Andrew_Garfield", "Ruby_Ridge", "Band_of_Brothers_(miniseries)", "Jimmy_Floyd_Hasselbaink", "Fran_Drescher", "Josephine_Baker", "Katrina_Kaif", "Lobotomy", "Dua_Lipa", "Zoom_Video_Communications", "Zamfara_kidnapping", "Mohanlal", "Prince_Richard,_Duke_of_Gloucester", "Gene_Simmons", "Cold_War", "Venus", "Democracy", "Eduardo_Saverin", "Talking_Heads", "Instagram", "Death_of_Diana,_Princess_of_Wales", "Singapore", "2020_in_film", "Narcissism", "Melania_Trump", "Zendaya", "Ian_Holm", "Jack_the_Ripper", "Green_Book_(film)", "Romania", "Boeing_B-52_Stratofortress", "Benedict_Arnold", "Qigong", "Hayao_Miyazaki", "List_of_best-selling_books", "David_Beckham", "Space_Shuttle_Challenger_disaster", "Sacha_Baron_Cohen", "Black_Sabbath", "Archangel", "Rose_McGowan", "EFL_Championship", "2020_United_States_presidential_election", "Adobe_Photoshop", "Adam_Sandler", "Francis_Crozier", "List_of_female_billionaires", "Robert_Plant", "Felicity_Jones", "Onward_(film)", "Waylon_Jennings", "United_States", "Nora_Fatehi", "Charles_Manson", "United_States_House_of_Representatives", "Tsunami", "Vanessa_Redgrave", "Mario_Cuomo", "LGBT", "YouTube", "Sengoku_period", "Alan_Arkin", "Final_Fantasy_VII", "List_of_highest-grossing_Indian_films", "One-Punch_Man", "Machu_Picchu", "Starship_development_history", "Everton_F.C.", "Prince_of_Wales", "Bhagavad_Gita", "Red_Dead_Redemption_2", "Lucifer_(TV_series)", "Cultural_Revolution", "Nigel_Farage", "Blackpink", "Idris_Elba", "International_Men's_Day", "Hank_Azaria", "China_Global_Television_Network", "The_Catcher_in_the_Rye", "List_of_most_expensive_paintings", "Theodore_Roosevelt", "Emma_Stone", "NATO_phonetic_alphabet", "Borat", "Fight_Club", "Sade_(singer)", "Scandal_(TV_series)", "Hulu", "Israel_Kamakawiwo\u02bbole", "Julia_Child", "Robert_Pattinson", "Daniel_Dae_Kim", "List_of_ATP_number_1_ranked_singles_tennis_players", "Alcubierre_drive", "List_of_best-selling_video_games", "CRISPR", "Francis_II_of_France", "Serie_A", "Komodo_dragon", "M._Night_Shyamalan", "American_Dad!", "Ready_Player_One_(film)", "Gregory_Peck", "Amish", "Lord's_Prayer", "Shania_Twain", "Rabies", "David_Cameron", "Bill_Clinton", "HTML", "Amal_Clooney", "Sharon_Osbourne", "Indian_Space_Research_Organisation", "Johnny_Depp", "Zlatan_Ibrahimovi\u0107", "Demographics_of_the_United_States", "Jackie_Robinson", "Tramadol", "Facebook", "Hugo_Weaving", "Hungary", "Robert_De_Niro", "Prince_William,_Duke_of_Cambridge", "Tom_Petty", "Diarrhea", "Beastie_Boys", "Octopus", "Trevor_Noah", "Spud_Webb", "Nicolas_Cage", "International_Space_Station", "Tom_Hayden", "Outlook.com", "Ruhollah_Khomeini", "Premier_League", "Carrie_Fisher", "List_of_Indian_states_and_union_territories_by_GDP", "Egypt", "Kombucha", "Frank_Zappa", "Gorr_the_God_Butcher", "Catherine_of_Aragon", "Octavia_E._Butler", "John_Franklin", "Swami_Vivekananda", "A_Fish_Called_Wanda", "Graham_Norton", "Saina_Nehwal", "Zero_Dark_Thirty", "Indira_Gandhi", "Ivy_League", "John_Quincy_Adams", "List_of_English_monarchs", "Ciara", "This_Is_Spinal_Tap", "Moby-Dick", "James_Gunn", "Cloud_computing", "Marcus_Aurelius", "Bosnia_and_Herzegovina", "Valhalla", "Oscar_Wilde", "Sam_Cooke", "Shinee", "Rupert_Murdoch", "Toy_Story_4", "Joaqu\u00edn_\"El_Chapo\"_Guzm\u00e1n"])
+}
+$c_Lcom_nicolaswinsten_wikibrain_articles$.prototype = new $h_O();
+$c_Lcom_nicolaswinsten_wikibrain_articles$.prototype.constructor = $c_Lcom_nicolaswinsten_wikibrain_articles$;
+/** @constructor */
+function $h_Lcom_nicolaswinsten_wikibrain_articles$() {
+  /*<skip>*/
+}
+$h_Lcom_nicolaswinsten_wikibrain_articles$.prototype = $c_Lcom_nicolaswinsten_wikibrain_articles$.prototype;
+var $d_Lcom_nicolaswinsten_wikibrain_articles$ = new $TypeData().initClass({
+  Lcom_nicolaswinsten_wikibrain_articles$: 0
+}, false, "com.nicolaswinsten.wikibrain.articles$", {
+  Lcom_nicolaswinsten_wikibrain_articles$: 1,
+  O: 1
+});
+$c_Lcom_nicolaswinsten_wikibrain_articles$.prototype.$classData = $d_Lcom_nicolaswinsten_wikibrain_articles$;
+var $n_Lcom_nicolaswinsten_wikibrain_articles$;
+function $m_Lcom_nicolaswinsten_wikibrain_articles$() {
+  if ((!$n_Lcom_nicolaswinsten_wikibrain_articles$)) {
+    $n_Lcom_nicolaswinsten_wikibrain_articles$ = new $c_Lcom_nicolaswinsten_wikibrain_articles$()
+  };
+  return $n_Lcom_nicolaswinsten_wikibrain_articles$
+}
 function $s_Lcom_nicolaswinsten_wikibrain_index__main__AT__V(args) {
   $m_Lcom_nicolaswinsten_wikibrain_index$().main__AT__V(args)
 }
 /** @constructor */
 function $c_Lcom_nicolaswinsten_wikibrain_index$() {
+  this.Lcom_nicolaswinsten_wikibrain_index$__f_emptyPage = null;
+  this.Lcom_nicolaswinsten_wikibrain_index$__f_currentPage = null;
   this.Lcom_nicolaswinsten_wikibrain_index$__f_wordBox = null;
+  this.Lcom_nicolaswinsten_wikibrain_index$__f_guess = null;
+  this.Lcom_nicolaswinsten_wikibrain_index$__f_rerollBtn = null;
+  this.Lcom_nicolaswinsten_wikibrain_index$__f_correctGuesses = null;
   $n_Lcom_nicolaswinsten_wikibrain_index$ = this;
-  this.Lcom_nicolaswinsten_wikibrain_index$__f_wordBox = $m_sci_Set$EmptySet$()
+  this.Lcom_nicolaswinsten_wikibrain_index$__f_emptyPage = new $c_Lcom_nicolaswinsten_wikibrain_Page("", "", $m_sci_Set$EmptySet$(), $m_s_None$());
+  this.Lcom_nicolaswinsten_wikibrain_index$__f_currentPage = this.Lcom_nicolaswinsten_wikibrain_index$__f_emptyPage;
+  this.Lcom_nicolaswinsten_wikibrain_index$__f_wordBox = $m_sci_Set$EmptySet$();
+  var this$3 = $m_Lscalatags_JsDom$all$();
+  var $$x1 = this$3.input__Lscalatags_JsDom$TypedTag();
+  var array = [$m_Lscalatags_JsDom$all$().type__Lscalatags_generic_Attr().$colon$eq__O__Lscalatags_generic_AttrValue__Lscalatags_generic_AttrPair("text", $m_Lscalatags_JsDom$all$().Lscalatags_JsDom$all$__f_stringAttr)];
+  this.Lcom_nicolaswinsten_wikibrain_index$__f_guess = $$x1.apply__sci_Seq__Lscalatags_JsDom$TypedTag(new $c_sjsr_WrappedVarArgs(array)).render__Lorg_scalajs_dom_raw_Element();
+  this.Lcom_nicolaswinsten_wikibrain_index$__f_guess.onkeypress = ((arg1$2) => $m_Lcom_nicolaswinsten_wikibrain_index$().com$nicolaswinsten$wikibrain$index$$$anonfun$new$1__Lorg_scalajs_dom_raw_KeyboardEvent__O(arg1$2));
+  var this$7 = $m_Lscalatags_JsDom$all$();
+  var $$x2 = this$7.button__Lscalatags_JsDom$TypedTag();
+  var array$1 = [$m_Lscalatags_JsDom$all$().id__Lscalatags_generic_Attr().$colon$eq__O__Lscalatags_generic_AttrValue__Lscalatags_generic_AttrPair("reroll", $m_Lscalatags_JsDom$all$().Lscalatags_JsDom$all$__f_stringAttr), ($m_Lscalatags_JsDom$all$(), new $c_Lscalatags_JsDom$StringFrag("Reroll!"))];
+  this.Lcom_nicolaswinsten_wikibrain_index$__f_rerollBtn = $$x2.apply__sci_Seq__Lscalatags_JsDom$TypedTag(new $c_sjsr_WrappedVarArgs(array$1)).render__Lorg_scalajs_dom_raw_Element();
+  this.Lcom_nicolaswinsten_wikibrain_index$__f_rerollBtn.onclick = ((arg1$2$1) => {
+    $m_Lcom_nicolaswinsten_wikibrain_index$();
+    $m_Lcom_nicolaswinsten_wikibrain_index$().reroll__V()
+  });
+  var this$13 = $m_Lscalatags_JsDom$all$();
+  var $$x3 = this$13.ul__Lscalatags_JsDom$TypedTag();
+  var array$2 = [$m_Lscalatags_JsDom$all$().id__Lscalatags_generic_Attr().$colon$eq__O__Lscalatags_generic_AttrValue__Lscalatags_generic_AttrPair("correct-guesses", $m_Lscalatags_JsDom$all$().Lscalatags_JsDom$all$__f_stringAttr)];
+  this.Lcom_nicolaswinsten_wikibrain_index$__f_correctGuesses = $$x3.apply__sci_Seq__Lscalatags_JsDom$TypedTag(new $c_sjsr_WrappedVarArgs(array$2)).render__Lorg_scalajs_dom_raw_Element()
 }
 $c_Lcom_nicolaswinsten_wikibrain_index$.prototype = new $h_O();
 $c_Lcom_nicolaswinsten_wikibrain_index$.prototype.constructor = $c_Lcom_nicolaswinsten_wikibrain_index$;
@@ -1228,81 +1240,92 @@ function $h_Lcom_nicolaswinsten_wikibrain_index$() {
 }
 $h_Lcom_nicolaswinsten_wikibrain_index$.prototype = $c_Lcom_nicolaswinsten_wikibrain_index$.prototype;
 $c_Lcom_nicolaswinsten_wikibrain_index$.prototype.main__AT__V = (function(args) {
-  $m_Lcom_nicolaswinsten_wikibrain_Scraper$().fetchPage__T__s_concurrent_Future("google").onComplete__F1__s_concurrent_ExecutionContext__V(new $c_sjsr_AnonFunction1(((this$1) => ((x0$1$2) => {
+  $m_Lorg_scalajs_dom_package$().document__Lorg_scalajs_dom_raw_HTMLDocument().body.appendChild(this.Lcom_nicolaswinsten_wikibrain_index$__f_guess);
+  $m_Lorg_scalajs_dom_package$().document__Lorg_scalajs_dom_raw_HTMLDocument().body.appendChild(this.Lcom_nicolaswinsten_wikibrain_index$__f_rerollBtn);
+  var $$x2 = $m_Lorg_scalajs_dom_package$().document__Lorg_scalajs_dom_raw_HTMLDocument().body;
+  var this$1 = $m_Lscalatags_JsDom$all$();
+  var $$x1 = this$1.div__Lscalatags_JsDom$TypedTag();
+  var this$2 = $m_Lscalatags_JsDom$all$();
+  var e = this.Lcom_nicolaswinsten_wikibrain_index$__f_correctGuesses;
+  var array = [new $c_Lscalatags_LowPriorityImplicits$bindNode(this$2, e)];
+  $$x2.appendChild($$x1.apply__sci_Seq__Lscalatags_JsDom$TypedTag(new $c_sjsr_WrappedVarArgs(array)).render__Lorg_scalajs_dom_raw_Element())
+});
+$c_Lcom_nicolaswinsten_wikibrain_index$.prototype.reroll__V = (function() {
+  var this$2 = $m_s_Console$();
+  var this$3 = this$2.out__Ljava_io_PrintStream();
+  this$3.java$lang$JSConsoleBasedPrintStream$$printString__T__V("rerolling...\n");
+  $m_Lcom_nicolaswinsten_wikibrain_Scraper$().getRandomPage__s_concurrent_Future().onComplete__F1__s_concurrent_ExecutionContext__V(new $c_sjsr_AnonFunction1(((this$4) => ((x0$1$2) => {
     var x0$1 = $as_s_util_Try(x0$1$2);
     if ((x0$1 instanceof $c_s_util_Success)) {
       var x2 = $as_s_util_Success(x0$1);
-      var value = $as_T(x2.s_util_Success__f_value);
-      var this$3 = $m_s_Console$();
-      var this$4 = this$3.out__Ljava_io_PrintStream();
-      this$4.java$lang$JSConsoleBasedPrintStream$$printString__T__V((value + "\n"))
+      var newPage = $as_Lcom_nicolaswinsten_wikibrain_Page(x2.s_util_Success__f_value);
+      if (($m_Lcom_nicolaswinsten_wikibrain_index$().Lcom_nicolaswinsten_wikibrain_index$__f_currentPage.Lcom_nicolaswinsten_wikibrain_Page__f_title === newPage.Lcom_nicolaswinsten_wikibrain_Page__f_title)) {
+        $m_Lcom_nicolaswinsten_wikibrain_index$().reroll__V()
+      } else {
+        $m_Lcom_nicolaswinsten_wikibrain_index$().Lcom_nicolaswinsten_wikibrain_index$__f_currentPage = newPage;
+        $m_Lcom_nicolaswinsten_wikibrain_index$().updatePageDisplay__V()
+      }
     } else if ((x0$1 instanceof $c_s_util_Failure)) {
       var x3 = $as_s_util_Failure(x0$1);
-      var e = x3.s_util_Failure__f_exception;
-      throw $m_sjsr_package$().unwrapJavaScriptException__jl_Throwable__O(e)
-    } else {
-      throw new $c_s_MatchError(x0$1)
-    }
-  }))(this)), $m_sjs_concurrent_JSExecutionContext$Implicits$().sjs_concurrent_JSExecutionContext$Implicits$__f_queue);
-  var this$5 = $m_Lscalatags_JsDom$all$();
-  var $$x1 = this$5.button__Lscalatags_JsDom$TypedTag();
-  var array = [$m_Lscalatags_JsDom$all$().id__Lscalatags_generic_Attr().$colon$eq__O__Lscalatags_generic_AttrValue__Lscalatags_generic_AttrPair("reroll", $m_Lscalatags_JsDom$all$().Lscalatags_JsDom$all$__f_stringAttr), ($m_Lscalatags_JsDom$all$(), new $c_Lscalatags_JsDom$StringFrag("Reroll!"))];
-  var reroll = $$x1.apply__sci_Seq__Lscalatags_JsDom$TypedTag(new $c_sjsr_WrappedVarArgs(array)).render__Lorg_scalajs_dom_raw_Element();
-  var this$11 = $m_s_Console$();
-  var this$12 = this$11.out__Ljava_io_PrintStream();
-  this$12.java$lang$JSConsoleBasedPrintStream$$printString__T__V((reroll + "\n"));
-  reroll.addEventListener("click", ((arg1$2) => {
-    $m_Lcom_nicolaswinsten_wikibrain_index$().com$nicolaswinsten$wikibrain$index$$$anonfun$main$2__Lorg_scalajs_dom_raw_MouseEvent__V(arg1$2)
-  }));
-  $m_Lorg_scalajs_dom_package$().document__Lorg_scalajs_dom_raw_HTMLDocument().body.appendChild(reroll)
-});
-$c_Lcom_nicolaswinsten_wikibrain_index$.prototype.updatePageDisplay__Lcom_nicolaswinsten_wikibrain_Page__V = (function(page) {
-  var display = $m_Lorg_scalajs_dom_package$().document__Lorg_scalajs_dom_raw_HTMLDocument().getElementById("page-display");
-  var this$1 = $m_Lscalatags_JsDom$all$();
-  var $$x1 = this$1.h1__Lscalatags_JsDom$TypedTag();
-  $m_Lscalatags_JsDom$all$();
-  var v = page.Lcom_nicolaswinsten_wikibrain_Page__f_title;
-  var array = [new $c_Lscalatags_JsDom$StringFrag(v)];
-  display.appendChild($$x1.apply__sci_Seq__Lscalatags_JsDom$TypedTag(new $c_sjsr_WrappedVarArgs(array)).render__Lorg_scalajs_dom_raw_Element());
-  var this$6 = page.Lcom_nicolaswinsten_wikibrain_Page__f_image;
-  if ((!this$6.isEmpty__Z())) {
-    var this$7 = $m_Lscalatags_JsDom$all$();
-    var $$x2 = this$7.img__Lscalatags_JsDom$TypedTag();
-    var array$1 = [$m_Lscalatags_JsDom$all$().src__Lscalatags_generic_Attr().$colon$eq__O__Lscalatags_generic_AttrValue__Lscalatags_generic_AttrPair(page.Lcom_nicolaswinsten_wikibrain_Page__f_image.get__O(), $m_Lscalatags_JsDom$all$().Lscalatags_JsDom$all$__f_stringAttr)];
-    display.appendChild($$x2.apply__sci_Seq__Lscalatags_JsDom$TypedTag(new $c_sjsr_WrappedVarArgs(array$1)).render__Lorg_scalajs_dom_raw_Element())
-  };
-  var x1 = page.Lcom_nicolaswinsten_wikibrain_Page__f_image;
-  if ((x1 instanceof $c_s_Some)) {
-    var x2 = $as_s_Some(x1);
-    var file = $as_T(x2.s_Some__f_value);
-    var this$11 = $m_Lscalatags_JsDom$all$();
-    var $$x3 = this$11.img__Lscalatags_JsDom$TypedTag();
-    var array$2 = [$m_Lscalatags_JsDom$all$().src__Lscalatags_generic_Attr().$colon$eq__O__Lscalatags_generic_AttrValue__Lscalatags_generic_AttrPair(file, $m_Lscalatags_JsDom$all$().Lscalatags_JsDom$all$__f_stringAttr)];
-    display.appendChild($$x3.apply__sci_Seq__Lscalatags_JsDom$TypedTag(new $c_sjsr_WrappedVarArgs(array$2)).render__Lorg_scalajs_dom_raw_Element())
-  };
-  var this$15 = $m_Lscalatags_JsDom$all$();
-  var $$x4 = this$15.h3__Lscalatags_JsDom$TypedTag();
-  $m_Lscalatags_JsDom$all$();
-  var v$1 = page.Lcom_nicolaswinsten_wikibrain_Page__f_desc;
-  var array$3 = [new $c_Lscalatags_JsDom$StringFrag(v$1)];
-  display.appendChild($$x4.apply__sci_Seq__Lscalatags_JsDom$TypedTag(new $c_sjsr_WrappedVarArgs(array$3)).render__Lorg_scalajs_dom_raw_Element());
-  this.Lcom_nicolaswinsten_wikibrain_index$__f_wordBox = page.Lcom_nicolaswinsten_wikibrain_Page__f_items
-});
-$c_Lcom_nicolaswinsten_wikibrain_index$.prototype.com$nicolaswinsten$wikibrain$index$$$anonfun$main$2__Lorg_scalajs_dom_raw_MouseEvent__V = (function(e) {
-  $m_Lcom_nicolaswinsten_wikibrain_Scraper$().getRandomPage__s_concurrent_Future().onComplete__F1__s_concurrent_ExecutionContext__V(new $c_sjsr_AnonFunction1(((this$1) => ((x0$2$2) => {
-    var x0$2 = $as_s_util_Try(x0$2$2);
-    if ((x0$2 instanceof $c_s_util_Success)) {
-      var x2 = $as_s_util_Success(x0$2);
-      var page = $as_Lcom_nicolaswinsten_wikibrain_Page(x2.s_util_Success__f_value);
-      $m_Lcom_nicolaswinsten_wikibrain_index$().updatePageDisplay__Lcom_nicolaswinsten_wikibrain_Page__V(page)
-    } else if ((x0$2 instanceof $c_s_util_Failure)) {
-      var x3 = $as_s_util_Failure(x0$2);
       var exception = x3.s_util_Failure__f_exception;
       throw $m_sjsr_package$().unwrapJavaScriptException__jl_Throwable__O(exception)
     } else {
-      throw new $c_s_MatchError(x0$2)
+      throw new $c_s_MatchError(x0$1)
     }
   }))(this)), $m_sjs_concurrent_JSExecutionContext$Implicits$().sjs_concurrent_JSExecutionContext$Implicits$__f_queue)
+});
+$c_Lcom_nicolaswinsten_wikibrain_index$.prototype.updatePageDisplay__V = (function() {
+  var display = $m_Lorg_scalajs_dom_package$().document__Lorg_scalajs_dom_raw_HTMLDocument().getElementById("page-display");
+  display.innerHTML = "";
+  var this$1 = $m_Lscalatags_JsDom$all$();
+  var $$x1 = this$1.h1__Lscalatags_JsDom$TypedTag();
+  $m_Lscalatags_JsDom$all$();
+  var v = this.Lcom_nicolaswinsten_wikibrain_index$__f_currentPage.Lcom_nicolaswinsten_wikibrain_Page__f_title;
+  var array = [new $c_Lscalatags_JsDom$StringFrag(v)];
+  display.appendChild($$x1.apply__sci_Seq__Lscalatags_JsDom$TypedTag(new $c_sjsr_WrappedVarArgs(array)).render__Lorg_scalajs_dom_raw_Element());
+  var this$6 = this.Lcom_nicolaswinsten_wikibrain_index$__f_currentPage.Lcom_nicolaswinsten_wikibrain_Page__f_image;
+  if ((!this$6.isEmpty__Z())) {
+    var arg1 = this$6.get__O();
+    var file = $as_T(arg1);
+    var this$7 = $m_Lscalatags_JsDom$all$();
+    var $$x2 = this$7.img__Lscalatags_JsDom$TypedTag();
+    var array$1 = [$m_Lscalatags_JsDom$all$().src__Lscalatags_generic_Attr().$colon$eq__O__Lscalatags_generic_AttrValue__Lscalatags_generic_AttrPair(file, $m_Lscalatags_JsDom$all$().Lscalatags_JsDom$all$__f_stringAttr)];
+    display.appendChild($$x2.apply__sci_Seq__Lscalatags_JsDom$TypedTag(new $c_sjsr_WrappedVarArgs(array$1)).render__Lorg_scalajs_dom_raw_Element())
+  };
+  var this$11 = $m_Lscalatags_JsDom$all$();
+  var $$x3 = this$11.h3__Lscalatags_JsDom$TypedTag();
+  $m_Lscalatags_JsDom$all$();
+  var v$1 = this.Lcom_nicolaswinsten_wikibrain_index$__f_currentPage.Lcom_nicolaswinsten_wikibrain_Page__f_desc;
+  var array$2 = [new $c_Lscalatags_JsDom$StringFrag(v$1)];
+  display.appendChild($$x3.apply__sci_Seq__Lscalatags_JsDom$TypedTag(new $c_sjsr_WrappedVarArgs(array$2)).render__Lorg_scalajs_dom_raw_Element());
+  this.Lcom_nicolaswinsten_wikibrain_index$__f_wordBox = this.Lcom_nicolaswinsten_wikibrain_index$__f_currentPage.Lcom_nicolaswinsten_wikibrain_Page__f_items
+});
+$c_Lcom_nicolaswinsten_wikibrain_index$.prototype.makeGuess__T__V = (function(answer) {
+  if (this.Lcom_nicolaswinsten_wikibrain_index$__f_wordBox.contains__O__Z(answer)) {
+    var x = ("user correctly guessed " + answer);
+    var this$2 = $m_s_Console$();
+    var this$3 = this$2.out__Ljava_io_PrintStream();
+    this$3.java$lang$JSConsoleBasedPrintStream$$printString__T__V((x + "\n"));
+    var $$x2 = this.Lcom_nicolaswinsten_wikibrain_index$__f_correctGuesses;
+    var this$4 = $m_Lscalatags_JsDom$all$();
+    var $$x1 = this$4.li__Lscalatags_JsDom$TypedTag();
+    var array = [($m_Lscalatags_JsDom$all$(), new $c_Lscalatags_JsDom$StringFrag(answer))];
+    $$x2.appendChild($$x1.apply__sci_Seq__Lscalatags_JsDom$TypedTag(new $c_sjsr_WrappedVarArgs(array)).render__Lorg_scalajs_dom_raw_Element())
+  } else {
+    var x$1 = ("user incorrectly guessed " + answer);
+    var this$10 = $m_s_Console$();
+    var this$11 = this$10.out__Ljava_io_PrintStream();
+    this$11.java$lang$JSConsoleBasedPrintStream$$printString__T__V((x$1 + "\n"))
+  }
+});
+$c_Lcom_nicolaswinsten_wikibrain_index$.prototype.com$nicolaswinsten$wikibrain$index$$$anonfun$new$1__Lorg_scalajs_dom_raw_KeyboardEvent__O = (function(e) {
+  if (($as_T(e.key) === "Enter")) {
+    $m_Lcom_nicolaswinsten_wikibrain_index$().makeGuess__T__V($as_T($m_Lcom_nicolaswinsten_wikibrain_index$().Lcom_nicolaswinsten_wikibrain_index$__f_guess.value));
+    $m_Lcom_nicolaswinsten_wikibrain_index$().Lcom_nicolaswinsten_wikibrain_index$__f_guess.value = "";
+    return (void 0)
+  } else {
+    return (void 0)
+  }
 });
 var $d_Lcom_nicolaswinsten_wikibrain_index$ = new $TypeData().initClass({
   Lcom_nicolaswinsten_wikibrain_index$: 0
@@ -2882,19 +2905,6 @@ function $f_sc_IterableOnceOps__exists__F1__Z($thiz, p) {
 function $f_sc_IterableOnceOps__isEmpty__Z($thiz) {
   return (!$as_sc_IterableOnce($thiz).iterator__sc_Iterator().hasNext__Z())
 }
-function $f_sc_IterableOnceOps__size__I($thiz) {
-  if (($as_sc_IterableOnce($thiz).knownSize__I() >= 0)) {
-    return $as_sc_IterableOnce($thiz).knownSize__I()
-  } else {
-    var it = $as_sc_IterableOnce($thiz).iterator__sc_Iterator();
-    var len = 0;
-    while (it.hasNext__Z()) {
-      len = ((1 + len) | 0);
-      it.next__O()
-    };
-    return len
-  }
-}
 function $f_sc_IterableOnceOps__copyToArray__O__I__I__I($thiz, xs, start, len) {
   var it = $as_sc_IterableOnce($thiz).iterator__sc_Iterator();
   var i = start;
@@ -3821,6 +3831,62 @@ $c_sci_VectorStatics$.prototype.foreachRec__I__AO__F1__V = (function(level, a, f
     }
   }
 });
+$c_sci_VectorStatics$.prototype.mapElems1__AO__F1__AO = (function(a, f) {
+  var i = 0;
+  while ((i < a.u.length)) {
+    var v1 = a.get(i);
+    var v2 = f.apply__O__O(v1);
+    if ((!Object.is(v1, v2))) {
+      return this.mapElems1Rest__AO__F1__I__O__AO(a, f, i, v2)
+    };
+    i = ((1 + i) | 0)
+  };
+  return a
+});
+$c_sci_VectorStatics$.prototype.mapElems1Rest__AO__F1__I__O__AO = (function(a, f, at, v2) {
+  var ac = new $ac_O(a.u.length);
+  if ((at > 0)) {
+    a.copyTo(0, ac, 0, at)
+  };
+  ac.set(at, v2);
+  var i = ((1 + at) | 0);
+  while ((i < a.u.length)) {
+    ac.set(i, f.apply__O__O(a.get(i)));
+    i = ((1 + i) | 0)
+  };
+  return ac
+});
+$c_sci_VectorStatics$.prototype.mapElems__I__AO__F1__AO = (function(n, a, f) {
+  if ((n === 1)) {
+    return this.mapElems1__AO__F1__AO(a, f)
+  } else {
+    var i = 0;
+    while ((i < a.u.length)) {
+      var v1 = a.get(i);
+      var v2 = this.mapElems__I__AO__F1__AO((((-1) + n) | 0), $asArrayOf_O(v1, 1), f);
+      if ((v1 !== v2)) {
+        return this.mapElemsRest__I__AO__F1__I__O__AO(n, a, f, i, v2)
+      };
+      i = ((1 + i) | 0)
+    };
+    return a
+  }
+});
+$c_sci_VectorStatics$.prototype.mapElemsRest__I__AO__F1__I__O__AO = (function(n, a, f, at, v2) {
+  var componentType = $objectGetClass(a).getComponentType__jl_Class();
+  var length = a.u.length;
+  var ac = $asArrayOf_O($m_jl_reflect_Array$().newInstance__jl_Class__I__O(componentType, length), 1);
+  if ((at > 0)) {
+    a.copyTo(0, ac, 0, at)
+  };
+  ac.set(at, v2);
+  var i = ((1 + at) | 0);
+  while ((i < a.u.length)) {
+    ac.set(i, this.mapElems__I__AO__F1__AO((((-1) + n) | 0), $asArrayOf_O(a.get(i), 1), f));
+    i = ((1 + i) | 0)
+  };
+  return ac
+});
 var $d_sci_VectorStatics$ = new $TypeData().initClass({
   sci_VectorStatics$: 0
 }, false, "scala.collection.immutable.VectorStatics$", {
@@ -3843,6 +3909,15 @@ function $isArrayOf_scm_HashMap$Node(obj, depth) {
 }
 function $asArrayOf_scm_HashMap$Node(obj, depth) {
   return (($isArrayOf_scm_HashMap$Node(obj, depth) || (obj === null)) ? obj : $throwArrayCastException(obj, "Lscala.collection.mutable.HashMap$Node;", depth))
+}
+function $as_scm_HashSet$Node(obj) {
+  return ((false || (obj === null)) ? obj : $throwClassCastException(obj, "scala.collection.mutable.HashSet$Node"))
+}
+function $isArrayOf_scm_HashSet$Node(obj, depth) {
+  return (!(!(((obj && obj.$classData) && (obj.$classData.arrayDepth === depth)) && obj.$classData.arrayBase.ancestors.scm_HashSet$Node)))
+}
+function $asArrayOf_scm_HashSet$Node(obj, depth) {
+  return (($isArrayOf_scm_HashSet$Node(obj, depth) || (obj === null)) ? obj : $throwArrayCastException(obj, "Lscala.collection.mutable.HashSet$Node;", depth))
 }
 /** @constructor */
 function $c_scm_MutationTracker$() {
@@ -4131,12 +4206,6 @@ $c_s_concurrent_Future$.prototype.successful__O__s_concurrent_Future = (function
 });
 $c_s_concurrent_Future$.prototype.fromTry__s_util_Try__s_concurrent_Future = (function(result) {
   return $ct_s_concurrent_impl_Promise$DefaultPromise__s_util_Try__(new $c_s_concurrent_impl_Promise$DefaultPromise(), result)
-});
-$c_s_concurrent_Future$.prototype.apply__F0__s_concurrent_ExecutionContext__s_concurrent_Future = (function(body, executor) {
-  return this.s_concurrent_Future$__f_unit.map__F1__s_concurrent_ExecutionContext__s_concurrent_Future(new $c_sjsr_AnonFunction1(((this$1, body$1) => ((x$4$2) => {
-    $as_jl_Void(x$4$2);
-    return body$1.apply__O()
-  }))(this, body)), executor)
 });
 $c_s_concurrent_Future$.prototype.sequence__sc_IterableOnce__sc_BuildFrom__s_concurrent_ExecutionContext__s_concurrent_Future = (function(in$1, bf, executor) {
   var this$1 = in$1.iterator__sc_Iterator();
@@ -5135,18 +5204,6 @@ function $f_s_util_matching_Regex$MatchData__group__T__T($thiz, id) {
     }
   }
 }
-function $is_s_util_matching_Regex$MatchData(obj) {
-  return (!(!((obj && obj.$classData) && obj.$classData.ancestors.s_util_matching_Regex$MatchData)))
-}
-function $as_s_util_matching_Regex$MatchData(obj) {
-  return (($is_s_util_matching_Regex$MatchData(obj) || (obj === null)) ? obj : $throwClassCastException(obj, "scala.util.matching.Regex$MatchData"))
-}
-function $isArrayOf_s_util_matching_Regex$MatchData(obj, depth) {
-  return (!(!(((obj && obj.$classData) && (obj.$classData.arrayDepth === depth)) && obj.$classData.arrayBase.ancestors.s_util_matching_Regex$MatchData)))
-}
-function $asArrayOf_s_util_matching_Regex$MatchData(obj, depth) {
-  return (($isArrayOf_s_util_matching_Regex$MatchData(obj, depth) || (obj === null)) ? obj : $throwArrayCastException(obj, "Lscala.util.matching.Regex$MatchData;", depth))
-}
 /** @constructor */
 function $c_Lscalatags_Escaping$() {
   this.Lscalatags_Escaping$__f_tagRegex = null;
@@ -5704,6 +5761,112 @@ function $isArrayOf_jl_Throwable(obj, depth) {
 function $asArrayOf_jl_Throwable(obj, depth) {
   return (($isArrayOf_jl_Throwable(obj, depth) || (obj === null)) ? obj : $throwArrayCastException(obj, "Ljava.lang.Throwable;", depth))
 }
+function $p_ju_Random__loop$1__I__I($thiz, n$1) {
+  while (true) {
+    var bits = $thiz.next__I__I(31);
+    var value = $intMod(bits, n$1);
+    if ((((((bits - value) | 0) + (((-1) + n$1) | 0)) | 0) < 0)) {
+      /*<skip>*/
+    } else {
+      return value
+    }
+  }
+}
+function $ct_ju_Random__J__($thiz, seed_in) {
+  $thiz.ju_Random__f_haveNextNextGaussian = false;
+  $thiz.setSeed__J__V(seed_in);
+  return $thiz
+}
+function $ct_ju_Random__($thiz) {
+  $ct_ju_Random__J__($thiz, $m_ju_Random$().java$util$Random$$randomSeed__J());
+  return $thiz
+}
+/** @constructor */
+function $c_ju_Random() {
+  this.ju_Random__f_seedHi = 0;
+  this.ju_Random__f_seedLo = 0;
+  this.ju_Random__f_nextNextGaussian = 0.0;
+  this.ju_Random__f_haveNextNextGaussian = false
+}
+$c_ju_Random.prototype = new $h_O();
+$c_ju_Random.prototype.constructor = $c_ju_Random;
+/** @constructor */
+function $h_ju_Random() {
+  /*<skip>*/
+}
+$h_ju_Random.prototype = $c_ju_Random.prototype;
+$c_ju_Random.prototype.setSeed__J__V = (function(seed_in) {
+  var lo = ((-554899859) ^ seed_in.RTLong__f_lo);
+  var hi = (5 ^ seed_in.RTLong__f_hi);
+  var hi$1 = (65535 & hi);
+  var lo$1 = (((lo >>> 24) | 0) | (hi$1 << 8));
+  this.ju_Random__f_seedHi = lo$1;
+  this.ju_Random__f_seedLo = (16777215 & lo);
+  this.ju_Random__f_haveNextNextGaussian = false
+});
+$c_ju_Random.prototype.next__I__I = (function(bits) {
+  var oldSeedHi = this.ju_Random__f_seedHi;
+  var oldSeedLo = this.ju_Random__f_seedLo;
+  var loProd = ((1.5525485E7 * oldSeedLo) + 11.0);
+  var hiProd = ((1502.0 * oldSeedLo) + (1.5525485E7 * oldSeedHi));
+  var x = (loProd / 1.6777216E7);
+  var newSeedHi = (16777215 & (($uI((x | 0)) + (16777215 & $uI((hiProd | 0)))) | 0));
+  var newSeedLo = (16777215 & $uI((loProd | 0)));
+  this.ju_Random__f_seedHi = newSeedHi;
+  this.ju_Random__f_seedLo = newSeedLo;
+  var result32 = ((newSeedHi << 8) | (newSeedLo >> 16));
+  return ((result32 >>> ((32 - bits) | 0)) | 0)
+});
+$c_ju_Random.prototype.nextInt__I__I = (function(n) {
+  if ((n <= 0)) {
+    throw $ct_jl_IllegalArgumentException__T__(new $c_jl_IllegalArgumentException(), "n must be positive")
+  } else {
+    return (((n & ((-n) | 0)) === n) ? (this.next__I__I(31) >> $clz32(n)) : $p_ju_Random__loop$1__I__I(this, n))
+  }
+});
+var $d_ju_Random = new $TypeData().initClass({
+  ju_Random: 0
+}, false, "java.util.Random", {
+  ju_Random: 1,
+  O: 1,
+  Ljava_io_Serializable: 1
+});
+$c_ju_Random.prototype.$classData = $d_ju_Random;
+function $p_ju_Random$__randomInt__I($thiz) {
+  var a = (4.294967296E9 * $uD(Math.random()));
+  return $doubleToInt(($uD(Math.floor(a)) - 2.147483648E9))
+}
+/** @constructor */
+function $c_ju_Random$() {
+  /*<skip>*/
+}
+$c_ju_Random$.prototype = new $h_O();
+$c_ju_Random$.prototype.constructor = $c_ju_Random$;
+/** @constructor */
+function $h_ju_Random$() {
+  /*<skip>*/
+}
+$h_ju_Random$.prototype = $c_ju_Random$.prototype;
+$c_ju_Random$.prototype.java$util$Random$$randomSeed__J = (function() {
+  var value = $p_ju_Random$__randomInt__I(this);
+  var value$1 = $p_ju_Random$__randomInt__I(this);
+  return new $c_RTLong(value$1, value)
+});
+var $d_ju_Random$ = new $TypeData().initClass({
+  ju_Random$: 0
+}, false, "java.util.Random$", {
+  ju_Random$: 1,
+  O: 1,
+  Ljava_io_Serializable: 1
+});
+$c_ju_Random$.prototype.$classData = $d_ju_Random$;
+var $n_ju_Random$;
+function $m_ju_Random$() {
+  if ((!$n_ju_Random$)) {
+    $n_ju_Random$ = new $c_ju_Random$()
+  };
+  return $n_ju_Random$
+}
 function $ct_ju_concurrent_atomic_AtomicReference__O__($thiz, value) {
   $thiz.ju_concurrent_atomic_AtomicReference__f_value = value;
   return $thiz
@@ -6093,6 +6256,83 @@ $c_ju_regex_Matcher.prototype.find__Z = (function() {
     return false
   }
 });
+$c_ju_regex_Matcher.prototype.appendReplacement__jl_StringBuffer__T__ju_regex_Matcher = (function(sb, replacement) {
+  var this$1 = this.ju_regex_Matcher__f_inputstr;
+  var beginIndex = this.ju_regex_Matcher__f_appendPos;
+  var endIndex = this.start__I();
+  sb.append__T__jl_StringBuffer($as_T(this$1.substring(beginIndex, endIndex)));
+  var len = $uI(replacement.length);
+  var i = 0;
+  while ((i < len)) {
+    var index = i;
+    var x1 = (65535 & $uI(replacement.charCodeAt(index)));
+    switch (x1) {
+      case 36: {
+        i = ((1 + i) | 0);
+        var j = i;
+        while (true) {
+          var $$x1;
+          if ((i < len)) {
+            var index$1 = i;
+            var c = (65535 & $uI(replacement.charCodeAt(index$1)));
+            $$x1 = ((c >= 48) && (c <= 57))
+          } else {
+            $$x1 = false
+          };
+          if ($$x1) {
+            i = ((1 + i) | 0)
+          } else {
+            break
+          }
+        };
+        var endIndex$1 = i;
+        var s = $as_T(replacement.substring(j, endIndex$1));
+        var this$2 = $m_jl_Integer$();
+        var group = this$2.parseInt__T__I__I(s, 10);
+        var replaced = this.group__I__T(group);
+        if ((replaced !== null)) {
+          sb.append__T__jl_StringBuffer(replaced)
+        };
+        break
+      }
+      case 92: {
+        i = ((1 + i) | 0);
+        if ((i < len)) {
+          var index$2 = i;
+          sb.append__C__jl_StringBuffer((65535 & $uI(replacement.charCodeAt(index$2))))
+        };
+        i = ((1 + i) | 0);
+        break
+      }
+      default: {
+        sb.append__C__jl_StringBuffer(x1);
+        i = ((1 + i) | 0)
+      }
+    }
+  };
+  this.ju_regex_Matcher__f_appendPos = this.end__I();
+  return this
+});
+$c_ju_regex_Matcher.prototype.appendTail__jl_StringBuffer__jl_StringBuffer = (function(sb) {
+  var this$1 = this.ju_regex_Matcher__f_inputstr;
+  var beginIndex = this.ju_regex_Matcher__f_appendPos;
+  sb.append__T__jl_StringBuffer($as_T(this$1.substring(beginIndex)));
+  var this$3 = this.ju_regex_Matcher__f_inputstr;
+  this.ju_regex_Matcher__f_appendPos = $uI(this$3.length);
+  return sb
+});
+$c_ju_regex_Matcher.prototype.replaceAll__T__T = (function(replacement) {
+  this.reset__ju_regex_Matcher();
+  var sb = $ct_jl_StringBuffer__(new $c_jl_StringBuffer());
+  while (this.find__Z()) {
+    this.appendReplacement__jl_StringBuffer__T__ju_regex_Matcher(sb, replacement)
+  };
+  this.appendTail__jl_StringBuffer__jl_StringBuffer(sb);
+  return sb.toString__T()
+});
+$c_ju_regex_Matcher.prototype.reset__ju_regex_Matcher = (function() {
+  return this.region__I__I__ju_regex_Matcher(0, $dp_length__I(this.ju_regex_Matcher__f_input0))
+});
 $c_ju_regex_Matcher.prototype.start__I = (function() {
   return (($uI($p_ju_regex_Matcher__ensureLastMatch__sjs_js_RegExp$ExecResult(this).index) + this.ju_regex_Matcher__f_regionStart0) | 0)
 });
@@ -6128,6 +6368,12 @@ $c_ju_regex_Matcher.prototype.group__I__T = (function(group) {
 $c_ju_regex_Matcher.prototype.group__T__T = (function(name) {
   $p_ju_regex_Matcher__ensureLastMatch__sjs_js_RegExp$ExecResult(this);
   throw $ct_jl_IllegalArgumentException__(new $c_jl_IllegalArgumentException())
+});
+$c_ju_regex_Matcher.prototype.region__I__I__ju_regex_Matcher = (function(start, end) {
+  this.ju_regex_Matcher__f_regionStart0 = start;
+  this.ju_regex_Matcher__f_regionEnd0 = end;
+  this.ju_regex_Matcher__f_inputstr = $dp_toString__T($dp_subSequence__I__I__jl_CharSequence(this.ju_regex_Matcher__f_input0, this.ju_regex_Matcher__f_regionStart0, this.ju_regex_Matcher__f_regionEnd0));
+  return $p_ju_regex_Matcher__resetMatch__ju_regex_Matcher(this)
 });
 var $d_ju_regex_Matcher = new $TypeData().initClass({
   ju_regex_Matcher: 0
@@ -6953,30 +7199,6 @@ var $d_sc_BuildFromLowPriority2$$anon$11 = new $TypeData().initClass({
 });
 $c_sc_BuildFromLowPriority2$$anon$11.prototype.$classData = $d_sc_BuildFromLowPriority2$$anon$11;
 /** @constructor */
-function $c_sc_BuildFromLowPriority2$$anon$12(outer) {
-  /*<skip>*/
-}
-$c_sc_BuildFromLowPriority2$$anon$12.prototype = new $h_O();
-$c_sc_BuildFromLowPriority2$$anon$12.prototype.constructor = $c_sc_BuildFromLowPriority2$$anon$12;
-/** @constructor */
-function $h_sc_BuildFromLowPriority2$$anon$12() {
-  /*<skip>*/
-}
-$h_sc_BuildFromLowPriority2$$anon$12.prototype = $c_sc_BuildFromLowPriority2$$anon$12.prototype;
-$c_sc_BuildFromLowPriority2$$anon$12.prototype.newBuilder__O__scm_Builder = (function(from) {
-  $as_sc_Iterator(from);
-  $m_sc_Iterator$();
-  return new $c_sc_Iterator$$anon$21()
-});
-var $d_sc_BuildFromLowPriority2$$anon$12 = new $TypeData().initClass({
-  sc_BuildFromLowPriority2$$anon$12: 0
-}, false, "scala.collection.BuildFromLowPriority2$$anon$12", {
-  sc_BuildFromLowPriority2$$anon$12: 1,
-  O: 1,
-  sc_BuildFrom: 1
-});
-$c_sc_BuildFromLowPriority2$$anon$12.prototype.$classData = $d_sc_BuildFromLowPriority2$$anon$12;
-/** @constructor */
 function $c_sci_$colon$colon$() {
   /*<skip>*/
 }
@@ -7612,6 +7834,33 @@ function $m_s_util_Left$() {
   };
   return $n_s_util_Left$
 }
+function $ct_s_util_Random__ju_Random__($thiz, self) {
+  $thiz.s_util_Random__f_self = self;
+  return $thiz
+}
+function $ct_s_util_Random__($thiz) {
+  $ct_s_util_Random__ju_Random__($thiz, $ct_ju_Random__(new $c_ju_Random()));
+  return $thiz
+}
+/** @constructor */
+function $c_s_util_Random() {
+  this.s_util_Random__f_self = null
+}
+$c_s_util_Random.prototype = new $h_O();
+$c_s_util_Random.prototype.constructor = $c_s_util_Random;
+/** @constructor */
+function $h_s_util_Random() {
+  /*<skip>*/
+}
+$h_s_util_Random.prototype = $c_s_util_Random.prototype;
+var $d_s_util_Random = new $TypeData().initClass({
+  s_util_Random: 0
+}, false, "scala.util.Random", {
+  s_util_Random: 1,
+  O: 1,
+  Ljava_io_Serializable: 1
+});
+$c_s_util_Random.prototype.$classData = $d_s_util_Random;
 /** @constructor */
 function $c_s_util_Right$() {
   /*<skip>*/
@@ -8448,6 +8697,12 @@ function $f_sc_IterableOps__tail__O($thiz) {
     throw $ct_jl_UnsupportedOperationException__(new $c_jl_UnsupportedOperationException())
   };
   return $thiz.drop__I__O(1)
+}
+function $f_sc_IterableOps__map__F1__O($thiz, f) {
+  return $thiz.iterableFactory__sc_IterableFactory().from__sc_IterableOnce__O($ct_sc_View$Map__sc_IterableOps__F1__(new $c_sc_View$Map(), $thiz, f))
+}
+function $f_sc_IterableOps__flatMap__F1__O($thiz, f) {
+  return $thiz.iterableFactory__sc_IterableFactory().from__sc_IterableOnce__O(new $c_sc_View$FlatMap($thiz, f))
 }
 function $is_sc_IterableOps(obj) {
   return (!(!((obj && obj.$classData) && obj.$classData.ancestors.sc_IterableOps)))
@@ -9451,6 +9706,65 @@ $c_sci_BitmapIndexedSetNode.prototype.updated__O__I__I__I__sci_BitmapIndexedSetN
   };
   return this.copyAndInsertValue__I__O__I__I__sci_BitmapIndexedSetNode(bitpos, element, originalHash, elementHash)
 });
+$c_sci_BitmapIndexedSetNode.prototype.updateWithShallowMutations__O__I__I__I__I__I = (function(element, originalHash, elementHash, shift, shallowlyMutableNodeMap) {
+  var mask = $m_sci_Node$().maskFrom__I__I__I(elementHash, shift);
+  var bitpos = $m_sci_Node$().bitposFrom__I__I(mask);
+  if (((this.sci_BitmapIndexedSetNode__f_dataMap & bitpos) !== 0)) {
+    var index = $m_sci_Node$().indexFrom__I__I__I__I(this.sci_BitmapIndexedSetNode__f_dataMap, mask, bitpos);
+    var element0 = this.getPayload__I__O(index);
+    var element0UnimprovedHash = this.getHash__I__I(index);
+    if (((element0UnimprovedHash === originalHash) && $m_sr_BoxesRunTime$().equals__O__O__Z(element0, element))) {
+      return shallowlyMutableNodeMap
+    } else {
+      var element0Hash = $m_sc_Hashing$().improve__I__I(element0UnimprovedHash);
+      var subNodeNew = this.mergeTwoKeyValPairs__O__I__I__O__I__I__I__sci_SetNode(element0, element0UnimprovedHash, element0Hash, element, originalHash, elementHash, ((5 + shift) | 0));
+      this.migrateFromInlineToNodeInPlace__I__I__sci_SetNode__sci_BitmapIndexedSetNode(bitpos, element0Hash, subNodeNew);
+      return (shallowlyMutableNodeMap | bitpos)
+    }
+  } else if (((this.sci_BitmapIndexedSetNode__f_nodeMap & bitpos) !== 0)) {
+    var index$2 = $m_sci_Node$().indexFrom__I__I__I__I(this.sci_BitmapIndexedSetNode__f_nodeMap, mask, bitpos);
+    var subNode = this.getNode__I__sci_SetNode(index$2);
+    var subNodeSize = subNode.size__I();
+    var subNodeCachedJavaKeySetHashCode = subNode.cachedJavaKeySetHashCode__I();
+    var returnNodeMap = shallowlyMutableNodeMap;
+    var subNodeNew$3;
+    matchEnd4: {
+      if ((subNode instanceof $c_sci_BitmapIndexedSetNode)) {
+        var x2 = $as_sci_BitmapIndexedSetNode(subNode);
+        if (((bitpos & shallowlyMutableNodeMap) !== 0)) {
+          x2.updateWithShallowMutations__O__I__I__I__I__I(element, originalHash, elementHash, ((5 + shift) | 0), 0);
+          subNodeNew$3 = x2;
+          break matchEnd4
+        }
+      };
+      var subNodeNew$2 = subNode.updated__O__I__I__I__sci_SetNode(element, originalHash, elementHash, ((5 + shift) | 0));
+      if ((subNodeNew$2 !== subNode)) {
+        returnNodeMap = (returnNodeMap | bitpos)
+      };
+      subNodeNew$3 = subNodeNew$2
+    };
+    this.sci_BitmapIndexedSetNode__f_content.set((((((-1) + this.sci_BitmapIndexedSetNode__f_content.u.length) | 0) - this.nodeIndex__I__I(bitpos)) | 0), subNodeNew$3);
+    this.sci_BitmapIndexedSetNode__f_size = ((((this.sci_BitmapIndexedSetNode__f_size - subNodeSize) | 0) + subNodeNew$3.size__I()) | 0);
+    this.sci_BitmapIndexedSetNode__f_cachedJavaKeySetHashCode = ((((this.sci_BitmapIndexedSetNode__f_cachedJavaKeySetHashCode - subNodeCachedJavaKeySetHashCode) | 0) + subNodeNew$3.cachedJavaKeySetHashCode__I()) | 0);
+    return returnNodeMap
+  } else {
+    var dataIx = this.dataIndex__I__I(bitpos);
+    var src = this.sci_BitmapIndexedSetNode__f_content;
+    var dst = new $ac_O(((1 + src.u.length) | 0));
+    src.copyTo(0, dst, 0, dataIx);
+    dst.set(dataIx, element);
+    var destPos = ((1 + dataIx) | 0);
+    var length = ((src.u.length - dataIx) | 0);
+    src.copyTo(dataIx, dst, destPos, length);
+    var dstHashes = this.insertElement__AI__I__I__AI(this.sci_BitmapIndexedSetNode__f_originalHashes, dataIx, originalHash);
+    this.sci_BitmapIndexedSetNode__f_dataMap = (this.sci_BitmapIndexedSetNode__f_dataMap | bitpos);
+    this.sci_BitmapIndexedSetNode__f_content = dst;
+    this.sci_BitmapIndexedSetNode__f_originalHashes = dstHashes;
+    this.sci_BitmapIndexedSetNode__f_size = ((1 + this.sci_BitmapIndexedSetNode__f_size) | 0);
+    this.sci_BitmapIndexedSetNode__f_cachedJavaKeySetHashCode = ((this.sci_BitmapIndexedSetNode__f_cachedJavaKeySetHashCode + elementHash) | 0);
+    return shallowlyMutableNodeMap
+  }
+});
 $c_sci_BitmapIndexedSetNode.prototype.removed__O__I__I__I__sci_BitmapIndexedSetNode = (function(element, originalHash, elementHash, shift) {
   var mask = $m_sci_Node$().maskFrom__I__I__I(elementHash, shift);
   var bitpos = $m_sci_Node$().bitposFrom__I__I(mask);
@@ -9743,6 +10057,198 @@ $c_sci_BitmapIndexedSetNode.prototype.copy__sci_BitmapIndexedSetNode = (function
   var $$x1 = this.sci_BitmapIndexedSetNode__f_nodeMap;
   var this$2 = this.sci_BitmapIndexedSetNode__f_originalHashes;
   return new $c_sci_BitmapIndexedSetNode($$x2, $$x1, contentClone, this$2.clone__O(), this.sci_BitmapIndexedSetNode__f_size, this.sci_BitmapIndexedSetNode__f_cachedJavaKeySetHashCode)
+});
+$c_sci_BitmapIndexedSetNode.prototype.concat__sci_SetNode__I__sci_BitmapIndexedSetNode = (function(that, shift) {
+  if ((that instanceof $c_sci_BitmapIndexedSetNode)) {
+    var x2 = $as_sci_BitmapIndexedSetNode(that);
+    if ((this.sci_BitmapIndexedSetNode__f_size === 0)) {
+      return x2
+    } else if (((x2.sci_BitmapIndexedSetNode__f_size === 0) || (x2 === this))) {
+      return this
+    } else if ((x2.sci_BitmapIndexedSetNode__f_size === 1)) {
+      var originalHash = x2.getHash__I__I(0);
+      return this.updated__O__I__I__I__sci_BitmapIndexedSetNode(x2.getPayload__I__O(0), originalHash, $m_sc_Hashing$().improve__I__I(originalHash), shift)
+    };
+    var anyChangesMadeSoFar = false;
+    var allMap = (((this.sci_BitmapIndexedSetNode__f_dataMap | x2.sci_BitmapIndexedSetNode__f_dataMap) | this.sci_BitmapIndexedSetNode__f_nodeMap) | x2.sci_BitmapIndexedSetNode__f_nodeMap);
+    var minimumBitPos = $m_sci_Node$().bitposFrom__I__I(((allMap === 0) ? 32 : ((31 - $clz32((allMap & ((-allMap) | 0)))) | 0)));
+    var maximumBitPos = $m_sci_Node$().bitposFrom__I__I(((31 - $clz32(allMap)) | 0));
+    var leftNodeRightNode = 0;
+    var leftDataRightNode = 0;
+    var leftNodeRightData = 0;
+    var leftDataOnly = 0;
+    var rightDataOnly = 0;
+    var leftNodeOnly = 0;
+    var rightNodeOnly = 0;
+    var leftDataRightDataMigrateToNode = 0;
+    var leftDataRightDataLeftOverwrites = 0;
+    var dataToNodeMigrationTargets = 0;
+    var bitpos = minimumBitPos;
+    var leftIdx = 0;
+    var rightIdx = 0;
+    var finished = false;
+    while ((!finished)) {
+      if (((bitpos & this.sci_BitmapIndexedSetNode__f_dataMap) !== 0)) {
+        if (((bitpos & x2.sci_BitmapIndexedSetNode__f_dataMap) !== 0)) {
+          if (((this.getHash__I__I(leftIdx) === x2.getHash__I__I(rightIdx)) && $m_sr_BoxesRunTime$().equals__O__O__Z(this.getPayload__I__O(leftIdx), x2.getPayload__I__O(rightIdx)))) {
+            leftDataRightDataLeftOverwrites = (leftDataRightDataLeftOverwrites | bitpos)
+          } else {
+            leftDataRightDataMigrateToNode = (leftDataRightDataMigrateToNode | bitpos);
+            dataToNodeMigrationTargets = (dataToNodeMigrationTargets | $m_sci_Node$().bitposFrom__I__I($m_sci_Node$().maskFrom__I__I__I($m_sc_Hashing$().improve__I__I(this.getHash__I__I(leftIdx)), shift)))
+          };
+          rightIdx = ((1 + rightIdx) | 0)
+        } else if (((bitpos & x2.sci_BitmapIndexedSetNode__f_nodeMap) !== 0)) {
+          leftDataRightNode = (leftDataRightNode | bitpos)
+        } else {
+          leftDataOnly = (leftDataOnly | bitpos)
+        };
+        leftIdx = ((1 + leftIdx) | 0)
+      } else if (((bitpos & this.sci_BitmapIndexedSetNode__f_nodeMap) !== 0)) {
+        if (((bitpos & x2.sci_BitmapIndexedSetNode__f_dataMap) !== 0)) {
+          leftNodeRightData = (leftNodeRightData | bitpos);
+          rightIdx = ((1 + rightIdx) | 0)
+        } else if (((bitpos & x2.sci_BitmapIndexedSetNode__f_nodeMap) !== 0)) {
+          leftNodeRightNode = (leftNodeRightNode | bitpos)
+        } else {
+          leftNodeOnly = (leftNodeOnly | bitpos)
+        }
+      } else if (((bitpos & x2.sci_BitmapIndexedSetNode__f_dataMap) !== 0)) {
+        rightDataOnly = (rightDataOnly | bitpos);
+        rightIdx = ((1 + rightIdx) | 0)
+      } else if (((bitpos & x2.sci_BitmapIndexedSetNode__f_nodeMap) !== 0)) {
+        rightNodeOnly = (rightNodeOnly | bitpos)
+      };
+      if ((bitpos === maximumBitPos)) {
+        finished = true
+      } else {
+        bitpos = (bitpos << 1)
+      }
+    };
+    var newDataMap = ((leftDataOnly | rightDataOnly) | leftDataRightDataLeftOverwrites);
+    var newNodeMap = (((((leftNodeRightNode | leftDataRightNode) | leftNodeRightData) | leftNodeOnly) | rightNodeOnly) | dataToNodeMigrationTargets);
+    if (((newDataMap === (leftDataOnly | leftDataRightDataLeftOverwrites)) && (newNodeMap === leftNodeOnly))) {
+      return this
+    };
+    var newDataSize = $m_jl_Integer$().bitCount__I__I(newDataMap);
+    var newContentSize = ((newDataSize + $m_jl_Integer$().bitCount__I__I(newNodeMap)) | 0);
+    var newContent = new $ac_O(newContentSize);
+    var newOriginalHashes = new $ac_I(newDataSize);
+    var newSize = 0;
+    var newCachedHashCode = 0;
+    var leftDataIdx = 0;
+    var rightDataIdx = 0;
+    var leftNodeIdx = 0;
+    var rightNodeIdx = 0;
+    var nextShift = ((5 + shift) | 0);
+    var compressedDataIdx = 0;
+    var compressedNodeIdx = 0;
+    var bitpos$2 = minimumBitPos;
+    var finished$2 = false;
+    while ((!finished$2)) {
+      if (((bitpos$2 & leftNodeRightNode) !== 0)) {
+        var leftNode = this.getNode__I__sci_SetNode(leftNodeIdx);
+        var newNode = leftNode.concat__sci_SetNode__I__sci_SetNode(x2.getNode__I__sci_SetNode(rightNodeIdx), nextShift);
+        if ((leftNode !== newNode)) {
+          anyChangesMadeSoFar = true
+        };
+        newContent.set((((-1) + ((newContentSize - compressedNodeIdx) | 0)) | 0), newNode);
+        compressedNodeIdx = ((1 + compressedNodeIdx) | 0);
+        rightNodeIdx = ((1 + rightNodeIdx) | 0);
+        leftNodeIdx = ((1 + leftNodeIdx) | 0);
+        newSize = ((newSize + newNode.size__I()) | 0);
+        newCachedHashCode = ((newCachedHashCode + newNode.cachedJavaKeySetHashCode__I()) | 0)
+      } else if (((bitpos$2 & leftDataRightNode) !== 0)) {
+        anyChangesMadeSoFar = true;
+        var n = x2.getNode__I__sci_SetNode(rightNodeIdx);
+        var leftPayload = this.getPayload__I__O(leftDataIdx);
+        var leftOriginalHash = this.getHash__I__I(leftDataIdx);
+        var leftImproved = $m_sc_Hashing$().improve__I__I(leftOriginalHash);
+        var newNode$2 = n.updated__O__I__I__I__sci_SetNode(leftPayload, leftOriginalHash, leftImproved, nextShift);
+        newContent.set((((-1) + ((newContentSize - compressedNodeIdx) | 0)) | 0), newNode$2);
+        compressedNodeIdx = ((1 + compressedNodeIdx) | 0);
+        rightNodeIdx = ((1 + rightNodeIdx) | 0);
+        leftDataIdx = ((1 + leftDataIdx) | 0);
+        newSize = ((newSize + newNode$2.size__I()) | 0);
+        newCachedHashCode = ((newCachedHashCode + newNode$2.cachedJavaKeySetHashCode__I()) | 0)
+      } else if (((bitpos$2 & leftNodeRightData) !== 0)) {
+        var rightOriginalHash = x2.getHash__I__I(rightDataIdx);
+        var leftNode$2 = this.getNode__I__sci_SetNode(leftNodeIdx);
+        var updated = leftNode$2.updated__O__I__I__I__sci_SetNode(x2.getPayload__I__O(rightDataIdx), x2.getHash__I__I(rightDataIdx), $m_sc_Hashing$().improve__I__I(rightOriginalHash), nextShift);
+        if ((updated !== leftNode$2)) {
+          anyChangesMadeSoFar = true
+        };
+        newContent.set((((-1) + ((newContentSize - compressedNodeIdx) | 0)) | 0), updated);
+        compressedNodeIdx = ((1 + compressedNodeIdx) | 0);
+        leftNodeIdx = ((1 + leftNodeIdx) | 0);
+        rightDataIdx = ((1 + rightDataIdx) | 0);
+        newSize = ((newSize + updated.size__I()) | 0);
+        newCachedHashCode = ((newCachedHashCode + updated.cachedJavaKeySetHashCode__I()) | 0)
+      } else if (((bitpos$2 & leftDataOnly) !== 0)) {
+        var originalHash$2 = this.sci_BitmapIndexedSetNode__f_originalHashes.get(leftDataIdx);
+        newContent.set(compressedDataIdx, this.getPayload__I__O(leftDataIdx));
+        newOriginalHashes.set(compressedDataIdx, originalHash$2);
+        compressedDataIdx = ((1 + compressedDataIdx) | 0);
+        leftDataIdx = ((1 + leftDataIdx) | 0);
+        newSize = ((1 + newSize) | 0);
+        newCachedHashCode = ((newCachedHashCode + $m_sc_Hashing$().improve__I__I(originalHash$2)) | 0)
+      } else if (((bitpos$2 & rightDataOnly) !== 0)) {
+        anyChangesMadeSoFar = true;
+        var originalHash$3 = x2.sci_BitmapIndexedSetNode__f_originalHashes.get(rightDataIdx);
+        newContent.set(compressedDataIdx, x2.getPayload__I__O(rightDataIdx));
+        newOriginalHashes.set(compressedDataIdx, originalHash$3);
+        compressedDataIdx = ((1 + compressedDataIdx) | 0);
+        rightDataIdx = ((1 + rightDataIdx) | 0);
+        newSize = ((1 + newSize) | 0);
+        newCachedHashCode = ((newCachedHashCode + $m_sc_Hashing$().improve__I__I(originalHash$3)) | 0)
+      } else if (((bitpos$2 & leftNodeOnly) !== 0)) {
+        var newNode$4 = this.getNode__I__sci_SetNode(leftNodeIdx);
+        newContent.set((((-1) + ((newContentSize - compressedNodeIdx) | 0)) | 0), newNode$4);
+        compressedNodeIdx = ((1 + compressedNodeIdx) | 0);
+        leftNodeIdx = ((1 + leftNodeIdx) | 0);
+        newSize = ((newSize + newNode$4.size__I()) | 0);
+        newCachedHashCode = ((newCachedHashCode + newNode$4.cachedJavaKeySetHashCode__I()) | 0)
+      } else if (((bitpos$2 & rightNodeOnly) !== 0)) {
+        anyChangesMadeSoFar = true;
+        var newNode$5 = x2.getNode__I__sci_SetNode(rightNodeIdx);
+        newContent.set((((-1) + ((newContentSize - compressedNodeIdx) | 0)) | 0), newNode$5);
+        compressedNodeIdx = ((1 + compressedNodeIdx) | 0);
+        rightNodeIdx = ((1 + rightNodeIdx) | 0);
+        newSize = ((newSize + newNode$5.size__I()) | 0);
+        newCachedHashCode = ((newCachedHashCode + newNode$5.cachedJavaKeySetHashCode__I()) | 0)
+      } else if (((bitpos$2 & leftDataRightDataMigrateToNode) !== 0)) {
+        anyChangesMadeSoFar = true;
+        var leftOriginalHash$2 = this.getHash__I__I(leftDataIdx);
+        var rightOriginalHash$2 = x2.getHash__I__I(rightDataIdx);
+        var newNode$6 = x2.mergeTwoKeyValPairs__O__I__I__O__I__I__I__sci_SetNode(this.getPayload__I__O(leftDataIdx), leftOriginalHash$2, $m_sc_Hashing$().improve__I__I(leftOriginalHash$2), x2.getPayload__I__O(rightDataIdx), rightOriginalHash$2, $m_sc_Hashing$().improve__I__I(rightOriginalHash$2), nextShift);
+        newContent.set((((-1) + ((newContentSize - compressedNodeIdx) | 0)) | 0), newNode$6);
+        compressedNodeIdx = ((1 + compressedNodeIdx) | 0);
+        leftDataIdx = ((1 + leftDataIdx) | 0);
+        rightDataIdx = ((1 + rightDataIdx) | 0);
+        newSize = ((newSize + newNode$6.size__I()) | 0);
+        newCachedHashCode = ((newCachedHashCode + newNode$6.cachedJavaKeySetHashCode__I()) | 0)
+      } else if (((bitpos$2 & leftDataRightDataLeftOverwrites) !== 0)) {
+        var originalHash$4 = x2.sci_BitmapIndexedSetNode__f_originalHashes.get(rightDataIdx);
+        newContent.set(compressedDataIdx, x2.getPayload__I__O(rightDataIdx));
+        newOriginalHashes.set(compressedDataIdx, originalHash$4);
+        compressedDataIdx = ((1 + compressedDataIdx) | 0);
+        rightDataIdx = ((1 + rightDataIdx) | 0);
+        newSize = ((1 + newSize) | 0);
+        newCachedHashCode = ((newCachedHashCode + $m_sc_Hashing$().improve__I__I(originalHash$4)) | 0);
+        leftDataIdx = ((1 + leftDataIdx) | 0)
+      };
+      if ((bitpos$2 === maximumBitPos)) {
+        finished$2 = true
+      } else {
+        bitpos$2 = (bitpos$2 << 1)
+      }
+    };
+    return (anyChangesMadeSoFar ? new $c_sci_BitmapIndexedSetNode(newDataMap, newNodeMap, newContent, newOriginalHashes, newSize, newCachedHashCode) : this)
+  } else {
+    throw $ct_jl_UnsupportedOperationException__T__(new $c_jl_UnsupportedOperationException(), "Cannot concatenate a HashCollisionSetNode with a BitmapIndexedSetNode")
+  }
+});
+$c_sci_BitmapIndexedSetNode.prototype.concat__sci_SetNode__I__sci_SetNode = (function(that, shift) {
+  return this.concat__sci_SetNode__I__sci_BitmapIndexedSetNode(that, shift)
 });
 $c_sci_BitmapIndexedSetNode.prototype.copy__sci_SetNode = (function() {
   return this.copy__sci_BitmapIndexedSetNode()
@@ -10119,6 +10625,33 @@ $c_sci_HashCollisionSetNode.prototype.equals__O__Z = (function(that) {
 });
 $c_sci_HashCollisionSetNode.prototype.hashCode__I = (function() {
   throw $ct_jl_UnsupportedOperationException__T__(new $c_jl_UnsupportedOperationException(), "Trie nodes do not support hashing.")
+});
+$c_sci_HashCollisionSetNode.prototype.concat__sci_SetNode__I__sci_SetNode = (function(that, shift) {
+  if ((that instanceof $c_sci_HashCollisionSetNode)) {
+    var x2 = $as_sci_HashCollisionSetNode(that);
+    if ((x2 === this)) {
+      return this
+    } else {
+      var newContent = null;
+      var iter = x2.sci_HashCollisionSetNode__f_content.iterator__sc_Iterator();
+      while (iter.hasNext__Z()) {
+        var nextPayload = iter.next__O();
+        var this$1 = this.sci_HashCollisionSetNode__f_content;
+        if ((!$f_sc_SeqOps__contains__O__Z(this$1, nextPayload))) {
+          if ((newContent === null)) {
+            newContent = new $c_sci_VectorBuilder();
+            newContent.addAll__sc_IterableOnce__sci_VectorBuilder(this.sci_HashCollisionSetNode__f_content)
+          };
+          newContent.addOne__O__sci_VectorBuilder(nextPayload)
+        }
+      };
+      return ((newContent === null) ? this : new $c_sci_HashCollisionSetNode(this.sci_HashCollisionSetNode__f_originalHash, this.sci_HashCollisionSetNode__f_hash, newContent.result__sci_Vector()))
+    }
+  } else if ((that instanceof $c_sci_BitmapIndexedSetNode)) {
+    throw $ct_jl_UnsupportedOperationException__T__(new $c_jl_UnsupportedOperationException(), "Cannot concatenate a HashCollisionSetNode with a BitmapIndexedSetNode")
+  } else {
+    throw new $c_s_MatchError(that)
+  }
 });
 $c_sci_HashCollisionSetNode.prototype.copy__sci_SetNode = (function() {
   return new $c_sci_HashCollisionSetNode(this.sci_HashCollisionSetNode__f_originalHash, this.sci_HashCollisionSetNode__f_hash, this.sci_HashCollisionSetNode__f_content)
@@ -10733,6 +11266,39 @@ function $f_Lscalatags_JsDom$Aggregate__$init$__V($thiz) {
   $thiz.Lscalatags_JsDom$all$__f_SvgTag = $m_Lscalatags_JsDom$TypedTag$();
   $thiz.Lscalatags_JsDom$all$__f_Tag = $m_Lscalatags_JsDom$TypedTag$()
 }
+/** @constructor */
+function $c_Lscalatags_LowPriorityImplicits$bindNode(outer, e) {
+  this.Lscalatags_LowPriorityImplicits$bindNode__f_e = null;
+  this.Lscalatags_LowPriorityImplicits$bindNode__f_$outer = null;
+  this.Lscalatags_LowPriorityImplicits$bindNode__f_e = e;
+  if ((outer === null)) {
+    throw $m_sjsr_package$().unwrapJavaScriptException__jl_Throwable__O(null)
+  } else {
+    this.Lscalatags_LowPriorityImplicits$bindNode__f_$outer = outer
+  }
+}
+$c_Lscalatags_LowPriorityImplicits$bindNode.prototype = new $h_O();
+$c_Lscalatags_LowPriorityImplicits$bindNode.prototype.constructor = $c_Lscalatags_LowPriorityImplicits$bindNode;
+/** @constructor */
+function $h_Lscalatags_LowPriorityImplicits$bindNode() {
+  /*<skip>*/
+}
+$h_Lscalatags_LowPriorityImplicits$bindNode.prototype = $c_Lscalatags_LowPriorityImplicits$bindNode.prototype;
+$c_Lscalatags_LowPriorityImplicits$bindNode.prototype.applyTo__Lorg_scalajs_dom_raw_Element__V = (function(t) {
+  t.appendChild(this.Lscalatags_LowPriorityImplicits$bindNode__f_e)
+});
+$c_Lscalatags_LowPriorityImplicits$bindNode.prototype.applyTo__O__V = (function(t) {
+  this.applyTo__Lorg_scalajs_dom_raw_Element__V(t)
+});
+var $d_Lscalatags_LowPriorityImplicits$bindNode = new $TypeData().initClass({
+  Lscalatags_LowPriorityImplicits$bindNode: 0
+}, false, "scalatags.LowPriorityImplicits$bindNode", {
+  Lscalatags_LowPriorityImplicits$bindNode: 1,
+  O: 1,
+  Lscalatags_generic_Frag: 1,
+  Lscalatags_generic_Modifier: 1
+});
+$c_Lscalatags_LowPriorityImplicits$bindNode.prototype.$classData = $d_Lscalatags_LowPriorityImplicits$bindNode;
 function $f_Lscalatags_generic_MouseEventAttrs__$init$__V($thiz) {
   $thiz.Lscalatags_JsDom$all$__f_ondrag = $f_Lscalatags_generic_Util__attr__T__Lscalatags_generic_Namespace__Z__Lscalatags_generic_Attr($thiz, "ondrag", null, false)
 }
@@ -11125,8 +11691,51 @@ function $f_T__getChars__I__I__AC__I__V($thiz, srcBegin, srcEnd, dst, dstBegin) 
 function $f_T__length__I($thiz) {
   return $uI($thiz.length)
 }
+function $f_T__replaceAll__T__T__T($thiz, regex, replacement) {
+  var this$1 = $m_ju_regex_Pattern$();
+  var this$2 = this$1.compile__T__I__ju_regex_Pattern(regex, 0);
+  return new $c_ju_regex_Matcher(this$2, $thiz, 0, $uI($thiz.length)).replaceAll__T__T(replacement)
+}
 function $f_T__subSequence__I__I__jl_CharSequence($thiz, beginIndex, endIndex) {
   return $as_T($thiz.substring(beginIndex, endIndex))
+}
+function $f_T__trim__T($thiz) {
+  var len = $uI($thiz.length);
+  var start = 0;
+  while (true) {
+    var $$x1;
+    if ((start !== len)) {
+      var index = start;
+      $$x1 = ((65535 & $uI($thiz.charCodeAt(index))) <= 32)
+    } else {
+      $$x1 = false
+    };
+    if ($$x1) {
+      start = ((1 + start) | 0)
+    } else {
+      break
+    }
+  };
+  if ((start === len)) {
+    return ""
+  } else {
+    var end = len;
+    while (true) {
+      var index$1 = (((-1) + end) | 0);
+      if (((65535 & $uI($thiz.charCodeAt(index$1))) <= 32)) {
+        end = (((-1) + end) | 0)
+      } else {
+        break
+      }
+    };
+    if (((start === 0) && (end === len))) {
+      return $thiz
+    } else {
+      var beginIndex = start;
+      var endIndex = end;
+      return $as_T($thiz.substring(beginIndex, endIndex))
+    }
+  }
 }
 function $f_T__toString__T($thiz) {
   return $thiz
@@ -11149,6 +11758,56 @@ var $d_T = new $TypeData().initClass({
   jl_Comparable: 1,
   jl_CharSequence: 1
 }, (void 0), (void 0), ((x) => ((typeof x) === "string")));
+function $ct_jl_StringBuffer__jl_StringBuilder__($thiz, builder) {
+  $thiz.jl_StringBuffer__f_builder = builder;
+  return $thiz
+}
+function $ct_jl_StringBuffer__($thiz) {
+  $ct_jl_StringBuffer__jl_StringBuilder__($thiz, $ct_jl_StringBuilder__(new $c_jl_StringBuilder()));
+  return $thiz
+}
+/** @constructor */
+function $c_jl_StringBuffer() {
+  this.jl_StringBuffer__f_builder = null
+}
+$c_jl_StringBuffer.prototype = new $h_O();
+$c_jl_StringBuffer.prototype.constructor = $c_jl_StringBuffer;
+/** @constructor */
+function $h_jl_StringBuffer() {
+  /*<skip>*/
+}
+$h_jl_StringBuffer.prototype = $c_jl_StringBuffer.prototype;
+$c_jl_StringBuffer.prototype.length__I = (function() {
+  return this.jl_StringBuffer__f_builder.length__I()
+});
+$c_jl_StringBuffer.prototype.append__T__jl_StringBuffer = (function(str) {
+  var this$1 = this.jl_StringBuffer__f_builder;
+  this$1.jl_StringBuilder__f_java$lang$StringBuilder$$content = (("" + this$1.jl_StringBuilder__f_java$lang$StringBuilder$$content) + str);
+  return this
+});
+$c_jl_StringBuffer.prototype.append__C__jl_StringBuffer = (function(c) {
+  var this$1 = this.jl_StringBuffer__f_builder;
+  var str = $as_T(String.fromCharCode(c));
+  this$1.jl_StringBuilder__f_java$lang$StringBuilder$$content = (("" + this$1.jl_StringBuilder__f_java$lang$StringBuilder$$content) + str);
+  return this
+});
+$c_jl_StringBuffer.prototype.subSequence__I__I__jl_CharSequence = (function(start, end) {
+  var this$1 = this.jl_StringBuffer__f_builder;
+  return this$1.substring__I__I__T(start, end)
+});
+$c_jl_StringBuffer.prototype.toString__T = (function() {
+  return this.jl_StringBuffer__f_builder.jl_StringBuilder__f_java$lang$StringBuilder$$content
+});
+var $d_jl_StringBuffer = new $TypeData().initClass({
+  jl_StringBuffer: 0
+}, false, "java.lang.StringBuffer", {
+  jl_StringBuffer: 1,
+  O: 1,
+  jl_CharSequence: 1,
+  jl_Appendable: 1,
+  Ljava_io_Serializable: 1
+});
+$c_jl_StringBuffer.prototype.$classData = $d_jl_StringBuffer;
 function $ct_jl_StringBuilder__($thiz) {
   $thiz.jl_StringBuilder__f_java$lang$StringBuilder$$content = "";
   return $thiz
@@ -11594,6 +12253,24 @@ function $isArrayOf_sc_SeqOps(obj, depth) {
 function $asArrayOf_sc_SeqOps(obj, depth) {
   return (($isArrayOf_sc_SeqOps(obj, depth) || (obj === null)) ? obj : $throwArrayCastException(obj, "Lscala.collection.SeqOps;", depth))
 }
+function $f_sc_StrictOptimizedIterableOps__map__F1__O($thiz, f) {
+  var b = $thiz.iterableFactory__sc_IterableFactory().newBuilder__scm_Builder();
+  var it = $thiz.iterator__sc_Iterator();
+  while (it.hasNext__Z()) {
+    var elem = f.apply__O__O(it.next__O());
+    b.addOne__O__scm_Growable(elem)
+  };
+  return b.result__O()
+}
+function $f_sc_StrictOptimizedIterableOps__flatMap__F1__O($thiz, f) {
+  var b = $thiz.iterableFactory__sc_IterableFactory().newBuilder__scm_Builder();
+  var it = $thiz.iterator__sc_Iterator();
+  while (it.hasNext__Z()) {
+    var xs = $as_sc_IterableOnce(f.apply__O__O(it.next__O()));
+    b.addAll__sc_IterableOnce__scm_Growable(xs)
+  };
+  return b.result__O()
+}
 function $f_sc_StrictOptimizedIterableOps__zipWithIndex__O($thiz) {
   var b = $thiz.iterableFactory__sc_IterableFactory().newBuilder__scm_Builder();
   var i = 0;
@@ -11718,6 +12395,39 @@ function $h_sci_LazyList$() {
 $h_sci_LazyList$.prototype = $c_sci_LazyList$.prototype;
 $c_sci_LazyList$.prototype.apply__sci_Seq__O = (function(elems) {
   return this.from__sc_IterableOnce__sci_LazyList(elems)
+});
+$c_sci_LazyList$.prototype.scala$collection$immutable$LazyList$$flatMapImpl__sci_LazyList__F1__sci_LazyList = (function(ll, f) {
+  var restRef = new $c_sr_ObjectRef(ll);
+  var state$1 = new $c_sjsr_AnonFunction0(((this$2, restRef$1, f$1) => (() => {
+    var it = new $c_sr_ObjectRef(null);
+    var itHasNext = false;
+    var elem = $as_sci_LazyList(restRef$1.sr_ObjectRef__f_elem);
+    var rest = new $c_sr_ObjectRef(elem);
+    while (((!itHasNext) && (!$as_sci_LazyList(rest.sr_ObjectRef__f_elem).isEmpty__Z()))) {
+      var this$5 = $as_sci_LazyList(rest.sr_ObjectRef__f_elem);
+      it.sr_ObjectRef__f_elem = $as_sc_IterableOnce(f$1.apply__O__O(this$5.scala$collection$immutable$LazyList$$state__sci_LazyList$State().head__O())).iterator__sc_Iterator();
+      itHasNext = $as_sc_Iterator(it.sr_ObjectRef__f_elem).hasNext__Z();
+      if ((!itHasNext)) {
+        var this$6 = $as_sci_LazyList(rest.sr_ObjectRef__f_elem);
+        rest.sr_ObjectRef__f_elem = this$6.scala$collection$immutable$LazyList$$state__sci_LazyList$State().tail__sci_LazyList();
+        restRef$1.sr_ObjectRef__f_elem = $as_sci_LazyList(rest.sr_ObjectRef__f_elem)
+      }
+    };
+    if (itHasNext) {
+      var head = $as_sc_Iterator(it.sr_ObjectRef__f_elem).next__O();
+      var this$7 = $as_sci_LazyList(rest.sr_ObjectRef__f_elem);
+      rest.sr_ObjectRef__f_elem = this$7.scala$collection$immutable$LazyList$$state__sci_LazyList$State().tail__sci_LazyList();
+      restRef$1.sr_ObjectRef__f_elem = $as_sci_LazyList(rest.sr_ObjectRef__f_elem);
+      $m_sci_LazyList$();
+      $m_sci_LazyList$();
+      var state = new $c_sjsr_AnonFunction0(((this$8, it$1, rest$1, f$3) => (() => $m_sci_LazyList$().scala$collection$immutable$LazyList$$stateFromIteratorConcatSuffix__sc_Iterator__F0__sci_LazyList$State($as_sc_Iterator(it$1.sr_ObjectRef__f_elem), new $c_sjsr_AnonFunction0(((this$9, rest$1$1, f$3$1) => (() => $m_sci_LazyList$().scala$collection$immutable$LazyList$$flatMapImpl__sci_LazyList__F1__sci_LazyList($as_sci_LazyList(rest$1$1.sr_ObjectRef__f_elem), f$3$1).scala$collection$immutable$LazyList$$state__sci_LazyList$State()))(this$8, rest$1, f$3)))))(this$2, it, rest, f$1));
+      var tl = new $c_sci_LazyList(state);
+      return new $c_sci_LazyList$State$Cons(head, tl)
+    } else {
+      return $m_sci_LazyList$State$Empty$()
+    }
+  }))(this, restRef, f));
+  return new $c_sci_LazyList(state$1)
 });
 $c_sci_LazyList$.prototype.scala$collection$immutable$LazyList$$dropImpl__sci_LazyList__I__sci_LazyList = (function(ll, n) {
   var restRef = new $c_sr_ObjectRef(ll);
@@ -12670,15 +13380,6 @@ $c_s_Option.prototype.iterator__sc_Iterator = (function() {
     return new $c_sc_Iterator$$anon$20(a)
   }
 });
-function $as_s_Option(obj) {
-  return (((obj instanceof $c_s_Option) || (obj === null)) ? obj : $throwClassCastException(obj, "scala.Option"))
-}
-function $isArrayOf_s_Option(obj, depth) {
-  return (!(!(((obj && obj.$classData) && (obj.$classData.arrayDepth === depth)) && obj.$classData.arrayBase.ancestors.s_Option)))
-}
-function $asArrayOf_s_Option(obj, depth) {
-  return (($isArrayOf_s_Option(obj, depth) || (obj === null)) ? obj : $throwArrayCastException(obj, "Lscala.Option;", depth))
-}
 /** @constructor */
 function $c_T2(_1, _2) {
   this.T2__f__1 = null;
@@ -12744,6 +13445,9 @@ var $d_T2 = new $TypeData().initClass({
 $c_T2.prototype.$classData = $d_T2;
 function $f_sc_IndexedSeqOps__drop__I__O($thiz, n) {
   return $thiz.fromSpecific__sc_IterableOnce__O(new $c_sc_IndexedSeqView$Drop($thiz, n))
+}
+function $f_sc_IndexedSeqOps__map__F1__O($thiz, f) {
+  return $thiz.iterableFactory__sc_IterableFactory().from__sc_IterableOnce__O(new $c_sc_IndexedSeqView$Map($thiz, f))
 }
 function $f_sc_IndexedSeqOps__last__O($thiz) {
   return $thiz.apply__I__O((((-1) + $thiz.length__I()) | 0))
@@ -13216,6 +13920,28 @@ function $isArrayOf_sc_LinearSeqOps(obj, depth) {
 }
 function $asArrayOf_sc_LinearSeqOps(obj, depth) {
   return (($isArrayOf_sc_LinearSeqOps(obj, depth) || (obj === null)) ? obj : $throwArrayCastException(obj, "Lscala.collection.LinearSeqOps;", depth))
+}
+function $f_sc_SetOps__concat__sc_IterableOnce__sc_SetOps($thiz, that) {
+  var coll;
+  if ($is_sc_Iterable(that)) {
+    var x2 = $as_sc_Iterable(that);
+    coll = new $c_sc_View$Concat($thiz, x2)
+  } else {
+    coll = $thiz.iterator__sc_Iterator().concat__F0__sc_Iterator(new $c_sjsr_AnonFunction0(((this$1, that$1) => (() => that$1.iterator__sc_Iterator()))($thiz, that)))
+  };
+  return $as_sc_SetOps($thiz.fromSpecific__sc_IterableOnce__sc_IterableOps(coll))
+}
+function $is_sc_SetOps(obj) {
+  return (!(!((obj && obj.$classData) && obj.$classData.ancestors.sc_SetOps)))
+}
+function $as_sc_SetOps(obj) {
+  return (($is_sc_SetOps(obj) || (obj === null)) ? obj : $throwClassCastException(obj, "scala.collection.SetOps"))
+}
+function $isArrayOf_sc_SetOps(obj, depth) {
+  return (!(!(((obj && obj.$classData) && (obj.$classData.arrayDepth === depth)) && obj.$classData.arrayBase.ancestors.sc_SetOps)))
+}
+function $asArrayOf_sc_SetOps(obj, depth) {
+  return (($isArrayOf_sc_SetOps(obj, depth) || (obj === null)) ? obj : $throwArrayCastException(obj, "Lscala.collection.SetOps;", depth))
 }
 /** @constructor */
 function $c_sc_StrictOptimizedLinearSeqOps$$anon$1(outer) {
@@ -16335,6 +17061,12 @@ $c_sc_AbstractIterable.prototype.drop__I__O = (function(n) {
 $c_sc_AbstractIterable.prototype.tail__O = (function() {
   return $f_sc_IterableOps__tail__O(this)
 });
+$c_sc_AbstractIterable.prototype.map__F1__O = (function(f) {
+  return $f_sc_IterableOps__map__F1__O(this, f)
+});
+$c_sc_AbstractIterable.prototype.flatMap__F1__O = (function(f) {
+  return $f_sc_IterableOps__flatMap__F1__O(this, f)
+});
 $c_sc_AbstractIterable.prototype.foreach__F1__V = (function(f) {
   $f_sc_IterableOnceOps__foreach__F1__V(this, f)
 });
@@ -18668,6 +19400,92 @@ var $d_sc_View$Drop = new $TypeData().initClass({
 });
 $c_sc_View$Drop.prototype.$classData = $d_sc_View$Drop;
 /** @constructor */
+function $c_sc_View$FlatMap(underlying, f) {
+  this.sc_View$FlatMap__f_underlying = null;
+  this.sc_View$FlatMap__f_f = null;
+  this.sc_View$FlatMap__f_underlying = underlying;
+  this.sc_View$FlatMap__f_f = f
+}
+$c_sc_View$FlatMap.prototype = new $h_sc_AbstractView();
+$c_sc_View$FlatMap.prototype.constructor = $c_sc_View$FlatMap;
+/** @constructor */
+function $h_sc_View$FlatMap() {
+  /*<skip>*/
+}
+$h_sc_View$FlatMap.prototype = $c_sc_View$FlatMap.prototype;
+$c_sc_View$FlatMap.prototype.iterator__sc_Iterator = (function() {
+  var this$1 = this.sc_View$FlatMap__f_underlying.iterator__sc_Iterator();
+  var f = this.sc_View$FlatMap__f_f;
+  return new $c_sc_Iterator$$anon$10(this$1, f)
+});
+$c_sc_View$FlatMap.prototype.knownSize__I = (function() {
+  return ((this.sc_View$FlatMap__f_underlying.knownSize__I() === 0) ? 0 : (-1))
+});
+$c_sc_View$FlatMap.prototype.isEmpty__Z = (function() {
+  var this$1 = this.iterator__sc_Iterator();
+  return (!this$1.hasNext__Z())
+});
+var $d_sc_View$FlatMap = new $TypeData().initClass({
+  sc_View$FlatMap: 0
+}, false, "scala.collection.View$FlatMap", {
+  sc_View$FlatMap: 1,
+  sc_AbstractView: 1,
+  sc_AbstractIterable: 1,
+  O: 1,
+  sc_Iterable: 1,
+  sc_IterableOnce: 1,
+  sc_IterableOps: 1,
+  sc_IterableOnceOps: 1,
+  sc_IterableFactoryDefaults: 1,
+  sc_View: 1,
+  Ljava_io_Serializable: 1
+});
+$c_sc_View$FlatMap.prototype.$classData = $d_sc_View$FlatMap;
+function $ct_sc_View$Map__sc_IterableOps__F1__($thiz, underlying, f) {
+  $thiz.sc_View$Map__f_underlying = underlying;
+  $thiz.sc_View$Map__f_f = f;
+  return $thiz
+}
+/** @constructor */
+function $c_sc_View$Map() {
+  this.sc_View$Map__f_underlying = null;
+  this.sc_View$Map__f_f = null
+}
+$c_sc_View$Map.prototype = new $h_sc_AbstractView();
+$c_sc_View$Map.prototype.constructor = $c_sc_View$Map;
+/** @constructor */
+function $h_sc_View$Map() {
+  /*<skip>*/
+}
+$h_sc_View$Map.prototype = $c_sc_View$Map.prototype;
+$c_sc_View$Map.prototype.iterator__sc_Iterator = (function() {
+  var this$1 = this.sc_View$Map__f_underlying.iterator__sc_Iterator();
+  var f = this.sc_View$Map__f_f;
+  return new $c_sc_Iterator$$anon$9(this$1, f)
+});
+$c_sc_View$Map.prototype.knownSize__I = (function() {
+  return this.sc_View$Map__f_underlying.knownSize__I()
+});
+$c_sc_View$Map.prototype.isEmpty__Z = (function() {
+  return this.sc_View$Map__f_underlying.isEmpty__Z()
+});
+var $d_sc_View$Map = new $TypeData().initClass({
+  sc_View$Map: 0
+}, false, "scala.collection.View$Map", {
+  sc_View$Map: 1,
+  sc_AbstractView: 1,
+  sc_AbstractIterable: 1,
+  O: 1,
+  sc_Iterable: 1,
+  sc_IterableOnce: 1,
+  sc_IterableOps: 1,
+  sc_IterableOnceOps: 1,
+  sc_IterableFactoryDefaults: 1,
+  sc_View: 1,
+  Ljava_io_Serializable: 1
+});
+$c_sc_View$Map.prototype.$classData = $d_sc_View$Map;
+/** @constructor */
 function $c_sc_AbstractSet() {
   /*<skip>*/
 }
@@ -18693,6 +19511,9 @@ $c_sc_AbstractSet.prototype.toString__T = (function() {
 });
 $c_sc_AbstractSet.prototype.subsetOf__sc_Set__Z = (function(that) {
   return this.forall__F1__Z(that)
+});
+$c_sc_AbstractSet.prototype.concat__sc_IterableOnce__sc_SetOps = (function(that) {
+  return $f_sc_SetOps__concat__sc_IterableOnce__sc_SetOps(this, that)
 });
 $c_sc_AbstractSet.prototype.apply__O__O = (function(v1) {
   return this.contains__O__Z(v1)
@@ -18958,6 +19779,9 @@ function $h_sc_AbstractSeqView() {
   /*<skip>*/
 }
 $h_sc_AbstractSeqView.prototype = $c_sc_AbstractSeqView.prototype;
+$c_sc_AbstractSeqView.prototype.map__F1__sc_SeqView = (function(f) {
+  return $ct_sc_SeqView$Map__sc_SeqOps__F1__(new $c_sc_SeqView$Map(), this, f)
+});
 $c_sc_AbstractSeqView.prototype.drop__I__sc_SeqView = (function(n) {
   return $ct_sc_SeqView$Drop__sc_SeqOps__I__(new $c_sc_SeqView$Drop(), this, n)
 });
@@ -18976,6 +19800,9 @@ $c_sc_AbstractSeqView.prototype.isEmpty__Z = (function() {
 });
 $c_sc_AbstractSeqView.prototype.drop__I__O = (function(n) {
   return this.drop__I__sc_SeqView(n)
+});
+$c_sc_AbstractSeqView.prototype.map__F1__O = (function(f) {
+  return this.map__F1__sc_SeqView(f)
 });
 function $is_sc_IndexedSeq(obj) {
   return (!(!((obj && obj.$classData) && obj.$classData.ancestors.sc_IndexedSeq)))
@@ -19078,6 +19905,9 @@ function $h_sc_SeqView$Drop() {
   /*<skip>*/
 }
 $h_sc_SeqView$Drop.prototype = $c_sc_SeqView$Drop.prototype;
+$c_sc_SeqView$Drop.prototype.map__F1__sc_SeqView = (function(f) {
+  return $ct_sc_SeqView$Map__sc_SeqOps__F1__(new $c_sc_SeqView$Map(), this, f)
+});
 $c_sc_SeqView$Drop.prototype.stringPrefix__T = (function() {
   return "SeqView"
 });
@@ -19101,6 +19931,9 @@ $c_sc_SeqView$Drop.prototype.apply__I__O = (function(i) {
 });
 $c_sc_SeqView$Drop.prototype.drop__I__sc_SeqView = (function(n) {
   return $ct_sc_SeqView$Drop__sc_SeqOps__I__(new $c_sc_SeqView$Drop(), this.sc_SeqView$Drop__f_underlying, ((this.sc_SeqView$Drop__f_n + n) | 0))
+});
+$c_sc_SeqView$Drop.prototype.map__F1__O = (function(f) {
+  return this.map__F1__sc_SeqView(f)
 });
 $c_sc_SeqView$Drop.prototype.drop__I__O = (function(n) {
   return this.drop__I__sc_SeqView(n)
@@ -19173,6 +20006,76 @@ var $d_sc_SeqView$Id = new $TypeData().initClass({
   sc_SeqOps: 1
 });
 $c_sc_SeqView$Id.prototype.$classData = $d_sc_SeqView$Id;
+function $ct_sc_SeqView$Map__sc_SeqOps__F1__($thiz, underlying, f) {
+  $thiz.sc_SeqView$Map__f_underlying = underlying;
+  $thiz.sc_SeqView$Map__f_f = f;
+  $ct_sc_View$Map__sc_IterableOps__F1__($thiz, underlying, f);
+  return $thiz
+}
+/** @constructor */
+function $c_sc_SeqView$Map() {
+  this.sc_View$Map__f_underlying = null;
+  this.sc_View$Map__f_f = null;
+  this.sc_SeqView$Map__f_underlying = null;
+  this.sc_SeqView$Map__f_f = null
+}
+$c_sc_SeqView$Map.prototype = new $h_sc_View$Map();
+$c_sc_SeqView$Map.prototype.constructor = $c_sc_SeqView$Map;
+/** @constructor */
+function $h_sc_SeqView$Map() {
+  /*<skip>*/
+}
+$h_sc_SeqView$Map.prototype = $c_sc_SeqView$Map.prototype;
+$c_sc_SeqView$Map.prototype.map__F1__sc_SeqView = (function(f) {
+  return $ct_sc_SeqView$Map__sc_SeqOps__F1__(new $c_sc_SeqView$Map(), this, f)
+});
+$c_sc_SeqView$Map.prototype.drop__I__sc_SeqView = (function(n) {
+  return $ct_sc_SeqView$Drop__sc_SeqOps__I__(new $c_sc_SeqView$Drop(), this, n)
+});
+$c_sc_SeqView$Map.prototype.stringPrefix__T = (function() {
+  return "SeqView"
+});
+$c_sc_SeqView$Map.prototype.indexWhere__F1__I__I = (function(p, from) {
+  var this$1 = this.iterator__sc_Iterator();
+  return $f_sc_Iterator__indexWhere__F1__I__I(this$1, p, from)
+});
+$c_sc_SeqView$Map.prototype.lengthCompare__I__I = (function(len) {
+  return $f_sc_IterableOps__sizeCompare__I__I(this, len)
+});
+$c_sc_SeqView$Map.prototype.isEmpty__Z = (function() {
+  return $f_sc_SeqOps__isEmpty__Z(this)
+});
+$c_sc_SeqView$Map.prototype.apply__I__O = (function(idx) {
+  return this.sc_SeqView$Map__f_f.apply__O__O(this.sc_SeqView$Map__f_underlying.apply__I__O(idx))
+});
+$c_sc_SeqView$Map.prototype.length__I = (function() {
+  return this.sc_SeqView$Map__f_underlying.length__I()
+});
+$c_sc_SeqView$Map.prototype.drop__I__O = (function(n) {
+  return this.drop__I__sc_SeqView(n)
+});
+$c_sc_SeqView$Map.prototype.map__F1__O = (function(f) {
+  return this.map__F1__sc_SeqView(f)
+});
+var $d_sc_SeqView$Map = new $TypeData().initClass({
+  sc_SeqView$Map: 0
+}, false, "scala.collection.SeqView$Map", {
+  sc_SeqView$Map: 1,
+  sc_View$Map: 1,
+  sc_AbstractView: 1,
+  sc_AbstractIterable: 1,
+  O: 1,
+  sc_Iterable: 1,
+  sc_IterableOnce: 1,
+  sc_IterableOps: 1,
+  sc_IterableOnceOps: 1,
+  sc_IterableFactoryDefaults: 1,
+  sc_View: 1,
+  Ljava_io_Serializable: 1,
+  sc_SeqView: 1,
+  sc_SeqOps: 1
+});
+$c_sc_SeqView$Map.prototype.$classData = $d_sc_SeqView$Map;
 function $is_sci_Seq(obj) {
   return (!(!((obj && obj.$classData) && obj.$classData.ancestors.sci_Seq)))
 }
@@ -19242,6 +20145,12 @@ $c_sc_AbstractIndexedSeqView.prototype.lengthCompare__I__I = (function(len) {
 $c_sc_AbstractIndexedSeqView.prototype.knownSize__I = (function() {
   return this.length__I()
 });
+$c_sc_AbstractIndexedSeqView.prototype.map__F1__sc_SeqView = (function(f) {
+  return new $c_sc_IndexedSeqView$Map(this, f)
+});
+$c_sc_AbstractIndexedSeqView.prototype.map__F1__O = (function(f) {
+  return new $c_sc_IndexedSeqView$Map(this, f)
+});
 $c_sc_AbstractIndexedSeqView.prototype.drop__I__sc_SeqView = (function(n) {
   return new $c_sc_IndexedSeqView$Drop(this, n)
 });
@@ -19293,6 +20202,12 @@ $c_sc_IndexedSeqView$Drop.prototype.lengthCompare__I__I = (function(len) {
 });
 $c_sc_IndexedSeqView$Drop.prototype.knownSize__I = (function() {
   return this.length__I()
+});
+$c_sc_IndexedSeqView$Drop.prototype.map__F1__sc_SeqView = (function(f) {
+  return new $c_sc_IndexedSeqView$Map(this, f)
+});
+$c_sc_IndexedSeqView$Drop.prototype.map__F1__O = (function(f) {
+  return new $c_sc_IndexedSeqView$Map(this, f)
 });
 $c_sc_IndexedSeqView$Drop.prototype.drop__I__sc_SeqView = (function(n) {
   return new $c_sc_IndexedSeqView$Drop(this, n)
@@ -19350,6 +20265,12 @@ $c_sc_IndexedSeqView$Id.prototype.lengthCompare__I__I = (function(len) {
 $c_sc_IndexedSeqView$Id.prototype.knownSize__I = (function() {
   return this.length__I()
 });
+$c_sc_IndexedSeqView$Id.prototype.map__F1__sc_SeqView = (function(f) {
+  return new $c_sc_IndexedSeqView$Map(this, f)
+});
+$c_sc_IndexedSeqView$Id.prototype.map__F1__O = (function(f) {
+  return new $c_sc_IndexedSeqView$Map(this, f)
+});
 $c_sc_IndexedSeqView$Id.prototype.drop__I__sc_SeqView = (function(n) {
   return new $c_sc_IndexedSeqView$Drop(this, n)
 });
@@ -19378,6 +20299,71 @@ var $d_sc_IndexedSeqView$Id = new $TypeData().initClass({
   sc_IndexedSeqOps: 1
 });
 $c_sc_IndexedSeqView$Id.prototype.$classData = $d_sc_IndexedSeqView$Id;
+/** @constructor */
+function $c_sc_IndexedSeqView$Map(underlying, f) {
+  this.sc_View$Map__f_underlying = null;
+  this.sc_View$Map__f_f = null;
+  this.sc_SeqView$Map__f_underlying = null;
+  this.sc_SeqView$Map__f_f = null;
+  $ct_sc_SeqView$Map__sc_SeqOps__F1__(this, underlying, f)
+}
+$c_sc_IndexedSeqView$Map.prototype = new $h_sc_SeqView$Map();
+$c_sc_IndexedSeqView$Map.prototype.constructor = $c_sc_IndexedSeqView$Map;
+/** @constructor */
+function $h_sc_IndexedSeqView$Map() {
+  /*<skip>*/
+}
+$h_sc_IndexedSeqView$Map.prototype = $c_sc_IndexedSeqView$Map.prototype;
+$c_sc_IndexedSeqView$Map.prototype.iterator__sc_Iterator = (function() {
+  return new $c_sc_IndexedSeqView$IndexedSeqViewIterator(this)
+});
+$c_sc_IndexedSeqView$Map.prototype.stringPrefix__T = (function() {
+  return "IndexedSeqView"
+});
+$c_sc_IndexedSeqView$Map.prototype.head__O = (function() {
+  return this.apply__I__O(0)
+});
+$c_sc_IndexedSeqView$Map.prototype.lengthCompare__I__I = (function(len) {
+  var x = this.length__I();
+  return ((x === len) ? 0 : ((x < len) ? (-1) : 1))
+});
+$c_sc_IndexedSeqView$Map.prototype.knownSize__I = (function() {
+  return this.length__I()
+});
+$c_sc_IndexedSeqView$Map.prototype.map__F1__sc_SeqView = (function(f) {
+  return new $c_sc_IndexedSeqView$Map(this, f)
+});
+$c_sc_IndexedSeqView$Map.prototype.map__F1__O = (function(f) {
+  return new $c_sc_IndexedSeqView$Map(this, f)
+});
+$c_sc_IndexedSeqView$Map.prototype.drop__I__sc_SeqView = (function(n) {
+  return new $c_sc_IndexedSeqView$Drop(this, n)
+});
+$c_sc_IndexedSeqView$Map.prototype.drop__I__O = (function(n) {
+  return new $c_sc_IndexedSeqView$Drop(this, n)
+});
+var $d_sc_IndexedSeqView$Map = new $TypeData().initClass({
+  sc_IndexedSeqView$Map: 0
+}, false, "scala.collection.IndexedSeqView$Map", {
+  sc_IndexedSeqView$Map: 1,
+  sc_SeqView$Map: 1,
+  sc_View$Map: 1,
+  sc_AbstractView: 1,
+  sc_AbstractIterable: 1,
+  O: 1,
+  sc_Iterable: 1,
+  sc_IterableOnce: 1,
+  sc_IterableOps: 1,
+  sc_IterableOnceOps: 1,
+  sc_IterableFactoryDefaults: 1,
+  sc_View: 1,
+  Ljava_io_Serializable: 1,
+  sc_SeqView: 1,
+  sc_SeqOps: 1,
+  sc_IndexedSeqView: 1,
+  sc_IndexedSeqOps: 1
+});
+$c_sc_IndexedSeqView$Map.prototype.$classData = $d_sc_IndexedSeqView$Map;
 /** @constructor */
 function $c_sci_AbstractSeq() {
   /*<skip>*/
@@ -19672,6 +20658,12 @@ function $h_sci_Set$Set1() {
   /*<skip>*/
 }
 $h_sci_Set$Set1.prototype = $c_sci_Set$Set1.prototype;
+$c_sci_Set$Set1.prototype.map__F1__O = (function(f) {
+  return $f_sc_StrictOptimizedIterableOps__map__F1__O(this, f)
+});
+$c_sci_Set$Set1.prototype.flatMap__F1__O = (function(f) {
+  return $f_sc_StrictOptimizedIterableOps__flatMap__F1__O(this, f)
+});
 $c_sci_Set$Set1.prototype.size__I = (function() {
   return 1
 });
@@ -19742,6 +20734,12 @@ function $h_sci_Set$Set2() {
   /*<skip>*/
 }
 $h_sci_Set$Set2.prototype = $c_sci_Set$Set2.prototype;
+$c_sci_Set$Set2.prototype.map__F1__O = (function(f) {
+  return $f_sc_StrictOptimizedIterableOps__map__F1__O(this, f)
+});
+$c_sci_Set$Set2.prototype.flatMap__F1__O = (function(f) {
+  return $f_sc_StrictOptimizedIterableOps__flatMap__F1__O(this, f)
+});
 $c_sci_Set$Set2.prototype.size__I = (function() {
   return 2
 });
@@ -19830,6 +20828,12 @@ function $h_sci_Set$Set3() {
   /*<skip>*/
 }
 $h_sci_Set$Set3.prototype = $c_sci_Set$Set3.prototype;
+$c_sci_Set$Set3.prototype.map__F1__O = (function(f) {
+  return $f_sc_StrictOptimizedIterableOps__map__F1__O(this, f)
+});
+$c_sci_Set$Set3.prototype.flatMap__F1__O = (function(f) {
+  return $f_sc_StrictOptimizedIterableOps__flatMap__F1__O(this, f)
+});
 $c_sci_Set$Set3.prototype.size__I = (function() {
   return 3
 });
@@ -19924,6 +20928,12 @@ function $h_sci_Set$Set4() {
   /*<skip>*/
 }
 $h_sci_Set$Set4.prototype = $c_sci_Set$Set4.prototype;
+$c_sci_Set$Set4.prototype.map__F1__O = (function(f) {
+  return $f_sc_StrictOptimizedIterableOps__map__F1__O(this, f)
+});
+$c_sci_Set$Set4.prototype.flatMap__F1__O = (function(f) {
+  return $f_sc_StrictOptimizedIterableOps__flatMap__F1__O(this, f)
+});
 $c_sci_Set$Set4.prototype.size__I = (function() {
   return 4
 });
@@ -20151,6 +21161,12 @@ function $h_sci_Map$Map1() {
   /*<skip>*/
 }
 $h_sci_Map$Map1.prototype = $c_sci_Map$Map1.prototype;
+$c_sci_Map$Map1.prototype.map__F1__O = (function(f) {
+  return $f_sc_StrictOptimizedIterableOps__map__F1__O(this, f)
+});
+$c_sci_Map$Map1.prototype.flatMap__F1__O = (function(f) {
+  return $f_sc_StrictOptimizedIterableOps__flatMap__F1__O(this, f)
+});
 $c_sci_Map$Map1.prototype.size__I = (function() {
   return 1
 });
@@ -20251,6 +21267,12 @@ function $h_sci_Map$Map2() {
   /*<skip>*/
 }
 $h_sci_Map$Map2.prototype = $c_sci_Map$Map2.prototype;
+$c_sci_Map$Map2.prototype.map__F1__O = (function(f) {
+  return $f_sc_StrictOptimizedIterableOps__map__F1__O(this, f)
+});
+$c_sci_Map$Map2.prototype.flatMap__F1__O = (function(f) {
+  return $f_sc_StrictOptimizedIterableOps__flatMap__F1__O(this, f)
+});
 $c_sci_Map$Map2.prototype.size__I = (function() {
   return 2
 });
@@ -20360,6 +21382,12 @@ function $h_sci_Map$Map3() {
   /*<skip>*/
 }
 $h_sci_Map$Map3.prototype = $c_sci_Map$Map3.prototype;
+$c_sci_Map$Map3.prototype.map__F1__O = (function(f) {
+  return $f_sc_StrictOptimizedIterableOps__map__F1__O(this, f)
+});
+$c_sci_Map$Map3.prototype.flatMap__F1__O = (function(f) {
+  return $f_sc_StrictOptimizedIterableOps__flatMap__F1__O(this, f)
+});
 $c_sci_Map$Map3.prototype.size__I = (function() {
   return 3
 });
@@ -20480,6 +21508,12 @@ function $h_sci_Map$Map4() {
   /*<skip>*/
 }
 $h_sci_Map$Map4.prototype = $c_sci_Map$Map4.prototype;
+$c_sci_Map$Map4.prototype.map__F1__O = (function(f) {
+  return $f_sc_StrictOptimizedIterableOps__map__F1__O(this, f)
+});
+$c_sci_Map$Map4.prototype.flatMap__F1__O = (function(f) {
+  return $f_sc_StrictOptimizedIterableOps__flatMap__F1__O(this, f)
+});
 $c_sci_Map$Map4.prototype.size__I = (function() {
   return 4
 });
@@ -20619,6 +21653,12 @@ function $h_sci_HashSet() {
   /*<skip>*/
 }
 $h_sci_HashSet.prototype = $c_sci_HashSet.prototype;
+$c_sci_HashSet.prototype.map__F1__O = (function(f) {
+  return $f_sc_StrictOptimizedIterableOps__map__F1__O(this, f)
+});
+$c_sci_HashSet.prototype.flatMap__F1__O = (function(f) {
+  return $f_sc_StrictOptimizedIterableOps__flatMap__F1__O(this, f)
+});
 $c_sci_HashSet.prototype.iterableFactory__sc_IterableFactory = (function() {
   return $m_sci_HashSet$()
 });
@@ -20651,6 +21691,58 @@ $c_sci_HashSet.prototype.excl__O__sci_HashSet = (function(element) {
   var newRootNode = this.sci_HashSet__f_rootNode.removed__O__I__I__I__sci_BitmapIndexedSetNode(element, elementUnimprovedHash, elementHash, 0);
   return $p_sci_HashSet__newHashSetOrThis__sci_BitmapIndexedSetNode__sci_HashSet(this, newRootNode)
 });
+$c_sci_HashSet.prototype.concat__sc_IterableOnce__sci_HashSet = (function(that) {
+  if ((that instanceof $c_sci_HashSet)) {
+    var x2 = $as_sci_HashSet(that);
+    if (this.isEmpty__Z()) {
+      return x2
+    } else {
+      var newNode = this.sci_HashSet__f_rootNode.concat__sci_SetNode__I__sci_BitmapIndexedSetNode(x2.sci_HashSet__f_rootNode, 0);
+      return ((newNode === x2.sci_HashSet__f_rootNode) ? x2 : $p_sci_HashSet__newHashSetOrThis__sci_BitmapIndexedSetNode__sci_HashSet(this, newNode))
+    }
+  } else if (false) {
+    var x3 = $as_scm_HashSet(that);
+    var iter = x3.nodeIterator__sc_Iterator();
+    var current = this.sci_HashSet__f_rootNode;
+    while (iter.hasNext__Z()) {
+      var next = $as_scm_HashSet$Node(iter.next__O());
+      var originalHash = x3.unimproveHash__I__I(next.hash__I());
+      var improved = $m_sc_Hashing$().improve__I__I(originalHash);
+      current = current.updated__O__I__I__I__sci_BitmapIndexedSetNode(next.key__O(), originalHash, improved, 0);
+      if ((current !== this.sci_HashSet__f_rootNode)) {
+        var shallowlyMutableNodeMap = $m_sci_Node$().bitposFrom__I__I($m_sci_Node$().maskFrom__I__I__I(improved, 0));
+        while (iter.hasNext__Z()) {
+          var next$2 = $as_scm_HashSet$Node(iter.next__O());
+          var originalHash$2 = x3.unimproveHash__I__I(next$2.hash__I());
+          var improved$2 = $m_sc_Hashing$().improve__I__I(originalHash$2);
+          shallowlyMutableNodeMap = current.updateWithShallowMutations__O__I__I__I__I__I(next$2.key__O(), originalHash$2, improved$2, 0, shallowlyMutableNodeMap)
+        };
+        return new $c_sci_HashSet(current)
+      }
+    };
+    return this
+  } else {
+    var iter$2 = that.iterator__sc_Iterator();
+    var current$2 = this.sci_HashSet__f_rootNode;
+    while (iter$2.hasNext__Z()) {
+      var element = iter$2.next__O();
+      var originalHash$3 = $m_sr_Statics$().anyHash__O__I(element);
+      var improved$3 = $m_sc_Hashing$().improve__I__I(originalHash$3);
+      current$2 = current$2.updated__O__I__I__I__sci_BitmapIndexedSetNode(element, originalHash$3, improved$3, 0);
+      if ((current$2 !== this.sci_HashSet__f_rootNode)) {
+        var shallowlyMutableNodeMap$2 = $m_sci_Node$().bitposFrom__I__I($m_sci_Node$().maskFrom__I__I__I(improved$3, 0));
+        while (iter$2.hasNext__Z()) {
+          var element$2 = iter$2.next__O();
+          var originalHash$4 = $m_sr_Statics$().anyHash__O__I(element$2);
+          var improved$4 = $m_sc_Hashing$().improve__I__I(originalHash$4);
+          shallowlyMutableNodeMap$2 = current$2.updateWithShallowMutations__O__I__I__I__I__I(element$2, originalHash$4, improved$4, 0, shallowlyMutableNodeMap$2)
+        };
+        return new $c_sci_HashSet(current$2)
+      }
+    };
+    return this
+  }
+});
 $c_sci_HashSet.prototype.head__O = (function() {
   return this.iterator__sc_Iterator().next__O()
 });
@@ -20682,6 +21774,9 @@ $c_sci_HashSet.prototype.drop__I__O = (function(n) {
 $c_sci_HashSet.prototype.tail__O = (function() {
   var elem = this.iterator__sc_Iterator().next__O();
   return this.excl__O__sci_HashSet(elem)
+});
+$c_sci_HashSet.prototype.concat__sc_IterableOnce__sc_SetOps = (function(that) {
+  return this.concat__sc_IterableOnce__sci_HashSet(that)
 });
 $c_sci_HashSet.prototype.incl__O__sci_SetOps = (function(elem) {
   return this.incl__O__sci_HashSet(elem)
@@ -20740,6 +21835,20 @@ function $p_sci_LazyList__scala$collection$immutable$LazyList$$state$lzycompute_
     $thiz.sci_LazyList__f_bitmap$0 = true
   };
   return $thiz.sci_LazyList__f_scala$collection$immutable$LazyList$$state
+}
+function $p_sci_LazyList__mapImpl__F1__sci_LazyList($thiz, f) {
+  $m_sci_LazyList$();
+  var state = new $c_sjsr_AnonFunction0(((this$1, f$1) => (() => {
+    if (this$1.isEmpty__Z()) {
+      return $m_sci_LazyList$State$Empty$()
+    } else {
+      $m_sci_LazyList$();
+      var hd = f$1.apply__O__O(this$1.scala$collection$immutable$LazyList$$state__sci_LazyList$State().head__O());
+      var tl = $p_sci_LazyList__mapImpl__F1__sci_LazyList(this$1.scala$collection$immutable$LazyList$$state__sci_LazyList$State().tail__sci_LazyList(), f$1);
+      return new $c_sci_LazyList$State$Cons(hd, tl)
+    }
+  }))($thiz, f));
+  return new $c_sci_LazyList(state)
 }
 function $p_sci_LazyList__addStringNoForce__jl_StringBuilder__T__T__T__jl_StringBuilder($thiz, b, start, sep, end) {
   b.jl_StringBuilder__f_java$lang$StringBuilder$$content = (("" + b.jl_StringBuilder__f_java$lang$StringBuilder$$content) + start);
@@ -20923,6 +22032,12 @@ $c_sci_LazyList.prototype.iterator__sc_Iterator = (function() {
 $c_sci_LazyList.prototype.className__T = (function() {
   return "LazyList"
 });
+$c_sci_LazyList.prototype.map__F1__sci_LazyList = (function(f) {
+  return ((this.sci_LazyList__f_scala$collection$immutable$LazyList$$stateEvaluated && this.isEmpty__Z()) ? $m_sci_LazyList$().sci_LazyList$__f__empty : $p_sci_LazyList__mapImpl__F1__sci_LazyList(this, f))
+});
+$c_sci_LazyList.prototype.flatMap__F1__sci_LazyList = (function(f) {
+  return ((this.sci_LazyList__f_scala$collection$immutable$LazyList$$stateEvaluated && this.isEmpty__Z()) ? $m_sci_LazyList$().sci_LazyList$__f__empty : $m_sci_LazyList$().scala$collection$immutable$LazyList$$flatMapImpl__sci_LazyList__F1__sci_LazyList(this, f))
+});
 $c_sci_LazyList.prototype.drop__I__sci_LazyList = (function(n) {
   return ((n <= 0) ? this : ((this.sci_LazyList__f_scala$collection$immutable$LazyList$$stateEvaluated && this.isEmpty__Z()) ? $m_sci_LazyList$().sci_LazyList$__f__empty : $m_sci_LazyList$().scala$collection$immutable$LazyList$$dropImpl__sci_LazyList__I__sci_LazyList(this, n)))
 });
@@ -20944,6 +22059,12 @@ $c_sci_LazyList.prototype.isDefinedAt__O__Z = (function(x) {
 });
 $c_sci_LazyList.prototype.drop__I__O = (function(n) {
   return this.drop__I__sci_LazyList(n)
+});
+$c_sci_LazyList.prototype.flatMap__F1__O = (function(f) {
+  return this.flatMap__F1__sci_LazyList(f)
+});
+$c_sci_LazyList.prototype.map__F1__O = (function(f) {
+  return this.map__F1__sci_LazyList(f)
 });
 $c_sci_LazyList.prototype.tail__O = (function() {
   return this.scala$collection$immutable$LazyList$$state__sci_LazyList$State().tail__sci_LazyList()
@@ -21106,6 +22227,45 @@ $c_sci_Stream.prototype.indexWhere__F1__I__I = (function(p, from) {
 $c_sci_Stream.prototype.className__T = (function() {
   return "Stream"
 });
+$c_sci_Stream.prototype.lazyAppendedAll__F0__sci_Stream = (function(suffix) {
+  if (this.isEmpty__Z()) {
+    var this$1 = $m_sci_Stream$();
+    var source = $as_sc_IterableOnce(suffix.apply__O());
+    return this$1.from__sc_IterableOnce__sci_Stream(source)
+  } else {
+    var hd = this.head__O();
+    var tl = new $c_sjsr_AnonFunction0(((this$2, suffix$1) => (() => $as_sci_Stream(this$2.tail__O()).lazyAppendedAll__F0__sci_Stream(suffix$1)))(this, suffix));
+    return new $c_sci_Stream$Cons(hd, tl)
+  }
+});
+$c_sci_Stream.prototype.map__F1__sci_Stream = (function(f) {
+  if (this.isEmpty__Z()) {
+    return $m_sci_Stream$Empty$()
+  } else {
+    var hd = f.apply__O__O(this.head__O());
+    var tl = new $c_sjsr_AnonFunction0(((this$2, f$1) => (() => $as_sci_Stream(this$2.tail__O()).map__F1__sci_Stream(f$1)))(this, f));
+    return new $c_sci_Stream$Cons(hd, tl)
+  }
+});
+$c_sci_Stream.prototype.flatMap__F1__sci_Stream = (function(f) {
+  if (this.isEmpty__Z()) {
+    return $m_sci_Stream$Empty$()
+  } else {
+    var nonEmptyPrefix = new $c_sr_ObjectRef(this);
+    var this$3 = $m_sci_Stream$();
+    var source = $as_sc_IterableOnce(f.apply__O__O($as_sci_Stream(nonEmptyPrefix.sr_ObjectRef__f_elem).head__O()));
+    var prefix = this$3.from__sc_IterableOnce__sci_Stream(source);
+    while (((!$as_sci_Stream(nonEmptyPrefix.sr_ObjectRef__f_elem).isEmpty__Z()) && prefix.isEmpty__Z())) {
+      nonEmptyPrefix.sr_ObjectRef__f_elem = $as_sci_Stream($as_sci_Stream(nonEmptyPrefix.sr_ObjectRef__f_elem).tail__O());
+      if ((!$as_sci_Stream(nonEmptyPrefix.sr_ObjectRef__f_elem).isEmpty__Z())) {
+        var this$4 = $m_sci_Stream$();
+        var source$1 = $as_sc_IterableOnce(f.apply__O__O($as_sci_Stream(nonEmptyPrefix.sr_ObjectRef__f_elem).head__O()));
+        prefix = this$4.from__sc_IterableOnce__sci_Stream(source$1)
+      }
+    };
+    return ($as_sci_Stream(nonEmptyPrefix.sr_ObjectRef__f_elem).isEmpty__Z() ? $m_sci_Stream$Empty$() : prefix.lazyAppendedAll__F0__sci_Stream(new $c_sjsr_AnonFunction0(((this$6, nonEmptyPrefix$1, f$1) => (() => $as_sci_Stream($as_sci_Stream(nonEmptyPrefix$1.sr_ObjectRef__f_elem).tail__O()).flatMap__F1__sci_Stream(f$1)))(this, nonEmptyPrefix, f))))
+  }
+});
 $c_sci_Stream.prototype.addString__scm_StringBuilder__T__T__T__scm_StringBuilder = (function(sb, start, sep, end) {
   this.force__sci_Stream();
   $p_sci_Stream__addStringNoForce__jl_StringBuilder__T__T__T__jl_StringBuilder(this, sb.scm_StringBuilder__f_underlying, start, sep, end);
@@ -21121,6 +22281,12 @@ $c_sci_Stream.prototype.apply__O__O = (function(v1) {
 $c_sci_Stream.prototype.isDefinedAt__O__Z = (function(x) {
   var x$1 = $uI(x);
   return $f_sc_LinearSeqOps__isDefinedAt__I__Z(this, x$1)
+});
+$c_sci_Stream.prototype.flatMap__F1__O = (function(f) {
+  return this.flatMap__F1__sci_Stream(f)
+});
+$c_sci_Stream.prototype.map__F1__O = (function(f) {
+  return this.map__F1__sci_Stream(f)
 });
 $c_sci_Stream.prototype.iterableFactory__sc_IterableFactory = (function() {
   return $m_sci_Stream$()
@@ -21158,6 +22324,9 @@ $c_sci_WrappedString.prototype.iterator__sc_Iterator = (function() {
 });
 $c_sci_WrappedString.prototype.drop__I__O = (function(n) {
   return $f_sc_IndexedSeqOps__drop__I__O(this, n)
+});
+$c_sci_WrappedString.prototype.map__F1__O = (function(f) {
+  return $f_sc_IndexedSeqOps__map__F1__O(this, f)
 });
 $c_sci_WrappedString.prototype.head__O = (function() {
   var this$1 = this.sci_WrappedString__f_scala$collection$immutable$WrappedString$$self;
@@ -21287,6 +22456,12 @@ function $h_sjsr_WrappedVarArgs() {
   /*<skip>*/
 }
 $h_sjsr_WrappedVarArgs.prototype = $c_sjsr_WrappedVarArgs.prototype;
+$c_sjsr_WrappedVarArgs.prototype.map__F1__O = (function(f) {
+  return $f_sc_StrictOptimizedIterableOps__map__F1__O(this, f)
+});
+$c_sjsr_WrappedVarArgs.prototype.flatMap__F1__O = (function(f) {
+  return $f_sc_StrictOptimizedIterableOps__flatMap__F1__O(this, f)
+});
 $c_sjsr_WrappedVarArgs.prototype.canEqual__O__Z = (function(that) {
   return $f_sci_IndexedSeq__canEqual__O__Z(this, that)
 });
@@ -21424,6 +22599,12 @@ function $h_sci_HashMap() {
   /*<skip>*/
 }
 $h_sci_HashMap.prototype = $c_sci_HashMap.prototype;
+$c_sci_HashMap.prototype.map__F1__O = (function(f) {
+  return $f_sc_StrictOptimizedIterableOps__map__F1__O(this, f)
+});
+$c_sci_HashMap.prototype.flatMap__F1__O = (function(f) {
+  return $f_sc_StrictOptimizedIterableOps__flatMap__F1__O(this, f)
+});
 $c_sci_HashMap.prototype.mapFactory__sc_MapFactory = (function() {
   return $m_sci_HashMap$()
 });
@@ -21789,6 +22970,15 @@ $h_scm_AbstractBuffer.prototype = $c_scm_AbstractBuffer.prototype;
 $c_scm_AbstractBuffer.prototype.addAll__sc_IterableOnce__scm_Growable = (function(xs) {
   return $f_scm_Growable__addAll__sc_IterableOnce__scm_Growable(this, xs)
 });
+function $as_scm_HashSet(obj) {
+  return ((false || (obj === null)) ? obj : $throwClassCastException(obj, "scala.collection.mutable.HashSet"))
+}
+function $isArrayOf_scm_HashSet(obj, depth) {
+  return (!(!(((obj && obj.$classData) && (obj.$classData.arrayDepth === depth)) && obj.$classData.arrayBase.ancestors.scm_HashSet)))
+}
+function $asArrayOf_scm_HashSet(obj, depth) {
+  return (($isArrayOf_scm_HashSet(obj, depth) || (obj === null)) ? obj : $throwArrayCastException(obj, "Lscala.collection.mutable.HashSet;", depth))
+}
 function $p_Lscalatags_JsDom$all$__h1$lzycompute__Lscalatags_JsDom$TypedTag($thiz) {
   var b = $thiz.Lscalatags_JsDom$all$__f_bitmap$0;
   var lo = (128 & b.RTLong__f_lo);
@@ -21815,6 +23005,45 @@ function $p_Lscalatags_JsDom$all$__h3$lzycompute__Lscalatags_JsDom$TypedTag($thi
   };
   return $thiz.Lscalatags_JsDom$all$__f_h3
 }
+function $p_Lscalatags_JsDom$all$__ul$lzycompute__Lscalatags_JsDom$TypedTag($thiz) {
+  var b = $thiz.Lscalatags_JsDom$all$__f_bitmap$0;
+  var lo = (1048576 & b.RTLong__f_lo);
+  if ((lo === 0)) {
+    var ns = $m_Lscalatags_generic_Namespace$().Lscalatags_generic_Namespace$__f_htmlNamespaceConfig;
+    $thiz.Lscalatags_JsDom$all$__f_ul = $as_Lscalatags_JsDom$TypedTag($f_Lscalatags_jsdom_TagFactory__typedTag__T__Z__Lscalatags_generic_Namespace__Lscalatags_generic_TypedTag($thiz, "ul", false, ns));
+    var b$1 = $thiz.Lscalatags_JsDom$all$__f_bitmap$0;
+    var lo$1 = (1048576 | b$1.RTLong__f_lo);
+    var hi = b$1.RTLong__f_hi;
+    $thiz.Lscalatags_JsDom$all$__f_bitmap$0 = new $c_RTLong(lo$1, hi)
+  };
+  return $thiz.Lscalatags_JsDom$all$__f_ul
+}
+function $p_Lscalatags_JsDom$all$__li$lzycompute__Lscalatags_JsDom$TypedTag($thiz) {
+  var b = $thiz.Lscalatags_JsDom$all$__f_bitmap$0;
+  var lo = (2097152 & b.RTLong__f_lo);
+  if ((lo === 0)) {
+    var ns = $m_Lscalatags_generic_Namespace$().Lscalatags_generic_Namespace$__f_htmlNamespaceConfig;
+    $thiz.Lscalatags_JsDom$all$__f_li = $as_Lscalatags_JsDom$TypedTag($f_Lscalatags_jsdom_TagFactory__typedTag__T__Z__Lscalatags_generic_Namespace__Lscalatags_generic_TypedTag($thiz, "li", false, ns));
+    var b$1 = $thiz.Lscalatags_JsDom$all$__f_bitmap$0;
+    var lo$1 = (2097152 | b$1.RTLong__f_lo);
+    var hi = b$1.RTLong__f_hi;
+    $thiz.Lscalatags_JsDom$all$__f_bitmap$0 = new $c_RTLong(lo$1, hi)
+  };
+  return $thiz.Lscalatags_JsDom$all$__f_li
+}
+function $p_Lscalatags_JsDom$all$__div$lzycompute__Lscalatags_JsDom$TypedTag($thiz) {
+  var b = $thiz.Lscalatags_JsDom$all$__f_bitmap$0;
+  var lo = (134217728 & b.RTLong__f_lo);
+  if ((lo === 0)) {
+    var ns = $m_Lscalatags_generic_Namespace$().Lscalatags_generic_Namespace$__f_htmlNamespaceConfig;
+    $thiz.Lscalatags_JsDom$all$__f_div = $as_Lscalatags_JsDom$TypedTag($f_Lscalatags_jsdom_TagFactory__typedTag__T__Z__Lscalatags_generic_Namespace__Lscalatags_generic_TypedTag($thiz, "div", false, ns));
+    var b$1 = $thiz.Lscalatags_JsDom$all$__f_bitmap$0;
+    var lo$1 = (134217728 | b$1.RTLong__f_lo);
+    var hi = b$1.RTLong__f_hi;
+    $thiz.Lscalatags_JsDom$all$__f_bitmap$0 = new $c_RTLong(lo$1, hi)
+  };
+  return $thiz.Lscalatags_JsDom$all$__f_div
+}
 function $p_Lscalatags_JsDom$all$__img$lzycompute__Lscalatags_JsDom$TypedTag($thiz) {
   var b = $thiz.Lscalatags_JsDom$all$__f_bitmap$0;
   var hi = (8192 & b.RTLong__f_hi);
@@ -21827,6 +23056,19 @@ function $p_Lscalatags_JsDom$all$__img$lzycompute__Lscalatags_JsDom$TypedTag($th
     $thiz.Lscalatags_JsDom$all$__f_bitmap$0 = new $c_RTLong(lo, hi$1)
   };
   return $thiz.Lscalatags_JsDom$all$__f_img
+}
+function $p_Lscalatags_JsDom$all$__input$lzycompute__Lscalatags_JsDom$TypedTag($thiz) {
+  var b = $thiz.Lscalatags_JsDom$all$__f_bitmap$1;
+  var lo = (128 & b.RTLong__f_lo);
+  if ((lo === 0)) {
+    var ns = $m_Lscalatags_generic_Namespace$().Lscalatags_generic_Namespace$__f_htmlNamespaceConfig;
+    $thiz.Lscalatags_JsDom$all$__f_input = $as_Lscalatags_JsDom$TypedTag($f_Lscalatags_jsdom_TagFactory__typedTag__T__Z__Lscalatags_generic_Namespace__Lscalatags_generic_TypedTag($thiz, "input", true, ns));
+    var b$1 = $thiz.Lscalatags_JsDom$all$__f_bitmap$1;
+    var lo$1 = (128 | b$1.RTLong__f_lo);
+    var hi = b$1.RTLong__f_hi;
+    $thiz.Lscalatags_JsDom$all$__f_bitmap$1 = new $c_RTLong(lo$1, hi)
+  };
+  return $thiz.Lscalatags_JsDom$all$__f_input
 }
 function $p_Lscalatags_JsDom$all$__button$lzycompute__Lscalatags_JsDom$TypedTag($thiz) {
   var b = $thiz.Lscalatags_JsDom$all$__f_bitmap$1;
@@ -21852,6 +23094,18 @@ function $p_Lscalatags_JsDom$all$__src$lzycompute__Lscalatags_generic_Attr($thiz
     $thiz.Lscalatags_JsDom$all$__f_bitmap$2 = new $c_RTLong(lo$1, hi)
   };
   return $thiz.Lscalatags_JsDom$all$__f_src
+}
+function $p_Lscalatags_JsDom$all$__type$lzycompute__Lscalatags_generic_Attr($thiz) {
+  var b = $thiz.Lscalatags_JsDom$all$__f_bitmap$4;
+  var lo = (2097152 & b.RTLong__f_lo);
+  if ((lo === 0)) {
+    $thiz.Lscalatags_JsDom$all$__f_type = $f_Lscalatags_generic_Util__attr__T__Lscalatags_generic_Namespace__Z__Lscalatags_generic_Attr($thiz, "type", null, false);
+    var b$1 = $thiz.Lscalatags_JsDom$all$__f_bitmap$4;
+    var lo$1 = (2097152 | b$1.RTLong__f_lo);
+    var hi = b$1.RTLong__f_hi;
+    $thiz.Lscalatags_JsDom$all$__f_bitmap$4 = new $c_RTLong(lo$1, hi)
+  };
+  return $thiz.Lscalatags_JsDom$all$__f_type
 }
 function $p_Lscalatags_JsDom$all$__id$lzycompute__Lscalatags_generic_Attr($thiz) {
   var b = $thiz.Lscalatags_JsDom$all$__f_bitmap$4;
@@ -22277,6 +23531,33 @@ $c_Lscalatags_JsDom$all$.prototype.h3__Lscalatags_JsDom$TypedTag = (function() {
     return this.Lscalatags_JsDom$all$__f_h3
   }
 });
+$c_Lscalatags_JsDom$all$.prototype.ul__Lscalatags_JsDom$TypedTag = (function() {
+  var b = this.Lscalatags_JsDom$all$__f_bitmap$0;
+  var lo = (1048576 & b.RTLong__f_lo);
+  if ((lo === 0)) {
+    return $p_Lscalatags_JsDom$all$__ul$lzycompute__Lscalatags_JsDom$TypedTag(this)
+  } else {
+    return this.Lscalatags_JsDom$all$__f_ul
+  }
+});
+$c_Lscalatags_JsDom$all$.prototype.li__Lscalatags_JsDom$TypedTag = (function() {
+  var b = this.Lscalatags_JsDom$all$__f_bitmap$0;
+  var lo = (2097152 & b.RTLong__f_lo);
+  if ((lo === 0)) {
+    return $p_Lscalatags_JsDom$all$__li$lzycompute__Lscalatags_JsDom$TypedTag(this)
+  } else {
+    return this.Lscalatags_JsDom$all$__f_li
+  }
+});
+$c_Lscalatags_JsDom$all$.prototype.div__Lscalatags_JsDom$TypedTag = (function() {
+  var b = this.Lscalatags_JsDom$all$__f_bitmap$0;
+  var lo = (134217728 & b.RTLong__f_lo);
+  if ((lo === 0)) {
+    return $p_Lscalatags_JsDom$all$__div$lzycompute__Lscalatags_JsDom$TypedTag(this)
+  } else {
+    return this.Lscalatags_JsDom$all$__f_div
+  }
+});
 $c_Lscalatags_JsDom$all$.prototype.img__Lscalatags_JsDom$TypedTag = (function() {
   var b = this.Lscalatags_JsDom$all$__f_bitmap$0;
   var hi = (8192 & b.RTLong__f_hi);
@@ -22284,6 +23565,15 @@ $c_Lscalatags_JsDom$all$.prototype.img__Lscalatags_JsDom$TypedTag = (function() 
     return $p_Lscalatags_JsDom$all$__img$lzycompute__Lscalatags_JsDom$TypedTag(this)
   } else {
     return this.Lscalatags_JsDom$all$__f_img
+  }
+});
+$c_Lscalatags_JsDom$all$.prototype.input__Lscalatags_JsDom$TypedTag = (function() {
+  var b = this.Lscalatags_JsDom$all$__f_bitmap$1;
+  var lo = (128 & b.RTLong__f_lo);
+  if ((lo === 0)) {
+    return $p_Lscalatags_JsDom$all$__input$lzycompute__Lscalatags_JsDom$TypedTag(this)
+  } else {
+    return this.Lscalatags_JsDom$all$__f_input
   }
 });
 $c_Lscalatags_JsDom$all$.prototype.button__Lscalatags_JsDom$TypedTag = (function() {
@@ -22302,6 +23592,15 @@ $c_Lscalatags_JsDom$all$.prototype.src__Lscalatags_generic_Attr = (function() {
     return $p_Lscalatags_JsDom$all$__src$lzycompute__Lscalatags_generic_Attr(this)
   } else {
     return this.Lscalatags_JsDom$all$__f_src
+  }
+});
+$c_Lscalatags_JsDom$all$.prototype.type__Lscalatags_generic_Attr = (function() {
+  var b = this.Lscalatags_JsDom$all$__f_bitmap$4;
+  var lo = (2097152 & b.RTLong__f_lo);
+  if ((lo === 0)) {
+    return $p_Lscalatags_JsDom$all$__type$lzycompute__Lscalatags_generic_Attr(this)
+  } else {
+    return this.Lscalatags_JsDom$all$__f_type
   }
 });
 $c_Lscalatags_JsDom$all$.prototype.id__Lscalatags_generic_Attr = (function() {
@@ -22366,6 +23665,9 @@ function $h_sci_Vector() {
   /*<skip>*/
 }
 $h_sci_Vector.prototype = $c_sci_Vector.prototype;
+$c_sci_Vector.prototype.flatMap__F1__O = (function(f) {
+  return $f_sc_StrictOptimizedIterableOps__flatMap__F1__O(this, f)
+});
 $c_sci_Vector.prototype.canEqual__O__Z = (function(that) {
   return $f_sci_IndexedSeq__canEqual__O__Z(this, that)
 });
@@ -22629,6 +23931,41 @@ $c_sci_List.prototype.prependedAll__sc_IterableOnce__sci_List = (function(prefix
     return this
   }
 });
+$c_sci_List.prototype.map__F1__sci_List = (function(f) {
+  if ((this === $m_sci_Nil$())) {
+    return $m_sci_Nil$()
+  } else {
+    var h = new $c_sci_$colon$colon(f.apply__O__O(this.head__O()), $m_sci_Nil$());
+    var t = h;
+    var rest = $as_sci_List(this.tail__O());
+    while ((rest !== $m_sci_Nil$())) {
+      var nx = new $c_sci_$colon$colon(f.apply__O__O(rest.head__O()), $m_sci_Nil$());
+      t.sci_$colon$colon__f_next = nx;
+      t = nx;
+      rest = $as_sci_List(rest.tail__O())
+    };
+    return h
+  }
+});
+$c_sci_List.prototype.flatMap__F1__sci_List = (function(f) {
+  var rest = this;
+  var h = null;
+  var t = null;
+  while ((rest !== $m_sci_Nil$())) {
+    var it = $as_sc_IterableOnce(f.apply__O__O(rest.head__O())).iterator__sc_Iterator();
+    while (it.hasNext__Z()) {
+      var nx = new $c_sci_$colon$colon(it.next__O(), $m_sci_Nil$());
+      if ((t === null)) {
+        h = nx
+      } else {
+        t.sci_$colon$colon__f_next = nx
+      };
+      t = nx
+    };
+    rest = $as_sci_List(rest.tail__O())
+  };
+  return ((h === null) ? $m_sci_Nil$() : h)
+});
 $c_sci_List.prototype.length__I = (function() {
   var these = this;
   var len = 0;
@@ -22688,6 +24025,12 @@ $c_sci_List.prototype.isDefinedAt__O__Z = (function(x) {
 });
 $c_sci_List.prototype.drop__I__O = (function(n) {
   return $p_sc_StrictOptimizedLinearSeqOps__loop$2__I__sc_LinearSeq__sc_LinearSeq(this, n, this)
+});
+$c_sci_List.prototype.flatMap__F1__O = (function(f) {
+  return this.flatMap__F1__sci_List(f)
+});
+$c_sci_List.prototype.map__F1__O = (function(f) {
+  return this.map__F1__sci_List(f)
 });
 $c_sci_List.prototype.iterableFactory__sc_IterableFactory = (function() {
   return $m_sci_List$()
@@ -22818,6 +24161,9 @@ $c_sci_Vector1.prototype.appended__O__sci_Vector = (function(elem) {
     return new $c_sci_Vector2($$x2, 32, $$x1, a, 33)
   }
 });
+$c_sci_Vector1.prototype.map__F1__sci_Vector = (function(f) {
+  return new $c_sci_Vector1($m_sci_VectorStatics$().mapElems1__AO__F1__AO(this.sci_Vector__f_prefix1, f))
+});
 $c_sci_Vector1.prototype.slice0__I__I__sci_Vector = (function(lo, hi) {
   var original = this.sci_Vector__f_prefix1;
   return new $c_sci_Vector1($m_ju_Arrays$().copyOfRange__AO__I__I__AO(original, lo, hi))
@@ -22839,6 +24185,9 @@ $c_sci_Vector1.prototype.vectorSlice__I__AO = (function(idx) {
 });
 $c_sci_Vector1.prototype.tail__O = (function() {
   return this.tail__sci_Vector()
+});
+$c_sci_Vector1.prototype.map__F1__O = (function(f) {
+  return this.map__F1__sci_Vector(f)
 });
 $c_sci_Vector1.prototype.apply__O__O = (function(v1) {
   var index = $uI(v1);
@@ -23107,6 +24456,9 @@ $c_sci_Vector0$.prototype.ioob__I__jl_IndexOutOfBoundsException = (function(inde
 $c_sci_Vector0$.prototype.tail__O = (function() {
   return this.tail__sci_Vector()
 });
+$c_sci_Vector0$.prototype.map__F1__O = (function(f) {
+  return this
+});
 $c_sci_Vector0$.prototype.apply__O__O = (function(v1) {
   this.apply__I__E($uI(v1))
 });
@@ -23259,6 +24611,14 @@ $c_sci_Vector2.prototype.appended__O__sci_Vector = (function(elem) {
     return new $c_sci_Vector3($$x5, $$x4, $$x3, ((960 + $$x2) | 0), $$x1, a$1, a$2, ((1 + this.sci_BigVector__f_length0) | 0))
   }
 });
+$c_sci_Vector2.prototype.map__F1__sci_Vector = (function(f) {
+  var x$1 = $m_sci_VectorStatics$().mapElems1__AO__F1__AO(this.sci_Vector__f_prefix1, f);
+  var x$2 = $asArrayOf_O($m_sci_VectorStatics$().mapElems__I__AO__F1__AO(2, this.sci_Vector2__f_data2, f), 2);
+  var x$3 = $m_sci_VectorStatics$().mapElems1__AO__F1__AO(this.sci_BigVector__f_suffix1, f);
+  var x$4 = this.sci_Vector2__f_len1;
+  var x$5 = this.sci_BigVector__f_length0;
+  return new $c_sci_Vector2(x$1, x$4, x$2, x$3, x$5)
+});
 $c_sci_Vector2.prototype.slice0__I__I__sci_Vector = (function(lo, hi) {
   var b = new $c_sci_VectorSliceBuilder(lo, hi);
   b.consider__I__AO__V(1, this.sci_Vector__f_prefix1);
@@ -23304,6 +24664,9 @@ $c_sci_Vector2.prototype.vectorSlice__I__AO = (function(idx) {
 });
 $c_sci_Vector2.prototype.tail__O = (function() {
   return this.tail__sci_Vector()
+});
+$c_sci_Vector2.prototype.map__F1__O = (function(f) {
+  return this.map__F1__sci_Vector(f)
 });
 $c_sci_Vector2.prototype.apply__O__O = (function(v1) {
   var index = $uI(v1);
@@ -23544,6 +24907,17 @@ $c_sci_Vector3.prototype.appended__O__sci_Vector = (function(elem) {
     return new $c_sci_Vector4($$x8, $$x7, $$x6, $$x5, $$x4, ((30720 + $$x3) | 0), $$x2, a$2, $$x1, a$3, ((1 + this.sci_BigVector__f_length0) | 0))
   }
 });
+$c_sci_Vector3.prototype.map__F1__sci_Vector = (function(f) {
+  var x$1 = $m_sci_VectorStatics$().mapElems1__AO__F1__AO(this.sci_Vector__f_prefix1, f);
+  var x$2 = $asArrayOf_O($m_sci_VectorStatics$().mapElems__I__AO__F1__AO(2, this.sci_Vector3__f_prefix2, f), 2);
+  var x$3 = $asArrayOf_O($m_sci_VectorStatics$().mapElems__I__AO__F1__AO(3, this.sci_Vector3__f_data3, f), 3);
+  var x$4 = $asArrayOf_O($m_sci_VectorStatics$().mapElems__I__AO__F1__AO(2, this.sci_Vector3__f_suffix2, f), 2);
+  var x$5 = $m_sci_VectorStatics$().mapElems1__AO__F1__AO(this.sci_BigVector__f_suffix1, f);
+  var x$6 = this.sci_Vector3__f_len1;
+  var x$7 = this.sci_Vector3__f_len12;
+  var x$8 = this.sci_BigVector__f_length0;
+  return new $c_sci_Vector3(x$1, x$6, x$2, x$7, x$3, x$4, x$5, x$8)
+});
 $c_sci_Vector3.prototype.slice0__I__I__sci_Vector = (function(lo, hi) {
   var b = new $c_sci_VectorSliceBuilder(lo, hi);
   b.consider__I__AO__V(1, this.sci_Vector__f_prefix1);
@@ -23602,6 +24976,9 @@ $c_sci_Vector3.prototype.vectorSlice__I__AO = (function(idx) {
 });
 $c_sci_Vector3.prototype.tail__O = (function() {
   return this.tail__sci_Vector()
+});
+$c_sci_Vector3.prototype.map__F1__O = (function(f) {
+  return this.map__F1__sci_Vector(f)
 });
 $c_sci_Vector3.prototype.apply__O__O = (function(v1) {
   var index = $uI(v1);
@@ -23947,6 +25324,20 @@ $c_sci_Vector4.prototype.appended__O__sci_Vector = (function(elem) {
     return new $c_sci_Vector5($$x11, $$x10, $$x9, $$x8, $$x7, $$x6, $$x5, ((983040 + $$x4) | 0), $$x3, a$3, $$x2, $$x1, a$4, ((1 + this.sci_BigVector__f_length0) | 0))
   }
 });
+$c_sci_Vector4.prototype.map__F1__sci_Vector = (function(f) {
+  var x$1 = $m_sci_VectorStatics$().mapElems1__AO__F1__AO(this.sci_Vector__f_prefix1, f);
+  var x$2 = $asArrayOf_O($m_sci_VectorStatics$().mapElems__I__AO__F1__AO(2, this.sci_Vector4__f_prefix2, f), 2);
+  var x$3 = $asArrayOf_O($m_sci_VectorStatics$().mapElems__I__AO__F1__AO(3, this.sci_Vector4__f_prefix3, f), 3);
+  var x$4 = $asArrayOf_O($m_sci_VectorStatics$().mapElems__I__AO__F1__AO(4, this.sci_Vector4__f_data4, f), 4);
+  var x$5 = $asArrayOf_O($m_sci_VectorStatics$().mapElems__I__AO__F1__AO(3, this.sci_Vector4__f_suffix3, f), 3);
+  var x$6 = $asArrayOf_O($m_sci_VectorStatics$().mapElems__I__AO__F1__AO(2, this.sci_Vector4__f_suffix2, f), 2);
+  var x$7 = $m_sci_VectorStatics$().mapElems1__AO__F1__AO(this.sci_BigVector__f_suffix1, f);
+  var x$8 = this.sci_Vector4__f_len1;
+  var x$9 = this.sci_Vector4__f_len12;
+  var x$10 = this.sci_Vector4__f_len123;
+  var x$11 = this.sci_BigVector__f_length0;
+  return new $c_sci_Vector4(x$1, x$8, x$2, x$9, x$3, x$10, x$4, x$5, x$6, x$7, x$11)
+});
 $c_sci_Vector4.prototype.slice0__I__I__sci_Vector = (function(lo, hi) {
   var b = new $c_sci_VectorSliceBuilder(lo, hi);
   b.consider__I__AO__V(1, this.sci_Vector__f_prefix1);
@@ -24018,6 +25409,9 @@ $c_sci_Vector4.prototype.vectorSlice__I__AO = (function(idx) {
 });
 $c_sci_Vector4.prototype.tail__O = (function() {
   return this.tail__sci_Vector()
+});
+$c_sci_Vector4.prototype.map__F1__O = (function(f) {
+  return this.map__F1__sci_Vector(f)
 });
 $c_sci_Vector4.prototype.apply__O__O = (function(v1) {
   var index = $uI(v1);
@@ -24493,6 +25887,23 @@ $c_sci_Vector5.prototype.appended__O__sci_Vector = (function(elem) {
     return new $c_sci_Vector6($$x14, $$x13, $$x12, $$x11, $$x10, $$x9, $$x8, $$x7, $$x6, ((31457280 + $$x5) | 0), $$x4, a$4, $$x3, $$x2, $$x1, a$5, ((1 + this.sci_BigVector__f_length0) | 0))
   }
 });
+$c_sci_Vector5.prototype.map__F1__sci_Vector = (function(f) {
+  var x$1 = $m_sci_VectorStatics$().mapElems1__AO__F1__AO(this.sci_Vector__f_prefix1, f);
+  var x$2 = $asArrayOf_O($m_sci_VectorStatics$().mapElems__I__AO__F1__AO(2, this.sci_Vector5__f_prefix2, f), 2);
+  var x$3 = $asArrayOf_O($m_sci_VectorStatics$().mapElems__I__AO__F1__AO(3, this.sci_Vector5__f_prefix3, f), 3);
+  var x$4 = $asArrayOf_O($m_sci_VectorStatics$().mapElems__I__AO__F1__AO(4, this.sci_Vector5__f_prefix4, f), 4);
+  var x$5 = $asArrayOf_O($m_sci_VectorStatics$().mapElems__I__AO__F1__AO(5, this.sci_Vector5__f_data5, f), 5);
+  var x$6 = $asArrayOf_O($m_sci_VectorStatics$().mapElems__I__AO__F1__AO(4, this.sci_Vector5__f_suffix4, f), 4);
+  var x$7 = $asArrayOf_O($m_sci_VectorStatics$().mapElems__I__AO__F1__AO(3, this.sci_Vector5__f_suffix3, f), 3);
+  var x$8 = $asArrayOf_O($m_sci_VectorStatics$().mapElems__I__AO__F1__AO(2, this.sci_Vector5__f_suffix2, f), 2);
+  var x$9 = $m_sci_VectorStatics$().mapElems1__AO__F1__AO(this.sci_BigVector__f_suffix1, f);
+  var x$10 = this.sci_Vector5__f_len1;
+  var x$11 = this.sci_Vector5__f_len12;
+  var x$12 = this.sci_Vector5__f_len123;
+  var x$13 = this.sci_Vector5__f_len1234;
+  var x$14 = this.sci_BigVector__f_length0;
+  return new $c_sci_Vector5(x$1, x$10, x$2, x$11, x$3, x$12, x$4, x$13, x$5, x$6, x$7, x$8, x$9, x$14)
+});
 $c_sci_Vector5.prototype.slice0__I__I__sci_Vector = (function(lo, hi) {
   var b = new $c_sci_VectorSliceBuilder(lo, hi);
   b.consider__I__AO__V(1, this.sci_Vector__f_prefix1);
@@ -24577,6 +25988,9 @@ $c_sci_Vector5.prototype.vectorSlice__I__AO = (function(idx) {
 });
 $c_sci_Vector5.prototype.tail__O = (function() {
   return this.tail__sci_Vector()
+});
+$c_sci_Vector5.prototype.map__F1__O = (function(f) {
+  return this.map__F1__sci_Vector(f)
 });
 $c_sci_Vector5.prototype.apply__O__O = (function(v1) {
   var index = $uI(v1);
@@ -25185,6 +26599,26 @@ $c_sci_Vector6.prototype.appended__O__sci_Vector = (function(elem) {
     throw $ct_jl_IllegalArgumentException__(new $c_jl_IllegalArgumentException())
   }
 });
+$c_sci_Vector6.prototype.map__F1__sci_Vector = (function(f) {
+  var x$1 = $m_sci_VectorStatics$().mapElems1__AO__F1__AO(this.sci_Vector__f_prefix1, f);
+  var x$2 = $asArrayOf_O($m_sci_VectorStatics$().mapElems__I__AO__F1__AO(2, this.sci_Vector6__f_prefix2, f), 2);
+  var x$3 = $asArrayOf_O($m_sci_VectorStatics$().mapElems__I__AO__F1__AO(3, this.sci_Vector6__f_prefix3, f), 3);
+  var x$4 = $asArrayOf_O($m_sci_VectorStatics$().mapElems__I__AO__F1__AO(4, this.sci_Vector6__f_prefix4, f), 4);
+  var x$5 = $asArrayOf_O($m_sci_VectorStatics$().mapElems__I__AO__F1__AO(5, this.sci_Vector6__f_prefix5, f), 5);
+  var x$6 = $asArrayOf_O($m_sci_VectorStatics$().mapElems__I__AO__F1__AO(6, this.sci_Vector6__f_data6, f), 6);
+  var x$7 = $asArrayOf_O($m_sci_VectorStatics$().mapElems__I__AO__F1__AO(5, this.sci_Vector6__f_suffix5, f), 5);
+  var x$8 = $asArrayOf_O($m_sci_VectorStatics$().mapElems__I__AO__F1__AO(4, this.sci_Vector6__f_suffix4, f), 4);
+  var x$9 = $asArrayOf_O($m_sci_VectorStatics$().mapElems__I__AO__F1__AO(3, this.sci_Vector6__f_suffix3, f), 3);
+  var x$10 = $asArrayOf_O($m_sci_VectorStatics$().mapElems__I__AO__F1__AO(2, this.sci_Vector6__f_suffix2, f), 2);
+  var x$11 = $m_sci_VectorStatics$().mapElems1__AO__F1__AO(this.sci_BigVector__f_suffix1, f);
+  var x$12 = this.sci_Vector6__f_len1;
+  var x$13 = this.sci_Vector6__f_len12;
+  var x$14 = this.sci_Vector6__f_len123;
+  var x$15 = this.sci_Vector6__f_len1234;
+  var x$16 = this.sci_Vector6__f_len12345;
+  var x$17 = this.sci_BigVector__f_length0;
+  return new $c_sci_Vector6(x$1, x$12, x$2, x$13, x$3, x$14, x$4, x$15, x$5, x$16, x$6, x$7, x$8, x$9, x$10, x$11, x$17)
+});
 $c_sci_Vector6.prototype.slice0__I__I__sci_Vector = (function(lo, hi) {
   var b = new $c_sci_VectorSliceBuilder(lo, hi);
   b.consider__I__AO__V(1, this.sci_Vector__f_prefix1);
@@ -25282,6 +26716,9 @@ $c_sci_Vector6.prototype.vectorSlice__I__AO = (function(idx) {
 });
 $c_sci_Vector6.prototype.tail__O = (function() {
   return this.tail__sci_Vector()
+});
+$c_sci_Vector6.prototype.map__F1__O = (function(f) {
+  return this.map__F1__sci_Vector(f)
 });
 $c_sci_Vector6.prototype.apply__O__O = (function(v1) {
   var index = $uI(v1);
@@ -25386,6 +26823,9 @@ $c_scm_StringBuilder.prototype.iterator__sc_Iterator = (function() {
 });
 $c_scm_StringBuilder.prototype.drop__I__O = (function(n) {
   return $f_sc_IndexedSeqOps__drop__I__O(this, n)
+});
+$c_scm_StringBuilder.prototype.map__F1__O = (function(f) {
+  return $f_sc_IndexedSeqOps__map__F1__O(this, f)
 });
 $c_scm_StringBuilder.prototype.head__O = (function() {
   return $bC(this.scm_StringBuilder__f_underlying.charAt__I__C(0))
@@ -25555,6 +26995,12 @@ $h_scm_ListBuffer.prototype = $c_scm_ListBuffer.prototype;
 $c_scm_ListBuffer.prototype.sizeHint__I__V = (function(size) {
   /*<skip>*/
 });
+$c_scm_ListBuffer.prototype.map__F1__O = (function(f) {
+  return $f_sc_StrictOptimizedIterableOps__map__F1__O(this, f)
+});
+$c_scm_ListBuffer.prototype.flatMap__F1__O = (function(f) {
+  return $f_sc_StrictOptimizedIterableOps__flatMap__F1__O(this, f)
+});
 $c_scm_ListBuffer.prototype.iterator__sc_Iterator = (function() {
   return new $c_scm_MutationTracker$CheckedIterator(this.scm_ListBuffer__f_first.iterator__sc_Iterator(), new $c_sjsr_AnonFunction0(((this$1) => (() => this$1.scm_ListBuffer__f_mutationCount))(this)))
 });
@@ -25705,6 +27151,12 @@ function $h_scm_ArrayBuffer() {
   /*<skip>*/
 }
 $h_scm_ArrayBuffer.prototype = $c_scm_ArrayBuffer.prototype;
+$c_scm_ArrayBuffer.prototype.map__F1__O = (function(f) {
+  return $f_sc_StrictOptimizedIterableOps__map__F1__O(this, f)
+});
+$c_scm_ArrayBuffer.prototype.flatMap__F1__O = (function(f) {
+  return $f_sc_StrictOptimizedIterableOps__flatMap__F1__O(this, f)
+});
 $c_scm_ArrayBuffer.prototype.iterator__sc_Iterator = (function() {
   var this$1 = new $c_scm_ArrayBufferView(this.scm_ArrayBuffer__f_array, this.scm_ArrayBuffer__f_size0);
   return new $c_sc_IndexedSeqView$IndexedSeqViewIterator(this$1)
@@ -25873,12 +27325,18 @@ $c_sjs_js_WrappedArray.prototype.iterator__sc_Iterator = (function() {
 $c_sjs_js_WrappedArray.prototype.drop__I__O = (function(n) {
   return $f_sc_IndexedSeqOps__drop__I__O(this, n)
 });
+$c_sjs_js_WrappedArray.prototype.map__F1__O = (function(f) {
+  return $f_sc_IndexedSeqOps__map__F1__O(this, f)
+});
 $c_sjs_js_WrappedArray.prototype.head__O = (function() {
   return this.sjs_js_WrappedArray__f_scala$scalajs$js$WrappedArray$$array[0]
 });
 $c_sjs_js_WrappedArray.prototype.lengthCompare__I__I = (function(len) {
   var x = $uI(this.sjs_js_WrappedArray__f_scala$scalajs$js$WrappedArray$$array.length);
   return ((x === len) ? 0 : ((x < len) ? (-1) : 1))
+});
+$c_sjs_js_WrappedArray.prototype.flatMap__F1__O = (function(f) {
+  return $f_sc_StrictOptimizedIterableOps__flatMap__F1__O(this, f)
 });
 $c_sjs_js_WrappedArray.prototype.apply__I__O = (function(index) {
   return this.sjs_js_WrappedArray__f_scala$scalajs$js$WrappedArray$$array[index]

@@ -1,12 +1,11 @@
 package com.nicolaswinsten.wikibrain
 
 import org.scalajs.dom.ext.Ajax
-import org.scalajs.dom.XMLHttpRequest
 
 import scala.concurrent.ExecutionContext.Implicits.global
-
 import scala.concurrent.Future
-import scalajs.js.URIUtils.{decodeURI, encodeURI}
+import scala.util.matching.Regex
+import scalajs.js.URIUtils.decodeURI
 
 /**
  * web scraping object to work on wikipedia
@@ -16,50 +15,55 @@ import scalajs.js.URIUtils.{decodeURI, encodeURI}
 object Scraper {
   val url = "https://en.wikipedia.org/wiki/"
 
+  // Perform a GET on the given url and return a Future of its response
   def fetchHTML(url: String): Future[String] = {
-//    import fr.hmil.roshttp.HttpRequest
-//    import monix.execution.Scheduler.Implicits.global
-
-    // TODO try ajax here instead and use the MediaWiki api :(
     println("fetching " + url)
-    val e = encodeURI(url)
-    println(e)
-//    HttpRequest(e).withHeader("Access-Control-Allow-Origin", "*").get() map (_.body)
-    val requestHeaders = Map(
-      "Origin" -> "*",
-      "Content-Type" -> "application/json; charset=UTF-8")
-    Ajax.get(e) map (_.responseText)
+
+    // I ran into a CORS issue when trying to read Wikipedia from a JS XMLHttpRequest.
+    // Never even heard about CORS but the only solution I could find to get around CORS was to setup a CORS proxy
+    // with Heroku. Prefixing the url with this proxy will cause the request to be first routed through the proxy which
+    // will forward the request, receive the response, and add the Access-Control-Allow-Origin header to the response,
+    // which was not originally in Wikipedia's response. The proxy will then pass the response back here.
+    val proxy = "https://still-woodland-82497.herokuapp.com/"
+    Ajax.get(proxy + url) map (_.responseText)
   }
 
-  def fetchPage(title: String): Future[String] =
-    Ajax.get("https://en.wikipedia.org/w/index.php?origin=*title=" + encodeURI(title)) map (_.responseText)
+  // return a set of all the article and category titles linked on the given wikipage HTML
+  def itemsOn(html: String): Set[String] = {
+    val pattern = """<a href="/wiki/[^:"]+" title="([^"]+)">([^<]+)</a>""".r("title", "text")
+    val articleMatches = pattern.findAllMatchIn(html).toSet flatMap ((m: Regex.Match) => Set(m.group("title"), m.group("text")))
+    val catPattern = """<a href="/wiki/Category:[^"]*"[^>]*>([^<]*)</a>""".r("cat")
+    val catMatches = catPattern.findAllMatchIn(html).toSet map ((m: Regex.Match) => m.group("cat"))
 
-//  def fetchHTML(url: String) = Future { scala.io.Source.fromURL(url).mkString }
+    val subArticle = "(.*)#(.*)".r
+    val ambiguous = "(.*) \\((.*)\\)".r
 
-  def linksOn(html: String): Iterator[String] = {
-    val pattern = """<a href="/wiki/([^:"]+)"""".r("title")
-    val articles = for (m <- pattern.findAllMatchIn(html)) yield m.group("title")
-    val catPattern = """<a href="/wiki/(Category:[^:"]+)"""".r("title")
-    val categories = for (m <- catPattern.findAllMatchIn(html)) yield m.group("title")
-    articles ++ categories
+    (articleMatches ++ catMatches) map decodeURI flatMap {
+      case subArticle(main, sub) => Set(main, sub)
+      case ambiguous(title, disamb) => Set(title, disamb)
+      case t => Set(t)
+    } map (_.toLowerCase.replaceAll("[^\\d\\w ]", "").trim)
+
   }
 
+  // grab the first relevant image on the given wikipage html and return its url
   def getFirstImgUrl(html: String): Option[String] = {
+    // does this regex upset you? does it hurt?
     val pattern = """<a href="/wiki/([^"]+)" class="image"[^>]*>[^<]*<img[^>]*src="([^"]+)"""".r("file", "img")
     val file = pattern.findAllMatchIn(html).find(_.group("file") != "File:Question_book-new.svg")
     file map (_.group("img"))
   }
 
-  def getDesc(html: String): Future[String] = {
-    val wikiDataUrlPattern = """<a href="([^"]+)"[^>]*>Wikidata item</a>""".r("url")
-    val wikiDataUrl = wikiDataUrlPattern.findFirstMatchIn(html)
-
-    val desc = wikiDataUrl map { url =>
-      val wikiDataPage = fetchHTML(url.group("url"))
-      val descPattern = """<span class="wikibase-descriptionview-text">([^<]+)</span>""".r("desc")
-      wikiDataPage map (descPattern.findFirstMatchIn(_)) map (_.get.group("desc"))
+  def getDesc(title: String): Future[String] = {
+    val html = fetchHTML(s"https://en.wikipedia.org/w/index.php?title=$title&action=info")
+    val localDescPattern = """Local description</td>[^<]*<td>([^<]*)</td>""".r("desc")
+    val centralDescPattern = """Central description</td>[^<]*<td>([^<]*)</td>""".r("desc")
+    val matches = html map { html =>
+      localDescPattern.findAllMatchIn(html) ++ centralDescPattern.findAllMatchIn(html)
     }
-    desc.getOrElse(Future(""))
+    matches map { iter =>
+      iter map (_.group("desc")) maxByOption (_.length) getOrElse "No description found"
+    }
   }
 
   def getTitle(html: String): String = {
@@ -71,48 +75,38 @@ object Scraper {
   }
 
 
-  private def randomPage: Future[String] = {
-    val random = fetchHTML(url + "Special:Random")
-
-    val links = random map linksOn // grab all links on the random page
-
-    // map those links to their html pages
-    val pages = (links map { titles =>
-      Future.sequence(titles map { t => fetchHTML(url + t)})
-    }).flatten
-
-    // find the page with the maximum number of links
-    pages map { _.maxBy(linksOn(_).size) }
-  }
-
-  def getRandomPage: Future[Page] = {
-    val page = randomPage
-    val futureDesc = (page map getDesc).flatten
+  /**
+   * @return Future of a random Page from wikipedia
+   */
+  def getPage(title: String): Future[Page] = {
+    val page = fetchHTML(url + title)
+    val futureDesc = getDesc(title)
 
     // I use Seq here instead of Tuple2 because Scala yelled a lot about implicits and Nothing type
     Future.sequence(Seq(page, futureDesc)) map { seq =>
       val html = seq.head
       val desc = seq.last
-      val links = linksOn(html)
-
-      val pattern = """<a href="/wiki/[^"]+"[^>]+title="([^"]+)"[^>]+>([^<]+)</a>""".r("title", "text")
-      val otherSpellings = pattern.findAllMatchIn(html) flatMap (m => List(m.group("title"), m.group("text")))
-
-      val category = """Category:(.*)""".r
-      val subArticle = """(.*)#(.*)""".r
-
-      val items = (links ++ otherSpellings) flatMap {
-        case category(title) => List(title)
-        case subArticle(main, sub) => List(main, sub)
-        case item => List(item)
-      } map decodeURI map (_.toLowerCase.replace("_", " "))
-
-      Page(getTitle(html), desc, items.toSet, getFirstImgUrl(html))
+      Page(getTitle(html), desc, itemsOn(html), getFirstImgUrl(html))
     }
 
   }
 
+  def getRandomPage: Future[Page] = {
+    import scala.util.Random
+    val i = (new Random).nextInt(articles.pool.length)
+    val title = articles.pool(i)
+    getPage(title)
+  }
+
 }
 
+/**
+ * This case class encapsulates info of a Wikipedia article
+ *
+ * @param title The normalized article title
+ * @param desc A short description of the article subject if available. (might be empty string)
+ * @param items set of "things" on the wikipage
+ * @param image url to image on the page
+ */
 case class Page(title: String, desc: String, items: Set[String], image: Option[String])
 
