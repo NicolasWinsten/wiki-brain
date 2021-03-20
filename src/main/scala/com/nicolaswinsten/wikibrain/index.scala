@@ -12,8 +12,7 @@ import scala.util.{Failure, Success}
 // todo text box shake when wrong answer and red notif
 object index {
 
-  val emptyPage = Page("", "", Set.empty, None)
-  var currentPage: Page = emptyPage
+  var currentPage: Page = Page("", "", Set.empty, None)
   var wordBox: Set[String] = Set.empty
 
   // user's input field
@@ -33,7 +32,7 @@ object index {
     document.body.appendChild(guess)
     document.body.appendChild(rerollBtn)
     document.body.appendChild(div(correctGuesses).render)
-
+    println(s"url:${dom.document.location.hostname}:${dom.document.location.port}")
   }
 
 
@@ -50,6 +49,7 @@ object index {
   def updatePageDisplay(): Unit = {
     val display = document.getElementById("page-display")
     display.innerHTML = ""
+    correctGuesses.innerHTML = ""
 
     display.appendChild( h1(currentPage.title).render )
 

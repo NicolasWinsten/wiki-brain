@@ -5,7 +5,7 @@ import org.scalajs.dom.ext.Ajax
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 import scala.util.matching.Regex
-import scalajs.js.URIUtils.decodeURI
+import scalajs.js.URIUtils.{decodeURI, encodeURI}
 
 /**
  * web scraping object to work on wikipedia
@@ -55,7 +55,8 @@ object Scraper {
   }
 
   def getDesc(title: String): Future[String] = {
-    val html = fetchHTML(s"https://en.wikipedia.org/w/index.php?title=$title&action=info")
+    val fixedTitle = title.replaceAll("&", "%26")
+    val html = fetchHTML(s"https://en.wikipedia.org/w/index.php?title=$fixedTitle&action=info")
     val localDescPattern = """Local description</td>[^<]*<td>([^<]*)</td>""".r("desc")
     val centralDescPattern = """Central description</td>[^<]*<td>([^<]*)</td>""".r("desc")
     val matches = html map { html =>
@@ -86,7 +87,7 @@ object Scraper {
     Future.sequence(Seq(page, futureDesc)) map { seq =>
       val html = seq.head
       val desc = seq.last
-      Page(getTitle(html), desc, itemsOn(html), getFirstImgUrl(html))
+      Page(title.replaceAll("_", " "), desc, itemsOn(html), getFirstImgUrl(html))
     }
 
   }
