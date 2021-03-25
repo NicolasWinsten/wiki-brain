@@ -30,7 +30,7 @@ object Scraper {
 
   // return a set of all the article and category titles linked on the given wikipage HTML
   def itemsOn(html: String): Set[String] = {
-    val pattern = """<a href="/wiki/[^:"]+" title="([^"]+)">([^<]+)</a>""".r("title", "text")
+    val pattern = """<a href="/wiki/[^:"]+"[^>]*title="([^"]+)">([^<]+)</a>""".r("title", "text")
     val articleMatches = pattern.findAllMatchIn(html).toSet flatMap ((m: Regex.Match) => Set(m.group("title"), m.group("text")))
     val catPattern = """<a href="/wiki/Category:[^"]*"[^>]*>([^<]*)</a>""".r("cat")
     val catMatches = catPattern.findAllMatchIn(html).toSet map ((m: Regex.Match) => m.group("cat"))
@@ -95,6 +95,7 @@ object Scraper {
   def getRandomPage: Future[Page] = {
     import scala.util.Random
     val i = (new Random).nextInt(articles.pool.length)
+    println("fetching title number " + i)
     val title = articles.pool(i)
     getPage(title)
   }

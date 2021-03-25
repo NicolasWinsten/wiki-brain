@@ -979,7 +979,7 @@ $c_Lcom_nicolaswinsten_wikibrain_Scraper$.prototype.fetchHTML__T__s_concurrent_F
 $c_Lcom_nicolaswinsten_wikibrain_Scraper$.prototype.itemsOn__T__sci_Set = (function(html) {
   var array = ["title", "text"];
   var groupNames = new $c_sjsr_WrappedVarArgs(array);
-  var pattern = $ct_s_util_matching_Regex__T__sci_Seq__(new $c_s_util_matching_Regex(), "<a href=\"/wiki/[^:\"]+\" title=\"([^\"]+)\">([^<]+)</a>", groupNames);
+  var pattern = $ct_s_util_matching_Regex__T__sci_Seq__(new $c_s_util_matching_Regex(), "<a href=\"/wiki/[^:\"]+\"[^>]*title=\"([^\"]+)\">([^<]+)</a>", groupNames);
   var this$6 = pattern.findAllMatchIn__jl_CharSequence__sc_Iterator(html);
   var articleMatches = $as_sci_Set($m_sci_Set$().from__sc_IterableOnce__sci_Set(this$6).flatMap__F1__O(new $c_sjsr_AnonFunction1(((this$7) => ((m$2) => {
     var m = $as_s_util_matching_Regex$Match(m$2);
@@ -1142,6 +1142,10 @@ $c_Lcom_nicolaswinsten_wikibrain_Scraper$.prototype.getRandomPage__s_concurrent_
   var this$1 = $ct_s_util_Random__(new $c_s_util_Random());
   var n = $m_Lcom_nicolaswinsten_wikibrain_articles$().Lcom_nicolaswinsten_wikibrain_articles$__f_pool.u.length;
   var i = this$1.s_util_Random__f_self.nextInt__I__I(n);
+  var x = ("fetching title number " + i);
+  var this$3 = $m_s_Console$();
+  var this$4 = this$3.out__Ljava_io_PrintStream();
+  this$4.java$lang$JSConsoleBasedPrintStream$$printString__T__V((x + "\n"));
   var title = $m_Lcom_nicolaswinsten_wikibrain_articles$().Lcom_nicolaswinsten_wikibrain_articles$__f_pool.get(i);
   return this.getPage__T__s_concurrent_Future(title)
 });
@@ -1193,27 +1197,29 @@ function $s_Lcom_nicolaswinsten_wikibrain_index__main__AT__V(args) {
 function $c_Lcom_nicolaswinsten_wikibrain_index$() {
   this.Lcom_nicolaswinsten_wikibrain_index$__f_currentPage = null;
   this.Lcom_nicolaswinsten_wikibrain_index$__f_wordBox = null;
+  this.Lcom_nicolaswinsten_wikibrain_index$__f_previousGuesses = null;
   this.Lcom_nicolaswinsten_wikibrain_index$__f_guess = null;
   this.Lcom_nicolaswinsten_wikibrain_index$__f_rerollBtn = null;
   this.Lcom_nicolaswinsten_wikibrain_index$__f_correctGuesses = null;
   $n_Lcom_nicolaswinsten_wikibrain_index$ = this;
   this.Lcom_nicolaswinsten_wikibrain_index$__f_currentPage = new $c_Lcom_nicolaswinsten_wikibrain_Page("", "", $m_sci_Set$EmptySet$(), $m_s_None$());
   this.Lcom_nicolaswinsten_wikibrain_index$__f_wordBox = $m_sci_Set$EmptySet$();
-  var this$3 = $m_Lscalatags_JsDom$all$();
-  var $$x1 = this$3.input__Lscalatags_JsDom$TypedTag();
+  this.Lcom_nicolaswinsten_wikibrain_index$__f_previousGuesses = $m_sci_Set$EmptySet$();
+  var this$4 = $m_Lscalatags_JsDom$all$();
+  var $$x1 = this$4.input__Lscalatags_JsDom$TypedTag();
   var array = [$m_Lscalatags_JsDom$all$().type__Lscalatags_generic_Attr().$colon$eq__O__Lscalatags_generic_AttrValue__Lscalatags_generic_AttrPair("text", $m_Lscalatags_JsDom$all$().Lscalatags_JsDom$all$__f_stringAttr)];
   this.Lcom_nicolaswinsten_wikibrain_index$__f_guess = $$x1.apply__sci_Seq__Lscalatags_JsDom$TypedTag(new $c_sjsr_WrappedVarArgs(array)).render__Lorg_scalajs_dom_raw_Element();
   this.Lcom_nicolaswinsten_wikibrain_index$__f_guess.onkeypress = ((arg1$2) => $m_Lcom_nicolaswinsten_wikibrain_index$().com$nicolaswinsten$wikibrain$index$$$anonfun$new$1__Lorg_scalajs_dom_raw_KeyboardEvent__O(arg1$2));
-  var this$7 = $m_Lscalatags_JsDom$all$();
-  var $$x2 = this$7.button__Lscalatags_JsDom$TypedTag();
+  var this$8 = $m_Lscalatags_JsDom$all$();
+  var $$x2 = this$8.button__Lscalatags_JsDom$TypedTag();
   var array$1 = [$m_Lscalatags_JsDom$all$().id__Lscalatags_generic_Attr().$colon$eq__O__Lscalatags_generic_AttrValue__Lscalatags_generic_AttrPair("reroll", $m_Lscalatags_JsDom$all$().Lscalatags_JsDom$all$__f_stringAttr), ($m_Lscalatags_JsDom$all$(), new $c_Lscalatags_JsDom$StringFrag("Reroll!"))];
   this.Lcom_nicolaswinsten_wikibrain_index$__f_rerollBtn = $$x2.apply__sci_Seq__Lscalatags_JsDom$TypedTag(new $c_sjsr_WrappedVarArgs(array$1)).render__Lorg_scalajs_dom_raw_Element();
   this.Lcom_nicolaswinsten_wikibrain_index$__f_rerollBtn.onclick = ((arg1$2$1) => {
     $m_Lcom_nicolaswinsten_wikibrain_index$();
     $m_Lcom_nicolaswinsten_wikibrain_index$().reroll__V()
   });
-  var this$13 = $m_Lscalatags_JsDom$all$();
-  var $$x3 = this$13.ul__Lscalatags_JsDom$TypedTag();
+  var this$14 = $m_Lscalatags_JsDom$all$();
+  var $$x3 = this$14.ul__Lscalatags_JsDom$TypedTag();
   var array$2 = [$m_Lscalatags_JsDom$all$().id__Lscalatags_generic_Attr().$colon$eq__O__Lscalatags_generic_AttrValue__Lscalatags_generic_AttrPair("correct-guesses", $m_Lscalatags_JsDom$all$().Lscalatags_JsDom$all$__f_stringAttr)];
   this.Lcom_nicolaswinsten_wikibrain_index$__f_correctGuesses = $$x3.apply__sci_Seq__Lscalatags_JsDom$TypedTag(new $c_sjsr_WrappedVarArgs(array$2)).render__Lorg_scalajs_dom_raw_Element()
 }
@@ -1233,11 +1239,7 @@ $c_Lcom_nicolaswinsten_wikibrain_index$.prototype.main__AT__V = (function(args) 
   var this$2 = $m_Lscalatags_JsDom$all$();
   var e = this.Lcom_nicolaswinsten_wikibrain_index$__f_correctGuesses;
   var array = [new $c_Lscalatags_LowPriorityImplicits$bindNode(this$2, e)];
-  $$x2.appendChild($$x1.apply__sci_Seq__Lscalatags_JsDom$TypedTag(new $c_sjsr_WrappedVarArgs(array)).render__Lorg_scalajs_dom_raw_Element());
-  var x = ((("url:" + $as_T($m_Lorg_scalajs_dom_package$().document__Lorg_scalajs_dom_raw_HTMLDocument().location.hostname)) + ":") + $as_T($m_Lorg_scalajs_dom_package$().document__Lorg_scalajs_dom_raw_HTMLDocument().location.port));
-  var this$7 = $m_s_Console$();
-  var this$8 = this$7.out__Ljava_io_PrintStream();
-  this$8.java$lang$JSConsoleBasedPrintStream$$printString__T__V((x + "\n"))
+  $$x2.appendChild($$x1.apply__sci_Seq__Lscalatags_JsDom$TypedTag(new $c_sjsr_WrappedVarArgs(array)).render__Lorg_scalajs_dom_raw_Element())
 });
 $c_Lcom_nicolaswinsten_wikibrain_index$.prototype.reroll__V = (function() {
   var this$2 = $m_s_Console$();
@@ -1288,24 +1290,33 @@ $c_Lcom_nicolaswinsten_wikibrain_index$.prototype.updatePageDisplay__V = (functi
   var v$1 = this.Lcom_nicolaswinsten_wikibrain_index$__f_currentPage.Lcom_nicolaswinsten_wikibrain_Page__f_desc;
   var array$2 = [new $c_Lscalatags_JsDom$StringFrag(v$1)];
   display.appendChild($$x3.apply__sci_Seq__Lscalatags_JsDom$TypedTag(new $c_sjsr_WrappedVarArgs(array$2)).render__Lorg_scalajs_dom_raw_Element());
-  this.Lcom_nicolaswinsten_wikibrain_index$__f_wordBox = this.Lcom_nicolaswinsten_wikibrain_index$__f_currentPage.Lcom_nicolaswinsten_wikibrain_Page__f_items
+  this.Lcom_nicolaswinsten_wikibrain_index$__f_wordBox = this.Lcom_nicolaswinsten_wikibrain_index$__f_currentPage.Lcom_nicolaswinsten_wikibrain_Page__f_items;
+  this.Lcom_nicolaswinsten_wikibrain_index$__f_previousGuesses = $m_sci_Set$EmptySet$()
 });
-$c_Lcom_nicolaswinsten_wikibrain_index$.prototype.makeGuess__T__V = (function(answer) {
-  if (this.Lcom_nicolaswinsten_wikibrain_index$__f_wordBox.contains__O__Z(answer)) {
-    var x = ("user correctly guessed " + answer);
+$c_Lcom_nicolaswinsten_wikibrain_index$.prototype.makeGuess__T__V = (function(guessStr) {
+  var guess = $as_T(guessStr.toLowerCase());
+  if (this.Lcom_nicolaswinsten_wikibrain_index$__f_previousGuesses.contains__O__Z(guess)) {
+    var x = ("user already guessed " + guess);
     var this$2 = $m_s_Console$();
     var this$3 = this$2.out__Ljava_io_PrintStream();
-    this$3.java$lang$JSConsoleBasedPrintStream$$printString__T__V((x + "\n"));
+    this$3.java$lang$JSConsoleBasedPrintStream$$printString__T__V((x + "\n"))
+  } else if (this.Lcom_nicolaswinsten_wikibrain_index$__f_wordBox.contains__O__Z(guess)) {
+    var x$1 = ("user correctly guessed " + guess);
+    var this$5 = $m_s_Console$();
+    var this$6 = this$5.out__Ljava_io_PrintStream();
+    this$6.java$lang$JSConsoleBasedPrintStream$$printString__T__V((x$1 + "\n"));
     var $$x2 = this.Lcom_nicolaswinsten_wikibrain_index$__f_correctGuesses;
-    var this$4 = $m_Lscalatags_JsDom$all$();
-    var $$x1 = this$4.li__Lscalatags_JsDom$TypedTag();
-    var array = [($m_Lscalatags_JsDom$all$(), new $c_Lscalatags_JsDom$StringFrag(answer))];
-    $$x2.appendChild($$x1.apply__sci_Seq__Lscalatags_JsDom$TypedTag(new $c_sjsr_WrappedVarArgs(array)).render__Lorg_scalajs_dom_raw_Element())
+    var this$7 = $m_Lscalatags_JsDom$all$();
+    var $$x1 = this$7.li__Lscalatags_JsDom$TypedTag();
+    var array = [($m_Lscalatags_JsDom$all$(), new $c_Lscalatags_JsDom$StringFrag(guess))];
+    $$x2.appendChild($$x1.apply__sci_Seq__Lscalatags_JsDom$TypedTag(new $c_sjsr_WrappedVarArgs(array)).render__Lorg_scalajs_dom_raw_Element());
+    var this$12 = this.Lcom_nicolaswinsten_wikibrain_index$__f_previousGuesses;
+    this.Lcom_nicolaswinsten_wikibrain_index$__f_previousGuesses = $as_sci_Set(this$12.incl__O__sci_SetOps(guess))
   } else {
-    var x$1 = ("user incorrectly guessed " + answer);
-    var this$10 = $m_s_Console$();
-    var this$11 = this$10.out__Ljava_io_PrintStream();
-    this$11.java$lang$JSConsoleBasedPrintStream$$printString__T__V((x$1 + "\n"))
+    var x$2 = ("user incorrectly guessed " + guess);
+    var this$14 = $m_s_Console$();
+    var this$15 = this$14.out__Ljava_io_PrintStream();
+    this$15.java$lang$JSConsoleBasedPrintStream$$printString__T__V((x$2 + "\n"))
   }
 });
 $c_Lcom_nicolaswinsten_wikibrain_index$.prototype.com$nicolaswinsten$wikibrain$index$$$anonfun$new$1__Lorg_scalajs_dom_raw_KeyboardEvent__O = (function(e) {
